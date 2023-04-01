@@ -29,22 +29,7 @@ export default {
     data: () => ({
         base_url: "http://localhost:8080",
         absences: [
-                {
-                    prof: "Mme. DONNATI",
-                    time: new Date("2022-04-22 8:22:23").getHours() + "h" + new Date("2022-04-22 8:22:23").getMinutes(),
-                    reason: "A chaque fois que il y a la grève, elle n'est pas présente",
-                    score: -5,
-                    author_id: 1,
-                    color: "#ff0000"
-                },
-                {
-                    prof: "Mme. CAPOLONGO",
-                    time: new Date("2022-04-22 10:34:23").getHours() + "h" + new Date("2022-04-22 8:22:23").getMinutes(),
-                    reason: "A chaque fois que il y a la grève, elle n'est pas présente",
-                    score: 14,
-                    author_id: 1,
-                    color: "#1BA419"
-                }
+               
             ],
     }),
      methods: {

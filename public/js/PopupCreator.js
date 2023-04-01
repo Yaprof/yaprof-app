@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    console.log('PopupCreator.js loaded')
     $('#popup_creator').css('transition', 'all 250ms');
 
     $('#popup_creator_toggler').click(function (event) {
@@ -19,7 +20,7 @@ $(document).ready(function () {
 function togglePopupCreator() {
     $('#popup_creator_parent').toggleClass('z-[-1]');
 
-    $('#popup_creator').toggleClass('!translate-y-0');
+    $('#popup_creator').toggleClass('translate-y-full');
     $('#popup_creator').toggleClass('z-50');
 }
 

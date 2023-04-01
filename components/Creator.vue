@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="popup_creator_toggler" class="absolute bottom-5 right-5 rounded-full w-14 h-14 flex items-center justify-center shadow-xl bg-primary bg-opacity-50 text-dark dark:text-white active:scale-95 active:brightness-105 transition-all">
+        <div id="popup_creator_toggler" class="absolute bottom-5 right-5 rounded-full w-14 h-14 flex items-center justify-center shadow-xl bg-primary bg-opacity-50 text-dark dark:text-white active:scale-95 active:brightness-105 transition-all cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>

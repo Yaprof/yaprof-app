@@ -17,6 +17,7 @@ export function generatetoken(url, username, password, etab) {
     }).then(response => response.json())
         .then(response => {
             console.log(response.token)
+            if (response.token == false) return response
             window.localStorage.setItem('token', response.token)
             window.localStorage.setItem('url', url)
             window.localStorage.setItem('username', username)

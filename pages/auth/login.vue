@@ -6,7 +6,7 @@
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
                     <label for="ent" class="text-lg text-dark">Établissement</label>
                     <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Lycée amiral de grasse" name="ent" />
-                    <div v-if="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white shadow-md px-5 py-5 flex flex-col w-full">
+                    <div v-if="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full">
                         <div @click="selectOption($event.target, cas.url, cas.py)" v-for="cas in results" :key="cas.url" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
                             <p class="text-lg text-dark dark:text-white font-medium">{{ cas.nomEtab }}</p>
                         </div>
@@ -24,7 +24,7 @@
                 <button v-if="this.loading" class="mt-5 w-full rounded-xl bg-primary brightness-90 py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center">Chargement...</button>
             </div>
         </div>
-        <p class="text-lg">Pas de compte ? <a href="#" class="text-primary">Contactez-nous</a></p>
+        <p class="text-lg text-dark dark:text-white">Pas de compte ? <a href="#" class="text-primary">Contactez-nous</a></p>
     </div>
 </template>
 

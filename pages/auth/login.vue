@@ -4,7 +4,7 @@
             <img class="w-44" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Logo-pronote.png/800px-Logo-pronote.png" />
             <div id="form_login" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
-                    <label for="ent" class="text-lg text-dark">Établissement</label>
+                    <label for="ent" class="text-lg text-dark dark:text-white">Établissement</label>
                     <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Lycée amiral de grasse" name="ent" />
                     <div v-if="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full">
                         <div @click="selectOption($event.target, cas.url, cas.py)" v-for="cas in results" :key="cas.url" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
@@ -13,11 +13,11 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-1 w-full">
-                    <label for="ent" class="text-lg text-dark">Nom d'utilisateur</label>
+                    <label for="ent" class="text-lg text-dark dark:text-white">Nom d'utilisateur</label>
                     <input id="input_username" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="kapibarar.mathieu" name="ent" />
                 </div>
                 <div class="flex flex-col gap-1 w-full">
-                    <label for="ent" class="text-lg text-dark">Mot de passe</label>
+                    <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
                     <input id="input_password" type="password" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
                 </div>
                 <button v-if="!this.loading" @click="login()" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>

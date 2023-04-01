@@ -87,7 +87,7 @@ export default {
 
                 })
                 .catch(async e => {
-                    return  console.log(e)
+                    return
                 })
         }
     },

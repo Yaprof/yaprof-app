@@ -8,6 +8,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
             return navigateTo('/')
         }
     } catch (e) {
-        console.log(e)
+        return
     }
 })

@@ -10,7 +10,6 @@ export function createUser(name, pp, clas, etab) {
     }).then(response => response.json())
         .then(response => {
             response = response[0] ?? response
-            console.log(response)
             if (response?.name) {
                 window.localStorage.setItem('user', JSON.stringify(response))
             }

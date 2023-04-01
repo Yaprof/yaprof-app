@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 let baseurl = 'http://localhost:8000'
 export function generatetoken(url, username, password, etab) {
     fetch(baseurl + '/generatetoken', {
@@ -16,14 +14,12 @@ export function generatetoken(url, username, password, etab) {
         })
     }).then(response => response.json())
         .then(response => {
-            console.log(response.token)
             if (response.token == false) return response
-            window.localStorage.setItem('token', response.token)
-            window.localStorage.setItem('url', url)
-            window.localStorage.setItem('username', username)
-            window.localStorage.setItem('password', password)
-            window.localStorage.setItem('ent', etab)
-            console.log(window.location.pathname)
+            window?.localStorage.setItem('token', response.token)
+            window?.localStorage.setItem('url', url)
+            window?.localStorage.setItem('username', username)
+            window?.localStorage.setItem('password', password)
+            window?.localStorage.setItem('ent', etab)
             if(window.location.pathname == "/auth/login") window.location.replace('/')
             return true
         })

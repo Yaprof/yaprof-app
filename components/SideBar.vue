@@ -71,7 +71,6 @@ export default {
                 },
             }).then(response => response.json())
                 .then(async (response) => {
-                    console.log(response)
                     if (response == "notfound" || response == "expired") {
                         return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                     }
@@ -79,7 +78,6 @@ export default {
                     this.userInfos = response
                 })
                 .catch(async e => {
-                    console.log(e)
                     return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                 })
         },

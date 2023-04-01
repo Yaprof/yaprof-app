@@ -20,8 +20,8 @@
                     <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
                     <input id="input_password" type="password" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
                 </div>
-                <button v-if="!this.loading" @click="login()" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
-                <button v-if="this.loading" class="mt-5 w-full rounded-xl bg-primary brightness-90 py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center">Chargement...</button>
+                <button v-if="!this?.loading" @click="login()" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
+                <button v-if="this?.loading" class="mt-5 w-full rounded-xl bg-primary brightness-90 py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center">Chargement...</button>
             </div>
         </div>
         <p class="text-lg text-dark dark:text-white">Pas de compte ? <a href="#" class="text-primary">Contactez-nous</a></p>
@@ -110,7 +110,6 @@ export default {
             if(navigator.geolocation){
                 navigator.geolocation.getCurrentPosition(position => {
                     let coordinates = position.coords;
-                    console.log(coordinates)
                     let lat = coordinates.latitude;
                     let lon = coordinates.longitude;
                     console.log(lat, lon)
@@ -164,7 +163,6 @@ export default {
             .catch(error => {
                 this.isLoading = false;
                 this.locationFailed = true;
-                console.error("[Get Postal Code]: " + error)
                 displayToast.presentError(`Une erreur s'est produite pour obtenir votre code postal.`, "danger", error.stack)
             })
         },
@@ -185,7 +183,7 @@ export default {
                 },
                 referrer: "http://localhost:3000/",
                 referrerPolicy: "strict-origin-when-cross-origin",
-                body: 
+                body:
                     "data=%7B%22nomFonction%22%3A%22geoLoc%22%2C%22lat%22%3A" +
                     lat +
                     "%2C%22long%22%3A" +
@@ -197,17 +195,16 @@ export default {
             })
             .then((response) => response.json())
                 .then((data) => {
-                console.log(data)
                 this.etabs = data;
                 if (this.etabs.length == 0) {
-                this.etabsEmpty = true;
+                    this.etabsEmpty = true;
                 } else {
                 this.etabsEmpty = false;
                 }
                 if (JSON.stringify(data) == "{}") {
-                this.locationFailed = true;
+                    this.locationFailed = true;
                 } else {
-                this.locationFailed = false;
+                    this.locationFailed = false;
                 }
                 // remove all etabs with no URL
                 for (let i = 0; i < this.etabs.length; i++) {
@@ -220,11 +217,10 @@ export default {
                     this.etabs[i].nomEtab = this.decodeEntities(this.etabs[i].nomEtab);
                 }
                 setTimeout(() => {
-                this.isLoading = false;
+                    this.isLoading = false;
                 }, 200);
             })
             .catch((error) => {
-                console.error("[Find Establishment]: " + error);
                 if (this.retries < 3) {
                 setTimeout(() => {
                     this.findEstablishments(lat, lon);
@@ -233,11 +229,6 @@ export default {
                 } else {
                 this.isLoading = false;
                 this.locationFailed = true;
-                displayToast.presentError(
-                    `Une erreur s'est produite pour obtenir les établissements à proximité.`,
-                    "danger",
-                    error.stack
-                );
                 }
             })
         },

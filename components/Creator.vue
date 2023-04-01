@@ -61,7 +61,6 @@ export default {
     methods: {
         submitPost: function () {
             this.loading = true;
-            console.log(window.localStorage.getItem("user"))
             let form = this.$el.querySelector('#form_post')
             fetch(this.api_url + '/post', {
                 method: "POST",
@@ -84,9 +83,9 @@ export default {
                 window.location.reload()
                 this.profs = response
             })
-                .catch(async e => {
+            .catch(async e => {
                 this.loading = false
-                return console.log(e)
+                return
             })
 
         },
@@ -114,14 +113,12 @@ export default {
             },
         }).then(response => response.json())
         .then(async (response) => {
-            console.log(response)
             if (response == "notfound" || response == "expired") {
                 return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
             }
             this.profs = response
         })
         .catch(async e => {
-            console.log(e)
             return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
         })
     },

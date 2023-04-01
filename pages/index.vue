@@ -40,17 +40,15 @@ export default {
                 },
             }).then(response => response.json())
                 .then(async (response) => {
-                    console.log(response)
                     this.absences = response
                 })
                 .catch(async e => {
-                    return console.log(e)
+                    return
                 })
         },
     },
     mounted() {
         this.getDbFeed()
-        console.log(this.absences)
     }
 }
 </script>

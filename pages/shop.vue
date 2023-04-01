@@ -21,22 +21,7 @@
 export default {
     layout: 'main',
     data: () => ({
-      absences: [
-            {
-                prof: "Mme. DONNETI",
-                time: new Date("2022-04-22 8:22:23").getHours() + "h" + new Date("2022-04-22 8:22:23").getMinutes(),
-                reason: "A chaque fois que il y a la grève, elle n'est pas présente",
-                score: -5,
-                author_id: 1
-            },
-            {
-                prof: "Mme. CAPOLONGO",
-                time: new Date("2022-04-22 10:34:23").getHours() + "h" + new Date("2022-04-22 8:22:23").getMinutes(),
-                reason: "A chaque fois que il y a la grève, elle n'est pas présente",
-                score: 14,
-                author_id: 1
-            }
-        ],
+      absences: [],
     }),
     mounted() {
         console.log(this.absences) 

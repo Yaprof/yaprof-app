@@ -36,11 +36,10 @@ export default {
                 },
             }).then(response => response.json())
                 .then(async (response) => {
-                    console.log(response[0])
                     this.userInfos = response[0]
                 })
                 .catch(async e => {
-                    return console.log(e)
+                    return
                 })
         },
     },

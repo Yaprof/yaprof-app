@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+    modules: ['@nuxtjs/color-mode'],
     app: {
         head: {
             title: "Yaprof",
@@ -27,12 +28,13 @@ export default defineNuxtConfig({
                     type: "text/javascript",
                 },
                 {
-                    src: "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js",
                     type: "text/javascript",
+                    src: "/js/SideBar.js",
+                    body: true,
                 },
                 {
                     type: "text/javascript",
-                    src: "/js/SideBar.js",
+                    src: "/js/PopupCreator.js",
                     body: true,
                 },
                 {
@@ -40,6 +42,11 @@ export default defineNuxtConfig({
                     src: "/js/Home.js",
                     body: true,
                 },
+                {
+                    type: "text/javascript",
+                    src: "/js/CreatePost.js",
+                    body: true,
+                }
             ],
         },
     },
@@ -61,7 +68,11 @@ export default defineNuxtConfig({
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
             API_URL: 'http://localhost:3000',
+            PRONOTE_API_URL: 'http://localhost:8000',
         }
     },
+    colorMode: {
+        classSuffix: ""
+    }
 })
 

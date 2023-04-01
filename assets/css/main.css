@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-    background-color: #f3f4f6;
+    background-color: #fff;
     font-family: 'SF Pro Display', sans-serif;
 }
 
@@ -14,7 +14,4 @@ body {
         background-color: #1f2937;
     }
 }
-
-.carousel .carousel-item{
-    width:100%;
-}
+ 

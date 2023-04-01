@@ -27,9 +27,8 @@ $(document).mouseup(function (e) {
     }
 })
 
-
-
 function toggleSideBar() {
     $('#sidebar').toggleClass('translate-x-0');
     $('#sidebar').toggleClass('-translate-x-full');
+    $('#sidebar').toggleClass('shadow-xl');
 }

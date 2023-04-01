@@ -1,14 +1,14 @@
 <template>
-    <div id="sidebar" class="h-screen bg-white dark:bg-secondary absolute top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-50">
+    <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-50">
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden">
             <img class="absolute top-0 left-0 h-full w-full object-cover z-0 blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile_picture" />
             <div class="flex flex-col p-5">
                 <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile_picture" />
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
                 <div class="flex items-center gap-2 opacity-70">
-                    <p class="text-md text-white z-50 font-medium whitespace-nowrap">{{ userInfos.class }}</p>
-                    <p class="text-md text-white z-50 font-medium">-</p>
-                    <p class="text-md text-white z-50 font-medium whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
+                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
+                    <p class="text-md text-white z-50">-</p>
+                    <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
                 </div>
             </div>
         </div>
@@ -25,6 +25,13 @@
                     <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
                 </svg>
                 <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium">Cantine</p>
+            </div>
+             <div class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-9">
+                    <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                </svg>
+
+                <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium">Boutique</p>
             </div>
             <div class="w-[90%] h-0.5 bg-light dark:bg-dark"></div>
             <div class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">

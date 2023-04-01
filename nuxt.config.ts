@@ -3,6 +3,7 @@
 export default defineNuxtConfig({
     modules: ['@nuxtjs/color-mode'],
     app: {
+        pageTransition: { name: 'page', mode: 'out-in' },
         head: {
             title: "Yaprof",
             htmlAttrs: {

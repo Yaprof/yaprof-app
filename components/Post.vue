@@ -16,13 +16,13 @@
                 <div class="flex items-center gap-2">
                     <svg class="w-6 h-6 text-dark dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
-                    </svg> 
+                    </svg>
                     <p class="text-dark dark:text-white">{{ data.pointer?.name }}</p>
                 </div>
             <p class="text-dark dark:text-white opacity-80">{{ new Date(new Date(data.createdAt).setHours(new Date(data.createdAt).getHours() - 2)).getHours() + "h" + new Date(data.createdAt).getMinutes() }}</p>
             </div>
             <div class="px-6 py-3 bg-white dark:bg-secondary">
-                <p class="text-dark dark:text-white text-lg">{{ data.content }}</p>
+                <p class="text-dark dark:text-white text-lg break-words">{{ data.content }}</p>
             </div>
             <div class="px-6 py-3 bg-white dark:bg-secondary flex items-center justify-between gap-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
@@ -32,11 +32,11 @@
 
 
                 <div class="flex items-center gap-2">
-                    <svg class="w-8 h-8 text-red-500 rotate-180 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <svg id="dislike_button" @click="likeorDislikePost('dislike', data.id)" class="w-8 h-8 text-neutral-500 rotate-180 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <p class="text-dark dark:text-white text-md">{{ data.like }}</p>
-                    <svg class="w-8 h-8 text-emerald-500 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <p id="counter_likes" class="text-dark dark:text-white text-md font-medium">{{ data?.likes ?? 0 }}</p>
+                    <svg id="like_button" @click="likeorDislikePost('like', data.id)" class="w-8 h-8 text-neutral-500 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
@@ -47,5 +47,95 @@
 <script>
 export default {
     props: ['data'],
+    data() {
+        return {
+            api_url:"http://localhost:8080"
+        }
+    },
+    methods: {
+        likeorDislikePost(type, id) {
+            let likesCounter = this.$el.querySelector('#counter_likes')
+            let dislikeButton = this.$el.querySelector('#dislike_button')
+            let likeButton = this.$el.querySelector('#like_button')
+
+            let user = JSON.parse(window.localStorage.getItem('user'))
+            fetch(this.api_url + `/post/${id}/${type}?userId=`+user.id, {
+                method: "POST",
+            }).then(response => response.json())
+                .then(async (response) => {
+                    if (response?.error) return
+                    this.data.likes = parseInt(response.likedBy?.length) - parseInt(response.dislikedBy?.length)
+                    console.log(this.data.likes)
+                    if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
+                        likeButton?.classList.add('!text-emerald-500')
+                        likesCounter?.classList.add('!text-emerald-500')
+                        dislikeButton?.classList.remove('!text-red-500')
+                        likesCounter?.classList.remove('!text-red-500')
+                    } else if (!dislikeButton.classList.contains('!text-red-500') && type != 'like') {
+                        likeButton?.classList.remove('!text-emerald-500')
+                        likesCounter?.classList.remove('!text-emerald-500')
+                        dislikeButton?.classList.add('!text-red-500')
+                        likesCounter?.classList.add('!text-red-500')
+                    } else {
+                        likeButton?.classList.remove('!text-emerald-500')
+                        likeButton?.classList.remove('!text-red-500')
+                        dislikeButton?.classList.remove('!text-red-500')
+                        dislikeButton?.classList.remove('!text-emerald-500')
+                        likesCounter?.classList.remove('!text-red-500')
+                        likesCounter?.classList.remove('!text-emerald-500')
+                    }
+
+                })
+                .catch(async e => {
+                    return  console.log(e)
+                })
+        }
+    },
+    mounted() {
+        this.data.likes = parseInt(this.data.likedBy?.length) - parseInt(this.data.dislikedBy?.length)
+        let likesCounter = this.$el.querySelector('#counter_likes')
+        let dislikeButton = this.$el.querySelector('#dislike_button')
+        let likeButton = this.$el.querySelector('#like_button')
+
+        let user = JSON.parse(window.localStorage.getItem('user'))
+        if (this.data.likedBy.find(u=>u.id == user.id)) {
+            likeButton?.classList.add('!text-emerald-500')
+            likesCounter?.classList.add('!text-emerald-500')
+            dislikeButton?.classList.remove('!text-red-500')
+            likesCounter?.classList.remove('!text-red-500')
+        } else if (this.data.dislikedBy.find(u=>u.id == user.id)) {
+            likeButton?.classList.remove('!text-emerald-500')
+            likesCounter?.classList.remove('!text-emerald-500')
+            dislikeButton?.classList.add('!text-red-500')
+            likesCounter?.classList.add('!text-red-500')
+        }
+
+    },
 }
 </script>
+
+<style>
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.2s;
+}
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translate(50px, 0);
+}
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translate(-50px, 0);
+}
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translate(-50px, 0);
+}
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translate(50px, 0);
+}
+</style>
+

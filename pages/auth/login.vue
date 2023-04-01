@@ -8,7 +8,7 @@
                     <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Lycée amiral de grasse" name="ent" />
                     <div v-if="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full">
                         <div @click="selectOption($event.target, cas.url, cas.py)" v-for="cas in results" :key="cas.url" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
-                            <p class="text-lg text-dark dark:text-white font-medium">{{ cas.nomEtab }}</p>
+                            <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate">{{ cas.nomEtab }}</p>
                         </div>
                     </div>
                 </div>

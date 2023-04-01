@@ -28,9 +28,7 @@ export default {
     layout: 'main',
     data: () => ({
         base_url: "http://localhost:8080",
-        absences: [
-               
-            ],
+        absences: [],
     }),
      methods: {
         getDbFeed: function () {

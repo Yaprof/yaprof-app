@@ -1,0 +1,20 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #f3f4f6;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1f2937;
+    }
+}
+
+.carousel .carousel-item{
+    width:100%;
+}

@@ -4,10 +4,11 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "start": "nuxt start",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "build-prod": "nuxt build --production && nuxt preview --production"
+    "build-prod": "nuxt build && nuxt start"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.2.0",

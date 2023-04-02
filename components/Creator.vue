@@ -26,8 +26,8 @@
 
                         <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Nom du professeur" />
                         <div v-show="prof_content" class="absolute top-[calc(100%+5px)] left-0 rounded-b-xl bg-light dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99]">
-                            <div @click="selectOption($event.target, prof.name)" v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
-                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate">{{ prof.name }} ({{ prof.functions[0] }})</p>
+                            <div v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
+                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOption($event.target, prof.name)">{{ prof.name }} ({{ prof.functions[0] }})</p>
                             </div>
                         </div>
                     </div>
@@ -80,17 +80,16 @@ export default {
                     }
                 })
             }).then(response => response.json())
-                .then(async (response) => {
-                    this.loading = false;
-                    togglePopupCreator()
-                    window.location.reload()
-                    this.profs = response
-                })
-                .catch(async e => {
-                    this.loading = false
-                    this.errors.push({ message: "Impossible de créer le post", color: "danger" })
-                    return
-                })
+            .then(async (response) => {
+                this.loading = false;
+                this.closePopupCreator()
+                window.location.reload()
+                this.profs = response
+            })
+            .catch(async e => {
+                this.loading = false
+                return this.errors.push({ message: "Impossible de créer le post", color: "danger" })
+            })
 
         },
         searchProf: function (e) {

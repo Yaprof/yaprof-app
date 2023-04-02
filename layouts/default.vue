@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <SideBar />
-    <div class="pt-20 px-5 py-10 h-full">
+    <div class="pt-20 px-5 pb-10 mt-10 h-full">
         <slot />
     </div>
   </div>

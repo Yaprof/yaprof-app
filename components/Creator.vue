@@ -15,7 +15,7 @@
                     <div @click="submitPost()" class="text-primary cursor-pointer text-lg">Créer</div>
                 </div>
 
-                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 px-5 w-full py-3 gap-2">
+                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-neutral-700 px-5 w-full py-3 gap-2">
                     <div class="flex items-center gap-2 relative" v-click-outside="closeProfSearch">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
@@ -23,20 +23,20 @@
                             <path d="M3 15.055v-.684c.126.053.255.1.39.142 2.092.642 4.313.987 6.61.987 2.297 0 4.518-.345 6.61-.987.135-.041.264-.089.39-.142v.684c0 1.347-.985 2.53-2.363 2.686a41.454 41.454 0 01-9.274 0C3.985 17.585 3 16.402 3 15.055z" />
                         </svg>
 
-                        <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full" placeholder="Nom du professeur" />
-                        <div v-if="prof_content" class="absolute top-[calc(100%+5px)] left-0 rounded-b-xl bg-light dark:bg-secondary shadow-md px-3 py-3 flex flex-col w-full z-[99]">
+                        <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Nom du professeur" />
+                        <div v-if="prof_content" class="absolute top-[calc(100%+5px)] left-0 rounded-b-xl bg-light dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99]">
                             <div @click="selectOption($event.target, prof.name)" v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
                                 <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate">{{ prof.name }} ({{ prof.functions[0] }})</p>
                             </div>
                         </div>
                     </div>
-                    <div class="w-full h-[1px] bg-neutral-300"></div>
+                    <div class="w-full h-[1px] bg-neutral-300 dark:bg-neutral-800"></div>
                     <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
                             <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
                         </svg>
 
-                        <input type="text" id="input_reason" class="bg-transparent focus:outline-none w-full" placeholder="Raison de l'absence" />
+                        <input type="text" id="input_reason" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Raison de l'absence" />
                     </div>
                 </div>
             </div>

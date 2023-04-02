@@ -17,6 +17,7 @@ export function createUser(name, pp, clas, etab) {
             response = response[0] ?? response
             if (response?.name) {
                 window.localStorage.setItem('user', JSON.stringify(response))
+                window.location.reload()
             }
             return true
         })

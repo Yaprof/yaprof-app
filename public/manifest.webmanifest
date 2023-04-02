@@ -1,0 +1,15 @@
+{
+  "background_color": "#12d4a6",
+  "description": "La nouvelle app des étudiants par les étudiants ! Profs absents, planing cantine et bien d'autres fonctionnalités !",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Yaprof - L'app des étudiants",
+  "short_name": "Yaprof",
+  "start_url": "/pwa-examples/a2hs/index.html"
+}

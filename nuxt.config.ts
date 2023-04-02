@@ -74,6 +74,44 @@ export default defineNuxtConfig({
     },
     colorMode: {
         classSuffix: ""
+    },
+    buildModules: [
+        '@nuxtjs/pwa',
+    ],
+    pwa: {
+        icon: false,
+        meta: {
+            name: "Yaprof",
+            description: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas",
+            theme_color: "#ffffff",
+            ogHost: "https://yaprof.fr",
+            ogImage: "/logo.png",
+            ogTitle: "Yaprof",
+            ogDescription: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas",
+            twitterCard: "summary_large_image",
+            twitterSite: "@yaprof",
+            twitterCreator: "@yaprof",
+        },
+        manifest: {
+            name: "Yaprof",
+            short_name: "Yaprof",
+            description: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas",
+            lang: "fr",
+            theme_color: "#ffffff",
+            background_color: "#ffffff",
+            display: "standalone",
+            orientation: "portrait",
+            start_url: "/",
+            mobileAppIOS: true,
+            scope: "/",
+            icons: [
+                {
+                    src: "/logo.png",
+                    sizes: "512x512",
+                    type: "image/png",
+                },
+            ],
+        },
     }
 })
 

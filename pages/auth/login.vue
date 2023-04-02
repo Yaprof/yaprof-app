@@ -1,6 +1,6 @@
 <template>
     <div class="h-screen w-screen flex flex-col items-center py-20 justify-between">
-        <Toast v-for="error in this.errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
+        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full flex flex-col items-center">
             <img class="w-44" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Logo-pronote.png/800px-Logo-pronote.png" />
             <div id="form_login" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">

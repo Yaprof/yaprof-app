@@ -24,7 +24,7 @@
                         </svg>
 
                         <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Nom du professeur" />
-                        <div v-if="prof_content" class="absolute top-[calc(100%+5px)] left-0 rounded-b-xl bg-light dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99]">
+                        <div v-show="prof_content" class="absolute top-[calc(100%+5px)] left-0 rounded-b-xl bg-light dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99]">
                             <div @click="selectOption($event.target, prof.name)" v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
                                 <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate">{{ prof.name }} ({{ prof.functions[0] }})</p>
                             </div>
@@ -41,8 +41,39 @@
                 </div>
             </div>
         </div>
+
+        <Script>
+            $(document).ready(function () {
+                console.log('PopupCreator.js loaded')
+                $('#popup_creator').css('transition', 'all 250ms');
+
+                $('#popup_creator_toggler').click(function (event) {
+                    togglePopupCreator()
+
+                    $("#popup_creator").swipe({
+                        swipeStatus:function(event, phase, direction, distance, duration, fingers)
+                        {
+                            if (phase=="move" && direction == "down") {
+                                togglePopupCreator()
+                            return false;
+                            }
+                        }
+                    });
+                });
+            });
+
+            function togglePopupCreator() {
+                $('#popup_creator_parent').toggleClass('z-[-1]');
+
+                $('#popup_creator').toggleClass('translate-y-full');
+                $('#popup_creator').toggleClass('z-50');
+            }
+
+
+        </Script>
     </div>
 </template>
+
 
 <script>
 import { generatetoken } from '~~/mixins/auth'

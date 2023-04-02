@@ -53,11 +53,6 @@ export default defineNuxtConfig({
                     type: "text/javascript",
                     src: "/js/pwa.js",
                     body: true,
-                },
-                {
-                    type: "text/javascript",
-                    src: "/js/CreatePost.js",
-                    body: true,
                 }
             ],
         },

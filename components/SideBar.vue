@@ -7,9 +7,11 @@
                 <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile.pp" />
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
                 <div class="flex items-center gap-2 opacity-70">
-                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
-                    <p class="text-md text-white z-50">-</p>
-                    <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
+                    <ClientOnly>
+                        <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
+                        <p class="text-md text-white z-50">-</p>
+                        <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
+                    </ClientOnly>
                 </div>
             </div>
         </div>
@@ -47,6 +49,39 @@
                 <p class="text-md text-neutral-600 dark:text-neutral-300 z-50 font-medium">Version: v1_beta</p>
             </div>
         </div>
+
+        <Script>
+            $(document).ready(function () {
+                console.log('SideBar.js loaded');
+                $('#sidebar').css('transition', 'all 200ms');
+
+                $('#sidebar-toggle').click(function (event) {
+                    toggleSideBar()
+
+                    $("#sidebar").swipe({
+                        swipeStatus:function(event, phase, direction, distance, duration, fingers)
+                        {
+                            if (phase=="move" && direction =="left") {
+                                toggleSideBar()
+                            return false;
+                            }
+                        }
+                    });
+                });
+            });
+
+            $(document).mouseup(function (e) {
+                if ($(e.target).closest("#sidebar").length === 0 && $(e.target).closest("#sidebar-toggle").length === 0 && $('#sidebar').hasClass('translate-x-0')) {
+                    toggleSideBar()
+                }
+            })
+
+            function toggleSideBar() {
+                $('#sidebar').toggleClass('translate-x-0');
+                $('#sidebar').toggleClass('-translate-x-full');
+                $('#sidebar').toggleClass('shadow-xl');
+            }
+        </Script>
     </div>
 </template>
 

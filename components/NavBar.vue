@@ -8,7 +8,9 @@
         </div>
         <div class="flex text-dark dark:text-white items-center gap-3">
             <div class="flex bg-primary bg-opacity-10 rounded-full py-2 pl-4 pr-2 items-center gap-1">
-                <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>
+                <ClientOnly>
+                    <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>
+                </ClientOnly>
                 <img src="~/assets/imgs/icons/coin.svg" class="w-6 h-6 object-cover object-center rounded-full" />
             </div>
             <img :src="userInfos?.profile?.pp" class="w-10 h-10 object-cover object-center rounded-full shadow-md" />

@@ -7,9 +7,11 @@
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
                     <label for="ent" class="text-lg text-dark dark:text-white">Établissement</label>
                     <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Lycée amiral de grasse" name="ent" />
-                    <div v-if="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full">
-                        <div @click="selectOption($event.target, cas.url, cas.py)" v-for="cas in results" :key="cas.url" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
-                            <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate">{{ cas.nomEtab }}</p>
+                    <div v-show="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full">
+                        <div v-for="cas in results" :key="cas.url" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
+                            <ClientOnly>
+                                <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOption($event.target, cas.url, cas.py)">{{ cas.nomEtab }}</p>
+                            </ClientOnly>
                         </div>
                     </div>
                 </div>
@@ -22,10 +24,10 @@
                     <input id="input_password" type="password" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
                 </div>
                 <button @click="login($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
-                <button id="loading-button" class="mt-5 w-full rounded-xl bg-primary brightness-90 py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
+                <button id="loading-button" class="mt-5 w-full rounded-xl bg-neutral-300 dark:bg-neutral-700 brightness-90 py-3.5 px-5 text-dark dark:text-white font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>
-        <p class="text-lg text-dark dark:text-white">Pas de compte ? <a href="#" class="text-primary">Contactez-nous</a></p>
+        <div class="text-lg text-dark dark:text-white">Pas de compte ? <a href="#" class="text-primary">Contactez-nous</a></div>
     </div>
 </template>
 
@@ -69,7 +71,7 @@ export default {
                 let new_token = await this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
                 console.log(new_token)
                 if (new_token) await this.getInfos()
-                
+
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             }).catch(error => {
                 this.errors.push({ message: "Informations incorrectes", color: "danger" })
@@ -88,7 +90,7 @@ export default {
         selectOption: function (e, url, py) {
             this.$el.querySelector('#input_ent').setAttribute("data-url", url)
             this.$el.querySelector('#input_ent').setAttribute("data-ent", py)
-            this.$el.querySelector('#input_ent').value = e.innerHTML 
+            this.$el.querySelector('#input_ent').value = e.innerHTML
             this.ent_content = false
         },
         closeEntSarch: function () {

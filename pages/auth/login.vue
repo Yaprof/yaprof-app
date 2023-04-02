@@ -57,7 +57,6 @@ export default {
         login: function () {
             this.loading = true;
             let form = this.$el.querySelector('#form_login')
-            let baseurl = this.$config.PRONOTE_API_URL+'/generatetoken'
             axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(form.querySelector('#input_ent').dataset.url)}`)
                 .then(async(response) => {
                     let etab = response.data.url.split(".")[1].replace('-', '_')
@@ -65,7 +64,7 @@ export default {
                     let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
                     this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
                 }).catch(e => {
-                    this.loading = false
+                    return console.log(e)
                 })
 
         },

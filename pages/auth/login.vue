@@ -45,9 +45,7 @@ export default {
         return {
             ent_content: false,
             results: [],
-            config: process.env,
             ents: [],
-            base_url: "http://localhost:8000",
             position: null,
             etabs: [],
             generatetoken: generatetoken,
@@ -59,7 +57,7 @@ export default {
         login: function () {
             this.loading = true;
             let form = this.$el.querySelector('#form_login')
-            let baseurl = this.base_url+'/generatetoken'
+            let baseurl = this.$config.PRONOTE_API_URL+'/generatetoken'
             axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(form.querySelector('#input_ent').dataset.url)}`)
                 .then(async(response) => {
                     let etab = response.data.url.split(".")[1].replace('-', '_')
@@ -115,11 +113,17 @@ export default {
                     console.log(lat, lon)
                     this.findEstablishments(lat, lon)
                     return position.coords;
-                }, error=>{console.log(error)}, {
-                    enableHighAccuracy: false,
+                }, error => {
+                    console.log(error)
+                    this.findEstablishments(43.6832581, 6.9835905)
+                    return 43.6832581, 6.9835905
+                }, {
                     timeout: 5000,
                     maximumAge: 0,
                 })
+            } else {
+                this.findEstablishments(43.6832581, 6.9835905)
+                return 43.6832581, 6.9835905
             }
 
             this.isLoading = true;
@@ -181,7 +185,7 @@ export default {
                     "sec-fetch-site": "cross-site",
                     "sec-gpc": "1",
                 },
-                referrer: "http://localhost:3000/",
+                referrer: "https://yaprof.fr/",
                 referrerPolicy: "strict-origin-when-cross-origin",
                 body:
                     "data=%7B%22nomFonction%22%3A%22geoLoc%22%2C%22lat%22%3A" +
@@ -236,7 +240,7 @@ export default {
     },
     async mounted() {
         this.GetLocation(navigator)
-        fetch(this.base_url + "/infos")
+        fetch(this.$config.PRONOTE_API_URL + "/infos")
             .then(response => response.json())
             .then(response => {
                 return this.ents = response["ent_list"]

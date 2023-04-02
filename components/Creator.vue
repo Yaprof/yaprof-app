@@ -53,16 +53,14 @@ export default {
             loading: false,
             prof_content: false,
             results: [],
-            profs: [],
-            api_url: "http://localhost:8080",
-            base_url: "http://localhost:8000"
+            profs: []
         }
     },
     methods: {
         submitPost: function () {
             this.loading = true;
             let form = this.$el.querySelector('#form_post')
-            fetch(this.api_url + '/post', {
+            fetch(this.$config.API_URL + '/post', {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -105,7 +103,7 @@ export default {
         },
     },
     mounted() {
-        fetch(this.base_url + '/recipients?token='+window.localStorage.getItem("token"), {
+        fetch(this.$config.PRONOTE_API_URL + '/recipients?token='+window.localStorage.getItem("token"), {
             method: "GET",
             headers: {
                 'Accept': 'application/json',

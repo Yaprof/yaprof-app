@@ -27,12 +27,11 @@ definePageMeta({
 export default {
     layout: 'main',
     data: () => ({
-        base_url: "http://localhost:8080",
         absences: [],
     }),
      methods: {
         getDbFeed: function () {
-            fetch(this.base_url + "/feed", {
+            fetch(this.$config.API_URL + "/feed", {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json',

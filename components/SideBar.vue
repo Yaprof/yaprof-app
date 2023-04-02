@@ -55,7 +55,6 @@ import { createUser } from '~/mixins/user.js'
 export default {
     data() {
         return {
-            base_url: "http://localhost:8000",
             generatetoken: generatetoken,
             userInfos: {},
             createUser:createUser
@@ -63,7 +62,7 @@ export default {
     },
     methods: {
         getInfos: function () {
-            fetch(this.base_url + "/user?token="+window.localStorage.getItem("token"), {
+            fetch(this.$config.PRONOTE_API_URL + "/user?token="+window.localStorage.getItem("token"), {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json',

@@ -49,7 +49,7 @@ export default {
     props: ['data'],
     data() {
         return {
-            api_url:"http://localhost:8080"
+
         }
     },
     methods: {
@@ -59,7 +59,7 @@ export default {
             let likeButton = this.$el.querySelector('#like_button')
 
             let user = JSON.parse(window.localStorage.getItem('user'))
-            fetch(this.api_url + `/post/${id}/${type}?userId=`+user.id, {
+            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+user.id, {
                 method: "POST",
             }).then(response => response.json())
                 .then(async (response) => {

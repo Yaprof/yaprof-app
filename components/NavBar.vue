@@ -20,7 +20,6 @@ import { generatetoken } from '~~/mixins/auth'
 export default {
     data() {
         return {
-            base_url: "http://localhost:8080",
             generatetoken: generatetoken,
             userInfos: {profile:{pp:"data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="}}
         }
@@ -28,7 +27,7 @@ export default {
     methods: {
         getDbInfos: function () {
             if (window.localStorage.getItem("user")) return this.userInfos = JSON.parse(window.localStorage.getItem("user"))
-            fetch(this.base_url + "/user/"+JSON.parse(window.localStorage.getItem("user"))?.id, {
+            fetch(this.$config.API_URL + "/user/"+JSON.parse(window.localStorage.getItem("user"))?.id, {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json',

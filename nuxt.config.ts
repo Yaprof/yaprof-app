@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
+import { VitePWA } from 'vite-plugin-pwa'
 export default defineNuxtConfig({
-    modules: ['@nuxtjs/color-mode'],
+    modules: ['@nuxtjs/color-mode', '@vite-pwa/nuxt'],
     app: {
         pageTransition: { name: 'page', mode: 'out-in' },
         head: {
@@ -75,23 +75,7 @@ export default defineNuxtConfig({
     colorMode: {
         classSuffix: ""
     },
-    buildModules: [
-        '@nuxtjs/pwa',
-    ],
     pwa: {
-        icon: false,
-        meta: {
-            name: "Yaprof",
-            description: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas",
-            theme_color: "#ffffff",
-            ogHost: "https://yaprof.fr",
-            ogImage: "/logo.png",
-            ogTitle: "Yaprof",
-            ogDescription: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas",
-            twitterCard: "summary_large_image",
-            twitterSite: "@yaprof",
-            twitterCreator: "@yaprof",
-        },
         manifest: {
             name: "Yaprof",
             short_name: "Yaprof",
@@ -102,8 +86,6 @@ export default defineNuxtConfig({
             display: "standalone",
             orientation: "portrait",
             start_url: "/",
-            mobileAppIOS: true,
-            scope: "/",
             icons: [
                 {
                     src: "/logo.png",
@@ -112,6 +94,32 @@ export default defineNuxtConfig({
                 },
             ],
         },
+        workbox: {
+            runtimeCaching: [
+                {
+                    urlPattern: 'https://api.yaprof.fr/.*',
+                    handler: 'NetworkFirst',
+                    method: 'GET',
+                },
+                {
+                    urlPattern: 'https://pronoteapi.yaprof.fr/.*',
+                    handler: 'NetworkFirst',
+                    method: 'GET',
+                },
+
+                {
+                    urlPattern: 'https://cdnjs.cloudflare.com/.*',
+                    handler: 'CacheFirst',
+                    method: 'GET',
+                }
+            ],
+            navigateFallback: '/',
+        },
+        devOptions: {
+            enabled: true,
+            type: "module"
+        },
+
     }
 })
 

@@ -74,6 +74,7 @@ export default {
             $('#sidebar').css('transition', 'all 200ms');
 
             $('#sidebar-toggle').click(function (event) {
+                console.log("sidebar-toggle", $('#sidebar-toggle'))
                 toggleSideBar()
 
                 $("#sidebar").swipe({
@@ -95,6 +96,7 @@ export default {
         })
 
         function toggleSideBar() {
+            console.log('toggle sidbar', $('#sidebar'))
             $('#sidebar').toggleClass('translate-x-0');
             $('#sidebar').toggleClass('-translate-x-full');
             $('#sidebar').toggleClass('shadow-xl');

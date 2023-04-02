@@ -45,7 +45,6 @@ export default {
         return {
             ent_content: false,
             results: [],
-            config: process.env,
             ents: [],
             base_url: "http://localhost:8000",
             position: null,

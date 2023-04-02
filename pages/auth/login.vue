@@ -67,7 +67,11 @@ export default {
                 let ent_url = form.querySelector('#input_ent').dataset.url
                 let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
                 let new_token = await this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
-                if (token) this.getInfos()
+                console.log(new_token)
+                if (new_token) {
+                    await this.getInfos()
+                    window.location.reload()
+                }
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             }).catch(error => {
                 this.errors.push({ message: "Informations incorrectes", color: "danger" })
@@ -253,14 +257,17 @@ export default {
                 },
             }).then(response => response.json())
                 .then(async (response) => {
+                    console.log(response)
                     if (response == "notfound" || response == "expired") {
                         let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                         if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                         return
                     }
+                    console.log(response.name)
                     this.createUser(response.name, response.profile_picture, response.class, response.establishment)
                 })
                 .catch(async e => {
+                    console.log(e)
                     let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                     if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                     return

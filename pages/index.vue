@@ -50,7 +50,6 @@ export default {
                 return
             })
         },
-        
     },
     mounted() {
         this.getDbFeed()

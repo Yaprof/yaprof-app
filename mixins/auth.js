@@ -19,7 +19,7 @@ export async function generatetoken(url, username, password, etab) {
         window?.localStorage.setItem('username', username)
         window?.localStorage.setItem('password', password)
         window?.localStorage.setItem('ent', etab)
-        if(window.location.pathname == "/auth/login") window.location.replace('/')
+        /* if(window.location.pathname == "/auth/login") window.location.replace('/') */
         return true
     })
     .catch(error => { console.log(error);  return false; })

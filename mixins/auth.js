@@ -1,6 +1,5 @@
-let baseurl = 'http://localhost:8000'
 export function generatetoken(url, username, password, etab) {
-    fetch(baseurl + '/generatetoken', {
+    fetch(this.$config.PRONOTE_API_URL + '/generatetoken', {
         method: "POST",
         headers: {
             'Accept': 'application/json',

@@ -1,7 +1,6 @@
-let baseurl = "http://localhost:8080"
 
 export function createUser(name, pp, clas, etab) {
-    fetch(baseurl + '/user/create?name='+name+'&&pp='+pp+'&&class='+ clas +'&&=etab'+etab+'&&=pp'+pp, {
+    fetch(this.$config.API_URL + '/user/create?name='+name+'&&pp='+pp+'&&class='+ clas +'&&=etab'+etab+'&&=pp'+pp, {
         method: "POST",
         headers: {
             'Accept': 'application/json',

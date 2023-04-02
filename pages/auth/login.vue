@@ -46,7 +46,6 @@ export default {
             ent_content: false,
             results: [],
             ents: [],
-            base_url: "http://localhost:8000",
             position: null,
             etabs: [],
             generatetoken: generatetoken,
@@ -58,7 +57,7 @@ export default {
         login: function () {
             this.loading = true;
             let form = this.$el.querySelector('#form_login')
-            let baseurl = this.base_url+'/generatetoken'
+            let baseurl = this.$config.PRONOTE_API_URL+'/generatetoken'
             axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(form.querySelector('#input_ent').dataset.url)}`)
                 .then(async(response) => {
                     let etab = response.data.url.split(".")[1].replace('-', '_')
@@ -186,7 +185,7 @@ export default {
                     "sec-fetch-site": "cross-site",
                     "sec-gpc": "1",
                 },
-                referrer: "http://localhost:3000/",
+                referrer: "https://yaprof.fr/",
                 referrerPolicy: "strict-origin-when-cross-origin",
                 body:
                     "data=%7B%22nomFonction%22%3A%22geoLoc%22%2C%22lat%22%3A" +

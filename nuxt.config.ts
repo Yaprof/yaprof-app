@@ -41,16 +41,6 @@ export default defineNuxtConfig({
                 },
                 {
                     type: "text/javascript",
-                    src: "/js/SideBar.js",
-                    body: true,
-                },
-                {
-                    type: "text/javascript",
-                    src: "/js/PopupCreator.js",
-                    body: true,
-                },
-                {
-                    type: "text/javascript",
                     src: "/js/pwa.js",
                     body: true,
                 }

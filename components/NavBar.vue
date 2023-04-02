@@ -1,5 +1,6 @@
 <template>
     <div class="w-full fixed top-0 left-0 h-20 flex justify-between items-center p-5 bg-white dark:bg-dark bg-opacity-80 backdrop-blur-lg z-50">
+        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div id="sidebar-toggle" class="flex text-dark dark:text-white gap-5 items-center cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -21,12 +22,13 @@ export default {
     data() {
         return {
             generatetoken: generatetoken,
-            userInfos: {profile:{pp:"data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="}}
+            userInfos: { profile: { pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" } },
+            errors: []
         }
     },
     methods: {
         getDbInfos: function () {
-            if (window.localStorage.getItem("user")) return this.userInfos = JSON.parse(window.localStorage.getItem("user"))
+            /* if (window.localStorage.getItem("user")) return this.userInfos = JSON.parse(window.localStorage.getItem("user")) */
             fetch(this.$config.API_URL + "/user/"+JSON.parse(window.localStorage.getItem("user"))?.id, {
                 method: "GET",
                 headers: {
@@ -38,7 +40,7 @@ export default {
                     this.userInfos = response[0]
                 })
                 .catch(async e => {
-                    return
+                    return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                 })
         },
     },

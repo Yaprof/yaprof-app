@@ -8,10 +8,6 @@ $(document).ready(function () {
         $("#sidebar").swipe({
             swipeStatus:function(event, phase, direction, distance, duration, fingers)
             {
-      /*           if (phase=="move" && direction =="right") {
-                    toggleSideBar()
-                return false;
-                } */
                 if (phase=="move" && direction =="left") {
                     toggleSideBar()
                 return false;

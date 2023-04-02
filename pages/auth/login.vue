@@ -115,11 +115,17 @@ export default {
                     console.log(lat, lon)
                     this.findEstablishments(lat, lon)
                     return position.coords;
-                }, error=>{console.log(error)}, {
-                    enableHighAccuracy: false,
+                }, error => {
+                    console.log(error)
+                    this.findEstablishments(43.6832581, 6.9835905)
+                    return 43.6832581, 6.9835905
+                }, {
                     timeout: 5000,
                     maximumAge: 0,
                 })
+            } else {
+                this.findEstablishments(43.6832581, 6.9835905)
+                return 43.6832581, 6.9835905
             }
 
             this.isLoading = true;

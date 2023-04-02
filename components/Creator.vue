@@ -8,9 +8,9 @@
         </div>
 
         <div id="popup_creator_parent" class="absolute top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1]">
-            <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5">
+            <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998]">
                 <div class="w-full flex items-center justify-between">
-                    <div onclick="togglePopupCreator()" class="text-primary cursor-pointer text-lg">Annuler</div>
+                    <div @click="closePopupCreator()" class="text-primary cursor-pointer text-lg">Annuler</div>
                     <a class="text-dark dark:text-white cursor-pointer text-lg font-medium">Créer un post</a>
                     <div @click="submitPost()" class="text-primary cursor-pointer text-lg">Créer</div>
                 </div>
@@ -70,7 +70,7 @@ export default {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify( {
+                body: JSON.stringify({
                     content: form.querySelector('#input_reason').value,
                     authorId: JSON.parse(window.localStorage.getItem("user"))?.id,
                     pointer: {
@@ -79,24 +79,24 @@ export default {
                     }
                 })
             }).then(response => response.json())
-            .then(async (response) => {
-                this.loading = false;
-                togglePopupCreator()
-                window.location.reload()
-                this.profs = response
-            })
-            .catch(async e => {
-                this.loading = false
-                this.errors.push({message: "Impossible de créer le post", color: "danger"})
-                return
-            })
+                .then(async (response) => {
+                    this.loading = false;
+                    togglePopupCreator()
+                    window.location.reload()
+                    this.profs = response
+                })
+                .catch(async e => {
+                    this.loading = false
+                    this.errors.push({ message: "Impossible de créer le post", color: "danger" })
+                    return
+                })
 
         },
         searchProf: function (e) {
             this.prof_content = true
             let content = e.parentElement.querySelector('#prof_content')
             this.results = this.profs.filter(s => s.name.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10)
-            if (this.results.length < 1) this.results = [{name:"Aucun résultat", functions:["Aucun"]}]
+            if (this.results.length < 1) this.results = [{ name: "Aucun résultat", functions: ["Aucun"] }]
         },
         selectOption: function (e, profName) {
             this.$el.querySelector('#input_prof').setAttribute("data-profname", profName)
@@ -107,28 +107,36 @@ export default {
         closeProfSearch: function () {
             this.prof_content = false
         },
+        closePopupCreator: function () {
+            console.log(this.$el.querySelector('#popup_creator_parent'))
+            this.$el.querySelector('#popup_creator').classList.remove('z-50')
+            this.$el.querySelector('#popup_creator').classList.add('translate-y-full')
+            setTimeout(e => {
+                this.$el.querySelector('#popup_creator_parent').classList.add('z-[-1]');
+            }, 250)
+        }
     },
     mounted() {
-        fetch(this.$config.PRONOTE_API_URL + '/recipients?token='+window.localStorage.getItem("token"), {
+        fetch(this.$config.PRONOTE_API_URL + '/recipients?token=' + window.localStorage.getItem("token"), {
             method: "GET",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
         }).then(response => response.json())
-        .then(async (response) => {
-            if (response == "notfound" || response == "expired") {
+            .then(async (response) => {
+                if (response == "notfound" || response == "expired") {
+                    let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                    if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                    return
+                }
+                this.profs = response
+            })
+            .catch(async e => {
                 let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                 return
-            }
-            this.profs = response
-        })
-        .catch(async e => {
-            let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-            if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-            return
-        })
+            })
 
         $(document).ready(function () {
             console.log('PopupCreator.js loaded')
@@ -138,11 +146,10 @@ export default {
                 togglePopupCreator()
 
                 $("#popup_creator").swipe({
-                    swipeStatus:function(event, phase, direction, distance, duration, fingers)
-                    {
-                        if (phase=="move" && direction == "down") {
+                    swipeStatus: function (event, phase, direction, distance, duration, fingers) {
+                        if (phase == "move" && direction == "down") {
                             togglePopupCreator()
-                        return false;
+                            return false;
                         }
                     }
                 });
@@ -150,12 +157,16 @@ export default {
         });
 
         function togglePopupCreator() {
-            $('#popup_creator_parent').toggleClass('z-[-1]');
-
-            $('#popup_creator').toggleClass('translate-y-full');
             $('#popup_creator').toggleClass('z-50');
+            $('#popup_creator').toggleClass('translate-y-full');
+            if ($('#popup_creator_parent').hasClass('z-[-1]'))
+                $('#popup_creator_parent').removeClass('z-[-1]');
+            else{
+                setTimeout(e => {
+                    $('#popup_creator_parent').addClass('z-[-1]');
+                }, 250)
+            }
         }
-    
     },
 
 }

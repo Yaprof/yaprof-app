@@ -1,7 +1,7 @@
 <template>
-    <NuxtLayout name="default">
+    <NuxtLayout>
         <div>
-            Shop
+            <p class="text-dark dark:text-white text-lg">Le shop arrive bientôt !</p>
         </div>
     </NuxtLayout>
 

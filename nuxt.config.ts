@@ -17,9 +17,9 @@ export default defineNuxtConfig({
                 { name: "apple-mobile-web-app-capable", content: "yes" },
                 { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
                 { name: "apple-mobile-web-app-title", content: "Yaprof" },
-                { name: "msapplication-TileColor", content: "#ffffff" },
-                { name: "msapplication-TileImage", content: "/logo.png" },
-                { name: "theme-color", content: "#ffffff" }
+                { name: "msapplication-TileColor", content: "#12d4a6" },
+                { name: "msapplication-TileImage", content: "icons/icon_192x192.png" },
+                { name: "theme-color", content: "#12d4a6" }
 
             ],
             link: [
@@ -88,14 +88,40 @@ export default defineNuxtConfig({
             short_name: "Yaprof",
             description: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas",
             lang: "fr",
-            theme_color: "#ffffff",
-            background_color: "#ffffff",
+            theme_color: "#12d4a6",
+            background_color: "#12d4a6",
             display: "standalone",
             orientation: "portrait",
             start_url: "/",
+            scope: "/",
             icons: [
                 {
-                    src: "/icon.png",
+                    src: "/icons/icon_48x48.png",
+                    sizes: "48x48",
+                    type: "image/png",
+                },
+                {
+                    src: "/icons/icon_72x72.png",
+                    sizes: "72x72",
+                    type: "image/png",
+                },
+                {
+                    src: "/icons/icon_96x96.png",
+                    sizes: "96x96",
+                    type: "image/png",
+                },
+                {
+                    src: "/icons/icon_144x144.png",
+                    sizes: "144x144",
+                    type: "image/png",
+                },
+                {
+                    src: "/icons/icon_192x192.png",
+                    sizes: "192x192",
+                    type: "image/png",
+                },
+                {
+                    src: "/icons/icon_512x512.png",
                     sizes: "512x512",
                     type: "image/png",
                 },
@@ -113,12 +139,6 @@ export default defineNuxtConfig({
                     handler: 'NetworkFirst',
                     method: 'GET',
                 },
-
-                {
-                    urlPattern: 'https://cdnjs.cloudflare.com/.*',
-                    handler: 'CacheFirst',
-                    method: 'GET',
-                }
             ],
             navigateFallback: '/',
         },

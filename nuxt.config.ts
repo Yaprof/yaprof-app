@@ -14,6 +14,13 @@ export default defineNuxtConfig({
                 { name: "viewport", content: "width=device-width, initial-scale=1" },
                 { hid: "description", name: "description", content: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas" },
                 { name: "format-detection", content: "telephone=no" },
+                { name: "apple-mobile-web-app-capable", content: "yes" },
+                { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+                { name: "apple-mobile-web-app-title", content: "Yaprof" },
+                { name: "msapplication-TileColor", content: "#ffffff" },
+                { name: "msapplication-TileImage", content: "/logo.png" },
+                { name: "theme-color", content: "#ffffff" }
+
             ],
             link: [
                 { rel: "icon", type: "image/png", href: "/favicon.ico" },

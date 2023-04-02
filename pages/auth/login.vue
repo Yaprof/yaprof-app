@@ -240,7 +240,7 @@ export default {
     },
     async mounted() {
         this.GetLocation(navigator)
-        fetch(this.base_url + "/infos")
+        fetch(this.$config.PRONOTE_API_URL + "/infos")
             .then(response => response.json())
             .then(response => {
                 return this.ents = response["ent_list"]

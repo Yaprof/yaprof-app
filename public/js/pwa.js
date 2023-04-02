@@ -7,9 +7,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   console.log(`'beforeinstallprompt' event was fired.`);
 });
 
-window.onload = () => {
-
-
+window.addEventListener('load', (e) => {
     let buttonInstall = document.getElementById('buttonInstall');
     buttonInstall.addEventListener('click', async () => {
     console.log('installProm')
@@ -25,4 +23,4 @@ window.onload = () => {
             deferredPrompt = null;
         }
     });
-}
+})

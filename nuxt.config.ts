@@ -95,7 +95,7 @@ export default defineNuxtConfig({
             start_url: "/",
             icons: [
                 {
-                    src: "/logo.png",
+                    src: "/icon.png",
                     sizes: "512x512",
                     type: "image/png",
                 },

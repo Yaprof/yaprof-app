@@ -1,5 +1,5 @@
 <template>
-    <NuxtLayout name="main">
+   <NuxtLayout>
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <Creator />
         <div class="w-full flex items-center justify-evenly">
@@ -26,7 +26,7 @@ definePageMeta({
 
 <script>
 export default {
-    layout: 'main',
+/*     layout: 'main', */
     data() {
         return {
             absences: [],

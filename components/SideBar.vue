@@ -16,12 +16,12 @@
             </div>
         </div>
         <div class="flex flex-col p-5 h-full justify-start items-center w-full mt-5 gap-3">
-            <div class="flex items-center gap-3.5 w-full px-5 py-2 bg-primary bg-opacity-30 dark:bg-opacity-20 rounded-full cursor-pointer group">
+            <NuxtLink to="/" class="flex items-center gap-3.5 w-full px-5 py-2 bg-primary bg-opacity-30 dark:bg-opacity-20 rounded-full cursor-pointer group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-95">
                     <path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z" />
                 </svg>
                 <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium">Absences</p>
-            </div>
+            </NuxtLink>
             <div class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-95">
                     <path d="M5.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H6a.75.75 0 01-.75-.75V12zM6 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H6zM7.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H8a.75.75 0 01-.75-.75V12zM8 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H8zM9.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V10zM10 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H10zM9.25 14a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V14zM12 9.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V10a.75.75 0 00-.75-.75H12zM11.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H12a.75.75 0 01-.75-.75V12zM12 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H12zM13.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H14a.75.75 0 01-.75-.75V10zM14 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H14z" />
@@ -29,13 +29,13 @@
                 </svg>
                 <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium">Cantine</p>
             </div>
-             <div class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
+            <NuxtLink to="/shop" class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-9">
                     <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                 </svg>
 
                 <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium">Boutique</p>
-            </div>
+            </NuxtLink>
             <div class="w-[90%] h-0.5 bg-light dark:bg-dark"></div>
             <div class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-95">
@@ -50,41 +50,9 @@
             </div>
         </div>
 
-        <Script>
-            $(document).ready(function () {
-                console.log('SideBar.js loaded');
-                $('#sidebar').css('transition', 'all 200ms');
-
-                $('#sidebar-toggle').click(function (event) {
-                    toggleSideBar()
-
-                    $("#sidebar").swipe({
-                        swipeStatus:function(event, phase, direction, distance, duration, fingers)
-                        {
-                            if (phase=="move" && direction =="left") {
-                                toggleSideBar()
-                            return false;
-                            }
-                        }
-                    });
-                });
-            });
-
-            $(document).mouseup(function (e) {
-                if ($(e.target).closest("#sidebar").length === 0 && $(e.target).closest("#sidebar-toggle").length === 0 && $('#sidebar').hasClass('translate-x-0')) {
-                    toggleSideBar()
-                }
-            })
-
-            function toggleSideBar() {
-                $('#sidebar').toggleClass('translate-x-0');
-                $('#sidebar').toggleClass('-translate-x-full');
-                $('#sidebar').toggleClass('shadow-xl');
-            }
-        </Script>
+       
     </div>
 </template>
-
 <script>
 import { generatetoken } from '~~/mixins/auth'
 import { createUser } from '~/mixins/user.js'
@@ -100,6 +68,37 @@ export default {
     mounted() {
         this.userInfos = JSON.parse(window.localStorage.getItem("user"))
         console.log(this.userInfos)
+
+        $(document).ready(function () {
+            console.log('SideBar.js loaded');
+            $('#sidebar').css('transition', 'all 200ms');
+
+            $('#sidebar-toggle').click(function (event) {
+                toggleSideBar()
+
+                $("#sidebar").swipe({
+                    swipeStatus:function(event, phase, direction, distance, duration, fingers)
+                    {
+                        if (phase=="move" && direction =="left") {
+                            toggleSideBar()
+                        return false;
+                        }
+                    }
+                });
+            });
+        });
+
+        $(document).mouseup(function (e) {
+            if ($(e.target).closest("#sidebar").length === 0 && $(e.target).closest("#sidebar-toggle").length === 0 && $('#sidebar').hasClass('translate-x-0')) {
+                toggleSideBar()
+            }
+        })
+
+        function toggleSideBar() {
+            $('#sidebar').toggleClass('translate-x-0');
+            $('#sidebar').toggleClass('-translate-x-full');
+            $('#sidebar').toggleClass('shadow-xl');
+        }
     },
 }
 </script>

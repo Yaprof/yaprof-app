@@ -41,36 +41,6 @@
                 </div>
             </div>
         </div>
-
-        <Script>
-            $(document).ready(function () {
-                console.log('PopupCreator.js loaded')
-                $('#popup_creator').css('transition', 'all 250ms');
-
-                $('#popup_creator_toggler').click(function (event) {
-                    togglePopupCreator()
-
-                    $("#popup_creator").swipe({
-                        swipeStatus:function(event, phase, direction, distance, duration, fingers)
-                        {
-                            if (phase=="move" && direction == "down") {
-                                togglePopupCreator()
-                            return false;
-                            }
-                        }
-                    });
-                });
-            });
-
-            function togglePopupCreator() {
-                $('#popup_creator_parent').toggleClass('z-[-1]');
-
-                $('#popup_creator').toggleClass('translate-y-full');
-                $('#popup_creator').toggleClass('z-50');
-            }
-
-
-        </Script>
     </div>
 </template>
 
@@ -159,6 +129,33 @@ export default {
             if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             return
         })
+
+        $(document).ready(function () {
+            console.log('PopupCreator.js loaded')
+            $('#popup_creator').css('transition', 'all 250ms');
+
+            $('#popup_creator_toggler').click(function (event) {
+                togglePopupCreator()
+
+                $("#popup_creator").swipe({
+                    swipeStatus:function(event, phase, direction, distance, duration, fingers)
+                    {
+                        if (phase=="move" && direction == "down") {
+                            togglePopupCreator()
+                        return false;
+                        }
+                    }
+                });
+            });
+        });
+
+        function togglePopupCreator() {
+            $('#popup_creator_parent').toggleClass('z-[-1]');
+
+            $('#popup_creator').toggleClass('translate-y-full');
+            $('#popup_creator').toggleClass('z-50');
+        }
+    
     },
 
 }

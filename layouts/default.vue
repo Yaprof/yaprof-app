@@ -2,19 +2,16 @@
   <div>
     <NavBar />
     <SideBar />
-    <main class="pt-20 px-5 py-10 h-full">
+    <div class="pt-20 px-5 py-10 h-full">
         <slot />
-    </main>
-    
+    </div>
   </div>
 </template>
 
-<script>
+<!-- <script>
 export default {
-  layout: 'main',
-  // OR
   layout (context) {
     return 'main'
   }
 }
-</script>
+</script> -->

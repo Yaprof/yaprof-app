@@ -3,7 +3,6 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineNuxtConfig({
     modules: ['@nuxtjs/color-mode', '@vite-pwa/nuxt'],
     app: {
-        pageTransition: { name: 'page', mode: 'out-in' },
         head: {
             title: "Yaprof",
             htmlAttrs: {

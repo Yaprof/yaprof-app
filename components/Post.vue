@@ -65,7 +65,6 @@ export default {
                 .then(async (response) => {
                     if (response?.error) return
                     this.data.likes = parseInt(response.likedBy?.length) - parseInt(response.dislikedBy?.length)
-                    console.log(this.data.likes)
                     if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
                         likeButton?.classList.add('!text-emerald-500')
                         likesCounter?.classList.add('!text-emerald-500')

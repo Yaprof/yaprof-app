@@ -69,8 +69,11 @@ export default {
                 let new_token = await this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
                 console.log(new_token)
                 if (new_token) {
-                    await this.getInfos()
-                    window.location.reload()
+                    await this.getInfos().then(e => {
+                        window.location.reload()
+                    }).catch(e => {
+                        return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                    })
                 }
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             }).catch(error => {
@@ -248,8 +251,8 @@ export default {
                 }
             })
         },
-        getInfos: function () {
-            fetch(this.$config.PRONOTE_API_URL + "/user?token="+window.localStorage.getItem("token"), {
+        getInfos: async function () {
+            await fetch(this.$config.PRONOTE_API_URL + "/user?token="+window.localStorage.getItem("token"), {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json',

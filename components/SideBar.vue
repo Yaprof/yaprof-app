@@ -7,7 +7,7 @@
                 <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile.pp" />
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
                 <div class="flex items-center gap-2 opacity-70">
-                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.clas }}</p>
+                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
                     <p class="text-md text-white z-50">-</p>
                     <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
                 </div>

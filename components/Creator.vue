@@ -1,12 +1,13 @@
 <template>
     <div>
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <div id="popup_creator_toggler" class="fixed bottom-5 right-5 rounded-full w-14 h-14 flex items-center justify-center drop-shadow-lg bg-primaryhover dark:bg-primary text-dark dark:text-white active:scale-95 active:brightness-105 transition-all cursor-pointer z-50">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
+        <div id="popup_creator_toggler" class="fixed bottom-0 right-0 p-5">
+            <div class="rounded-full w-14 h-14 flex items-center justify-center drop-shadow-lg bg-primaryhover dark:bg-primary text-dark dark:text-white active:scale-95 active:brightness-105 transition-all cursor-pointer z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </div>
         </div>
-
         <div id="popup_creator_parent" class="absolute top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1]">
             <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998]">
                 <div class="w-full flex items-center justify-between">

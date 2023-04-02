@@ -116,16 +116,16 @@ export default {
         }).then(response => response.json())
         .then(async (response) => {
             if (response == "notfound" || response == "expired") {
-                return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent")).catch(e => {
-                    return this.errors.push({message: "Impossible de se connecter", color: "danger"})
-                })
+                let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                return
             }
             this.profs = response
         })
         .catch(async e => {
-            return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent")).catch(e => {
-                return this.errors.push({message: "Impossible de se connecter", color: "danger"})
-            })
+            let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+            if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+            return
         })
     },
 

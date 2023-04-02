@@ -66,9 +66,8 @@ export default {
                 let etab = response.data.url.split(".")[1].replace('-', '_')
                 let ent_url = form.querySelector('#input_ent').dataset.url
                 let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
-                this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab).catch(e => {
-                    return this.errors.push({message: "Impossible de se connecter", color: "danger"})
-                })
+                let new_token = this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
+                if (!new_token) return this.errors.push({message: "Impossible de se connecter", color: "danger"})
             }).catch(error => {
                 this.errors.push({ message: "Informations incorrectes", color: "danger" })
                 e.classList.toggle('hidden')

@@ -12,16 +12,16 @@ export function generatetoken(url, username, password, etab) {
             "ent": etab
         })
     }).then(response => response.json())
-        .then(response => {
-            if (response.token == false) return response
-            window?.localStorage.setItem('token', response.token)
-            window?.localStorage.setItem('url', url)
-            window?.localStorage.setItem('username', username)
-            window?.localStorage.setItem('password', password)
-            window?.localStorage.setItem('ent', etab)
-            if(window.location.pathname == "/auth/login") window.location.replace('/')
-            return true
-        })
-        .catch(error => console.log(error))
+    .then(response => {
+        if (response.token == false) return response
+        window?.localStorage.setItem('token', response.token)
+        window?.localStorage.setItem('url', url)
+        window?.localStorage.setItem('username', username)
+        window?.localStorage.setItem('password', password)
+        window?.localStorage.setItem('ent', etab)
+        if(window.location.pathname == "/auth/login") window.location.replace('/')
+        return true
+    })
+    .catch(error => { console.log(error);  return false; })
     return true
 }

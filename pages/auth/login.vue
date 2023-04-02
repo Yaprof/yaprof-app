@@ -1,5 +1,6 @@
 <template>
     <div class="h-screen w-screen flex flex-col items-center py-20 justify-between">
+        <Toast v-for="error in this.errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full flex flex-col items-center">
             <img class="w-44" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Logo-pronote.png/800px-Logo-pronote.png" />
             <div id="form_login" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">
@@ -20,8 +21,8 @@
                     <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
                     <input id="input_password" type="password" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
                 </div>
-                <button v-if="!this?.loading" @click="login()" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
-                <button v-if="this?.loading" class="mt-5 w-full rounded-xl bg-primary brightness-90 py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center">Chargement...</button>
+                <button @click="login($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
+                <button id="loading-button" class="mt-5 w-full rounded-xl bg-primary brightness-90 py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>
         <p class="text-lg text-dark dark:text-white">Pas de compte ? <a href="#" class="text-primary">Contactez-nous</a></p>
@@ -48,24 +49,32 @@ export default {
             ents: [],
             position: null,
             etabs: [],
+            errors: [],
             generatetoken: generatetoken,
             createUser: createUser,
             loading: false
         }
     },
     methods: {
-        login: function () {
-            this.loading = true;
+        login: function (e) {
+            let loadingButton = this.$el.querySelector('#loading-button')
+            e.classList.toggle('hidden')
+            loadingButton.classList.toggle('hidden')
             let form = this.$el.querySelector('#form_login')
             axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(form.querySelector('#input_ent').dataset.url)}`)
-                .then(async(response) => {
-                    let etab = response.data.url.split(".")[1].replace('-', '_')
-                    let ent_url = form.querySelector('#input_ent').dataset.url
-                    let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
-                    this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
-                }).catch(e => {
-                    return console.log(e)
+            .then(async(response) => {
+                let etab = response.data.url.split(".")[1].replace('-', '_')
+                let ent_url = form.querySelector('#input_ent').dataset.url
+                let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
+                this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab).catch(e => {
+                    return this.errors.push({message: "Impossible de se connecter", color: "danger"})
                 })
+            }).catch(error => {
+                this.errors.push({ message: "Informations incorrectes", color: "danger" })
+                e.classList.toggle('hidden')
+                loadingButton.classList.toggle('hidden')
+                return console.log(e)
+            })
 
         },
         searchEnt: function (e) {
@@ -103,7 +112,7 @@ export default {
                 return String.fromCharCode(num);
             });
         },
-        async GetLocation(navigator) {
+        GetLocation(navigator) {
             if(navigator.geolocation){
                 navigator.geolocation.getCurrentPosition(position => {
                     let coordinates = position.coords;

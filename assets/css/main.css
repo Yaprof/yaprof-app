@@ -17,3 +17,15 @@ body {
         background-color: #1f2937;
     }
 }
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+    transition: all 0.2s;
+}
+.slide-down-enter-from{
+    transform: translateY(-1rem);
+}
+.slide-down-leave-to {
+    opacity: 0;
+    transform: translateY(0);
+}

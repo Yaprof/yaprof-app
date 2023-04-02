@@ -5,7 +5,6 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
         </div>
-        <button class="p-2 bg-primary text-white rounded-full" id="buttonInstall">Installer</button>
         <div class="flex text-dark dark:text-white items-center gap-3">
             <div class="flex bg-primary bg-opacity-10 rounded-full py-2 pl-4 pr-2 items-center gap-1">
                 <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>

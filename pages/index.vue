@@ -1,5 +1,6 @@
 <template>
     <NuxtLayout name="main">
+        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <Creator />
         <div class="w-full flex items-center justify-evenly">
             <div class="py-3 flex items-center justify-center flex-col gap-2">
@@ -26,9 +27,12 @@ definePageMeta({
 <script>
 export default {
     layout: 'main',
-    data: () => ({
-        absences: [],
-    }),
+    data() {
+        return {
+            absences: [],
+            errors: [],
+        }
+    },
      methods: {
         getDbFeed: function () {
             fetch(this.$config.API_URL + "/feed", {
@@ -38,12 +42,13 @@ export default {
                     'Content-Type': 'application/json',
                 },
             }).then(response => response.json())
-                .then(async (response) => {
-                    this.absences = response
-                })
-                .catch(async e => {
-                    return
-                })
+            .then(async (response) => {
+                this.absences = response
+            }).catch(e => {
+                console.log(this.errors)
+                this.errors.push({message: "Impossible de charger le feed", color: "danger"})
+                return
+            })
         },
     },
     mounted() {

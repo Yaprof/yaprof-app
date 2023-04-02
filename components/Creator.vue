@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast v-for="error in this.errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div id="popup_creator_toggler" class="fixed bottom-5 right-5 rounded-full w-14 h-14 flex items-center justify-center drop-shadow-lg bg-primaryhover text-dark dark:text-white active:scale-95 active:brightness-105 transition-all cursor-pointer z-50">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -53,7 +54,8 @@ export default {
             loading: false,
             prof_content: false,
             results: [],
-            profs: []
+            profs: [],
+            errors: [],
         }
     },
     methods: {
@@ -83,6 +85,7 @@ export default {
             })
             .catch(async e => {
                 this.loading = false
+                this.errors.push({message: "Impossible de créer le post", color: "danger"})
                 return
             })
 
@@ -95,7 +98,8 @@ export default {
         },
         selectOption: function (e, profName) {
             this.$el.querySelector('#input_prof').setAttribute("data-profname", profName)
-            this.$el.querySelector('#input_prof').value = e.innerHTML
+            if (this.$el.querySelector("#input_prof"))
+                this.$el.querySelector('#input_prof').value = e.innerHTML
             this.prof_content = false
         },
         closeProfSearch: function () {
@@ -112,12 +116,16 @@ export default {
         }).then(response => response.json())
         .then(async (response) => {
             if (response == "notfound" || response == "expired") {
-                return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent")).catch(e => {
+                    return this.errors.push({message: "Impossible de se connecter", color: "danger"})
+                })
             }
             this.profs = response
         })
         .catch(async e => {
-            return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+            return await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent")).catch(e => {
+                return this.errors.push({message: "Impossible de se connecter", color: "danger"})
+            })
         })
     },
 

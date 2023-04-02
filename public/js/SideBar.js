@@ -1,6 +1,6 @@
 $(document).ready(function () {
     console.log('SideBar.js loaded');
-    /* $('#sidebar').css('transition', 'all 250ms'); */
+    $('#sidebar').css('transition', 'all 200ms');
 
     $('#sidebar-toggle').click(function (event) {
         toggleSideBar()

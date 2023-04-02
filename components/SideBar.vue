@@ -1,5 +1,6 @@
 <template>
     <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[99]">
+        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden">
             <img class="absolute top-0 left-0 h-full w-full object-cover z-0 blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile_picture" />
             <div class="flex flex-col p-5">
@@ -57,7 +58,8 @@ export default {
         return {
             generatetoken: generatetoken,
             userInfos: {},
-            createUser:createUser
+            createUser: createUser,
+            errors: []
         }
     },
     methods: {

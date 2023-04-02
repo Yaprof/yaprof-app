@@ -1,5 +1,6 @@
 <template>
     <div class="flex flex-col gap-3">
+        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="flex items-center gap-2 pl-2">
             <img class="w-8 h-8 aspect-square object-cover object-center rounded-full shadow-md" :src="data.author?.profile?.pp" />
             <p class="text-dark dark:text-white text-md whitespace-nowrap truncate">{{ data.author?.name }}</p>
@@ -49,7 +50,7 @@ export default {
     props: ['data'],
     data() {
         return {
-
+            errors: []
         }
     },
     methods: {
@@ -63,7 +64,7 @@ export default {
                 method: "POST",
             }).then(response => response.json())
                 .then(async (response) => {
-                    if (response?.error) return
+                    if (response?.error) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                     this.data.likes = parseInt(response.likedBy?.length) - parseInt(response.dislikedBy?.length)
                     if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
                         likeButton?.classList.add('!text-emerald-500')
@@ -86,7 +87,7 @@ export default {
 
                 })
                 .catch(async e => {
-                    return
+                    return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                 })
         }
     },

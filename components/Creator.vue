@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Toast v-for="error in this.errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
+        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div id="popup_creator_toggler" class="fixed bottom-5 right-5 rounded-full w-14 h-14 flex items-center justify-center drop-shadow-lg bg-primaryhover text-dark dark:text-white active:scale-95 active:brightness-105 transition-all cursor-pointer z-50">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

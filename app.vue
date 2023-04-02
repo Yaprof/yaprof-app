@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ontouchstart=””>
     <NuxtLayout>
         <VitePwaManifest />
         <NuxtPage />

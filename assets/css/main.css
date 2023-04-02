@@ -7,6 +7,9 @@
 body {
     background-color: #fff;
     font-family: 'SF Pro Display', sans-serif;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 @media (prefers-color-scheme: dark) {

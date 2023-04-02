@@ -122,10 +122,6 @@ export default defineNuxtConfig({
             ],
             navigateFallback: '/',
         },
-        devOptions: {
-            enabled: true,
-            type: "module"
-        },
 
     }
 })

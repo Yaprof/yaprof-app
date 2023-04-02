@@ -1,5 +1,5 @@
-export function generatetoken(url, username, password, etab) {
-    fetch(this.$config.PRONOTE_API_URL + '/generatetoken', {
+export async function generatetoken(url, username, password, etab) {
+    await fetch(this.$config.PRONOTE_API_URL + '/generatetoken', {
         method: "POST",
         headers: {
             'Accept': 'application/json',

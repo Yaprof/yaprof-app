@@ -33,7 +33,7 @@ export default {
             errors: [],
         }
     },
-     methods: {
+    methods: {
         getDbFeed: function () {
             fetch(this.$config.API_URL + "/feed", {
                 method: "GET",
@@ -50,6 +50,7 @@ export default {
                 return
             })
         },
+        
     },
     mounted() {
         this.getDbFeed()

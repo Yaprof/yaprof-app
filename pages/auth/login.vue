@@ -66,8 +66,9 @@ export default {
                 let etab = response.data.url.split(".")[1].replace('-', '_')
                 let ent_url = form.querySelector('#input_ent').dataset.url
                 let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
-                let new_token = this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
-                if (!new_token) return this.errors.push({message: "Impossible de se connecter", color: "danger"})
+                let new_token = await this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
+                if (token) this.getInfos()
+                if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             }).catch(error => {
                 this.errors.push({ message: "Informations incorrectes", color: "danger" })
                 e.classList.toggle('hidden')
@@ -242,6 +243,28 @@ export default {
                 this.locationFailed = true;
                 }
             })
+        },
+        getInfos: function () {
+            fetch(this.$config.PRONOTE_API_URL + "/user?token="+window.localStorage.getItem("token"), {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            }).then(response => response.json())
+                .then(async (response) => {
+                    if (response == "notfound" || response == "expired") {
+                        let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                        if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                        return
+                    }
+                    this.createUser(response.name, response.profile_picture, response.class, response.establishment)
+                })
+                .catch(async e => {
+                    let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                    if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                    return
+                })
         },
 
     },

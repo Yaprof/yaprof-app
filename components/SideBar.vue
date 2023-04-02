@@ -2,12 +2,12 @@
     <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[99]">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden">
-            <img class="absolute top-0 left-0 h-full w-full object-cover z-0 blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile_picture" />
+            <img class="absolute top-0 left-0 h-full w-full object-cover z-0 blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile.pp" />
             <div class="flex flex-col p-5">
-                <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile_picture" />
+                <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile.pp" />
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
                 <div class="flex items-center gap-2 opacity-70">
-                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
+                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.clas }}</p>
                     <p class="text-md text-white z-50">-</p>
                     <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
                 </div>
@@ -57,38 +57,14 @@ export default {
     data() {
         return {
             generatetoken: generatetoken,
-            userInfos: {},
             createUser: createUser,
+            userInfos: {profile:{pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="}},
             errors: []
         }
     },
-    methods: {
-        getInfos: function () {
-            fetch(this.$config.PRONOTE_API_URL + "/user?token="+window.localStorage.getItem("token"), {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            }).then(response => response.json())
-                .then(async (response) => {
-                    if (response == "notfound" || response == "expired") {
-                        let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-                        if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                        return
-                    }
-                    this.createUser(response.name, response.profile_picture, response.class, response.establishment)
-                    this.userInfos = response
-                })
-                .catch(async e => {
-                    let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-                    if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                    return
-                })
-        },
-    },
     mounted() {
-        this.getInfos()
+        this.userInfos = JSON.parse(window.localStorage.getItem("user"))
+        console.log(this.userInfos)
     },
 }
 </script>

@@ -17,35 +17,15 @@
 </template>
 
 <script>
-import { generatetoken } from '~~/mixins/auth'
 export default {
     data() {
         return {
-            generatetoken: generatetoken,
-            userInfos: { profile: { pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" } },
+            userInfos: {profile:{pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="}},
             errors: []
         }
     },
-    methods: {
-        getDbInfos: function () {
-            /* if (window.localStorage.getItem("user")) return this.userInfos = JSON.parse(window.localStorage.getItem("user")) */
-            fetch(this.$config.API_URL + "/user/"+JSON.parse(window.localStorage.getItem("user"))?.id, {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            }).then(response => response.json())
-                .then(async (response) => {
-                    this.userInfos = response[0]
-                })
-                .catch(async e => {
-                    return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
-                })
-        },
-    },
     mounted() {
-        this.getDbInfos()
+        this.userInfos = JSON.parse(window.localStorage.getItem("user"))
     },
 }
 </script>

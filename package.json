@@ -6,7 +6,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "build-prod": "nuxt build --production && nuxt preview --production"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.2.0",

@@ -59,21 +59,6 @@ export default {
     mounted() {
         this.getDbFeed()
         let thos = this
-   /*      console.log( document.querySelector('body'))
-        $(window).scroll(function (e) {
-            console.log($(e.target).scrollTop())
-            if ($(e.target).scrollTop() === 0) {
-                console.log('top')
-                refresh()
-            }
-        }); */
-
-        window.addEventListener("scroll", function (e) {
-            if ($(e.target).scrollTop() === 0) {
-                thos.getDbFeed()
-            }
-        })
-
 
         const pStart = { x: 0, y: 0 };
         const pCurrent = { x: 0, y: 0 };

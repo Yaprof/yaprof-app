@@ -1,19 +1,21 @@
 <template>
-    <nav class="w-full fixed top-0 left-0 h-20 flex justify-between items-center bg-white dark:bg-dark bg-opacity-80 backdrop-blur-lg z-[1] !z-[99]">
+    <nav class="w-full fixed -top-[6rem] left-0 h-44 flex flex-col justify-end bg-white dark:bg-dark bg-opacity-80 backdrop-blur-lg z-[1] !z-[99]">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <div id="sidebar-toggle" class="flex text-dark dark:text-white gap-5 items-center cursor-pointer p-5">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-        </div>
-        <div class="flex text-dark dark:text-white items-center gap-3 p-5">
-            <div class="flex bg-primary bg-opacity-10 rounded-full py-2 pl-4 pr-2 items-center gap-1">
-                <ClientOnly>
-                    <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>
-                </ClientOnly>
-                <img src="~/assets/imgs/icons/coin.svg" class="w-6 h-6 object-cover object-center rounded-full" />
+        <div class="flex justify-between items-center h-20">
+            <div id="sidebar-toggle" class="flex text-dark dark:text-white gap-5 items-center cursor-pointer p-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
             </div>
-            <img :src="userInfos?.profile?.pp" class="w-10 h-10 object-cover object-center rounded-full shadow-md" />
+            <div class="flex text-dark dark:text-white items-center gap-3 p-5">
+                <div class="flex bg-primary bg-opacity-10 rounded-full py-2 pl-4 pr-2 items-center gap-1">
+                    <ClientOnly>
+                        <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>
+                    </ClientOnly>
+                    <img src="~/assets/imgs/icons/coin.svg" class="w-6 h-6 object-cover object-center rounded-full" />
+                </div>
+                <img :src="userInfos?.profile?.pp" class="w-10 h-10 object-cover object-center rounded-full shadow-md" />
+            </div>
         </div>
     </nav>
 </template>

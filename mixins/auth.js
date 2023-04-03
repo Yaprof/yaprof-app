@@ -49,7 +49,7 @@ export async function getInfos(config) {
                 if (!new_token) return false
                 return true
             }
-            console.log(urls.api)
+            console.log("createUser", urls.api, response.name, response.profile_picture, response.class, response.establishment)
             createUser(urls.api, response.name, response.profile_picture, response.class, response.establishment)
         })
         .catch(async e => {

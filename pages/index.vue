@@ -13,7 +13,7 @@
                     <div class="w-full px-1"><div class="bg-transparent opacity-40 w-full h-[3px] rounded-full"></div></div>
                 </div>
             </div>
-            <div class="pt-5 gap-8 flex flex-col overflow-y-scroll">
+            <div class="pt-5 gap-8 flex flex-col overflow-y-scroll pb-10">
                 <Post v-for="abs in absences" :key="abs" :data="abs"></Post>
             </div>
         </div>

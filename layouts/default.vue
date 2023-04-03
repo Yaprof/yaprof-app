@@ -9,7 +9,7 @@
             </svg>
         </div>
     </div>
-    <div class="px-5 pt-10 pb-10 mt-10 transition-all">
+    <div class="px-5 pt-10 pb-16 mt-10 transition-all">
         <slot />
     </div>
  

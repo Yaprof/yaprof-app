@@ -42,6 +42,11 @@ export default defineNuxtConfig({
                     type: "text/javascript",
                     src: "/js/pwa.js",
                     body: true,
+                },
+                {
+                    type: "text/javascript",
+                    src: "/js/taphold.js",
+                    body: true,
                 }
             ],
         },
@@ -63,8 +68,8 @@ export default defineNuxtConfig({
         public: {
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
-            API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr',
-            PRONOTE_API_URL: 'https://pronoteapi.yaprof.fr'//'https://pronoteapi.yaprof.fr',
+            API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr', // 'http://localhost:8080',
+            PRONOTE_API_URL: 'https://pronoteapi.yaprof.fr'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000',
         }
     },
     colorMode: {

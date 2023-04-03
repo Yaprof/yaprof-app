@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-10 flex items-center justify-center fixed top-5 left-0">
+    <div class="w-full h-10 flex items-center justify-center fixed top-5 left-0 z-[999]">
         <Transition name="slide-down" mode="out-in">
             <div class="w-[80%] h-10 rounded-xl text-white flex items-center px-5 justify-center text-center shadow-md" v-show="!loading" :style="'background-color:'+this.color">{{ data.message }}</div>
         </Transition>
@@ -33,7 +33,6 @@ export default {
                 this.color = '#10b981'
                 break;
         }
-        navigator.vibrate(200);
     }
 }
 </script>

@@ -18,6 +18,18 @@ body {
     }
 }
 
+.router-link-exact-active  {
+    background-color: #12d4a781 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .router-link-exact-active  {
+        background-color: #12d4a721 !important;
+    }
+}
+
+/* Transition slide down */
+
 .slide-down-enter-active,
 .slide-down-leave-active {
     transition: all 0.2s;
@@ -28,13 +40,4 @@ body {
 .slide-down-leave-to {
     opacity: 0;
     transform: translateY(0);
-}
-
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.2s;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0.5;
 }

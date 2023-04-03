@@ -1,16 +1,17 @@
 <template>
     <div>
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <div id="popup_creator_toggler" class="fixed bottom-5 right-5 rounded-full w-14 h-14 flex items-center justify-center drop-shadow-lg bg-primaryhover text-dark dark:text-white active:scale-95 active:brightness-105 transition-all cursor-pointer z-50">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
+        <div id="popup_creator_toggler" class="fixed bottom-0 right-0 p-5 pb-10 z-50">
+            <div class="rounded-full w-14 h-14 flex items-center justify-center drop-shadow-lg bg-primaryhover dark:bg-primary text-dark dark:text-white active:scale-95 active:brightness-105 transition-all cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </div>
         </div>
-
-        <div id="popup_creator_parent" class="absolute top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1]">
-            <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5">
+        <div id="popup_creator_parent" class="fixed top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1]">
+            <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998]">
                 <div class="w-full flex items-center justify-between">
-                    <div onclick="togglePopupCreator()" class="text-primary cursor-pointer text-lg">Annuler</div>
+                    <div @click="closePopupCreator()" class="text-primary cursor-pointer text-lg">Annuler</div>
                     <a class="text-dark dark:text-white cursor-pointer text-lg font-medium">Créer un post</a>
                     <div @click="submitPost()" class="text-primary cursor-pointer text-lg">Créer</div>
                 </div>
@@ -25,8 +26,8 @@
 
                         <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Nom du professeur" />
                         <div v-show="prof_content" class="absolute top-[calc(100%+5px)] left-0 rounded-b-xl bg-light dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99]">
-                            <div @click="selectOption($event.target, prof.name)" v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
-                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate">{{ prof.name }} ({{ prof.functions[0] }})</p>
+                            <div v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
+                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOption($event.target, prof.name)">{{ prof.name }} ({{ prof.functions[0] }})</p>
                             </div>
                         </div>
                     </div>
@@ -70,7 +71,7 @@ export default {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify( {
+                body: JSON.stringify({
                     content: form.querySelector('#input_reason').value,
                     authorId: JSON.parse(window.localStorage.getItem("user"))?.id,
                     pointer: {
@@ -81,14 +82,13 @@ export default {
             }).then(response => response.json())
             .then(async (response) => {
                 this.loading = false;
-                togglePopupCreator()
+                this.closePopupCreator()
                 window.location.reload()
                 this.profs = response
             })
             .catch(async e => {
                 this.loading = false
-                this.errors.push({message: "Impossible de créer le post", color: "danger"})
-                return
+                return this.errors.push({ message: "Impossible de créer le post", color: "danger" })
             })
 
         },
@@ -96,7 +96,7 @@ export default {
             this.prof_content = true
             let content = e.parentElement.querySelector('#prof_content')
             this.results = this.profs.filter(s => s.name.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10)
-            if (this.results.length < 1) this.results = [{name:"Aucun résultat", functions:["Aucun"]}]
+            if (this.results.length < 1) this.results = [{ name: "Aucun résultat", functions: ["Aucun"] }]
         },
         selectOption: function (e, profName) {
             this.$el.querySelector('#input_prof').setAttribute("data-profname", profName)
@@ -107,28 +107,38 @@ export default {
         closeProfSearch: function () {
             this.prof_content = false
         },
+        closePopupCreator: function () {
+            console.log(this.$el.querySelector('#popup_creator_parent'))
+            this.$el.querySelector('#popup_creator').classList.remove('z-50')
+            this.$el.querySelector('#popup_creator').classList.add('translate-y-full')
+            setTimeout(e => {
+                this.$el.querySelector('#popup_creator_parent').classList.remove('!z-[99]');
+                this.$el.querySelector('html').classList.remove('overflow-hidden')
+                this.$el.querySelector('body').classList.remove('overflow-hidden')
+            }, 250)
+        }
     },
     mounted() {
-        fetch(this.$config.PRONOTE_API_URL + '/recipients?token='+window.localStorage.getItem("token"), {
+        fetch(this.$config.PRONOTE_API_URL + '/recipients?token=' + window.localStorage.getItem("token"), {
             method: "GET",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
         }).then(response => response.json())
-        .then(async (response) => {
-            if (response == "notfound" || response == "expired") {
+            .then(async (response) => {
+                if (response == "notfound" || response == "expired") {
+                    let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                    if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                    return
+                }
+                this.profs = response
+            })
+            .catch(async e => {
                 let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                 return
-            }
-            this.profs = response
-        })
-        .catch(async e => {
-            let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-            if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-            return
-        })
+            })
 
         $(document).ready(function () {
             console.log('PopupCreator.js loaded')
@@ -138,11 +148,10 @@ export default {
                 togglePopupCreator()
 
                 $("#popup_creator").swipe({
-                    swipeStatus:function(event, phase, direction, distance, duration, fingers)
-                    {
-                        if (phase=="move" && direction == "down") {
+                    swipeStatus: function (event, phase, direction, distance, duration, fingers) {
+                        if (phase == "move" && direction == "down") {
                             togglePopupCreator()
-                        return false;
+                            return false;
                         }
                     }
                 });
@@ -150,12 +159,20 @@ export default {
         });
 
         function togglePopupCreator() {
-            $('#popup_creator_parent').toggleClass('z-[-1]');
-
-            $('#popup_creator').toggleClass('translate-y-full');
             $('#popup_creator').toggleClass('z-50');
+            $('#popup_creator').toggleClass('translate-y-full');
+            if ($('#popup_creator_parent').hasClass('!z-[99]'))
+                setTimeout(e => {
+                    $('html').removeClass('overflow-hidden')
+                    $('body').removeClass('overflow-hidden')
+                    $('#popup_creator_parent').removeClass('!z-[99]');
+                }, 250)
+            else {
+                $('html').addClass('overflow-hidden')
+                $('body').addClass('overflow-hidden')
+                $('#popup_creator_parent').addClass('!z-[99]');
+            }
         }
-    
     },
 
 }

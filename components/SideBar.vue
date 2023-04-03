@@ -1,8 +1,8 @@
 <template>
-    <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[99]">
+    <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[98] pb-5">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden">
-            <img class="absolute top-0 left-0 h-full w-full object-cover z-0 blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile.pp" />
+            <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile.pp" />
             <div class="flex flex-col p-5">
                 <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile.pp" />
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="flex flex-col p-5 h-full justify-start items-center w-full mt-5 gap-3">
-            <NuxtLink to="/" class="flex items-center gap-3.5 w-full px-5 py-2 bg-primary bg-opacity-30 dark:bg-opacity-20 rounded-full cursor-pointer group">
+            <NuxtLink to="/" class="flex items-center gap-3.5 w-full px-5 py-2 bg-opacity-30 dark:bg-opacity-20 rounded-full cursor-pointer group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-95">
                     <path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z" />
                 </svg>
@@ -49,8 +49,6 @@
                 <p class="text-md text-neutral-600 dark:text-neutral-300 z-50 font-medium">Version: v1_beta</p>
             </div>
         </div>
-
-       
     </div>
 </template>
 <script>
@@ -74,7 +72,6 @@ export default {
             $('#sidebar').css('transition', 'all 200ms');
 
             $('#sidebar-toggle').click(function (event) {
-                console.log("sidebar-toggle", $('#sidebar-toggle'))
                 toggleSideBar()
 
                 $("#sidebar").swipe({
@@ -96,7 +93,8 @@ export default {
         })
 
         function toggleSideBar() {
-            console.log('toggle sidbar', $('#sidebar'))
+            if ($('nav').hasClass('!z-[99]')) $('nav').removeClass('!z-[99]')
+            else setTimeout(function () { $('nav').addClass('!z-[99]') },200)
             $('#sidebar').toggleClass('translate-x-0');
             $('#sidebar').toggleClass('-translate-x-full');
             $('#sidebar').toggleClass('shadow-xl');

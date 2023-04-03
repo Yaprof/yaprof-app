@@ -41,9 +41,9 @@
                 </div>
             </div>
         </div>
-        <div v-if="data.author.id == user.id || [50, 99].includes(user.role)" id="popup_info" class="bg-light dark:bg-secondary p-5 fixed bottom-0 left-0 w-full rounded-xl flex flex-col translate-y-full text-dark dark:text-white">
-            <div @click="deletePost(data.id)" class="flex items-center justify-center gap-2 text-red-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <div v-if="data.author.id == user.id || [50, 99].includes(user.role)" id="popup_info" class="bg-light dark:bg-secondary p-5 pb-14 fixed bottom-0 left-0 w-full rounded-xl flex flex-col translate-y-full text-dark dark:text-white" v-click-outside="closePopupInfos">
+            <div @click="deletePost(data.id)" class="flex items-center justify-center gap-2 text-red-500 group cursor-pointer active:text-red-400">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-active:scale-95">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                 </svg>
                 <p>Supprimer</p>
@@ -110,11 +110,11 @@ export default {
         },
         closePopupInfos: function () {
             if (!this.$el.querySelector('#popup_info')) return
+            if (this.$el.querySelector('#popup_info').classList.contains('translate-y-full')) return
             console.log(this.$el.querySelector('#popup_info'))
             this.$el.querySelector('#popup_info').classList.remove('z-50');
             this.$el.querySelector('#popup_info').classList.add('translate-y-full');
             setTimeout(e => {
-                console.log("timeout")
                 this.$el.querySelector('html').classList.remove('overflow-hidden')
                 this.$el.querySelector('body').classList.remove('overflow-hidden')
             }, 250)
@@ -139,23 +139,25 @@ export default {
             likesCounter?.classList.add('!text-red-500')
         }
 
-        let hovering = false
+        let timeoutId = 0
 
         $(document).ready(function () {
             console.log('creator pupup.js loaded')
-            $('#popup_info').css('transition', 'all 250ms');
+            $('#popup_info').css('transition', 'all 150ms');
 
-            $('#container_info').on('mouseenter', function () {
-                console.log("mouseneter")
-                hovering = true;
-                setTimeout(() =>{ if (hovering) togglePopupInfo() }, 2000);
+          /*   $('#container_info').on('taphold', function () {
+                console.log("taphold")
+                const timeoutId = setTimeout(() => { togglePopupInfo() }, 500);
+                console.log(this.timeoutId)
+            }).on('mouseup mouseleave', function () {
+                console.log('clear')
+                clearTimeout(this.timeoutId);
+            }); */
+
+            $('#container_info').on('taphold', function () {
+                togglePopupInfo();
             })
 
-            $('#container_info').on('mouseleave', function () {
-                hovering = false;
-                console.log("mouseleave")
-                togglePopupInfo()
-            })
             $("#popup_info").swipe({
                 swipeStatus: function (event, phase, direction, distance, duration, fingers) {
                     if (phase == "move" && direction == "down") {
@@ -167,13 +169,14 @@ export default {
         });
 
         function togglePopupInfo() {
+            console.log("toggle popup")
             $('#popup_info').toggleClass('z-50');
             $('#popup_info').toggleClass('translate-y-full');
             if ($('#popup_info').hasClass('z-50'))
-                setTimeout(e => {
+                setTimeout(() => {
                     $('html').removeClass('overflow-hidden')
                     $('body').removeClass('overflow-hidden')
-                }, 250)
+                }, 150)
             else {
                 try {
                     navigator.vibrate(300);

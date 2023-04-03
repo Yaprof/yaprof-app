@@ -84,13 +84,13 @@ export default {
         async function loading() {
             if (isLoading) return
             isLoading = true;
-            main.style.transform = `translateY(0px)`;
-            container_div.style.transform = `translateY(100px)`;
+/*             main.style.transform = `translateY(0px)`;
+            container_div.style.transform = `translateY(100px)`; */
             let infos = await thos.getDbFeed()
             if (infos) {
                 setTimeout(function () {
-                    main.style.transform = `translateY(-100px)`;
-                    container_div.style.transform = `translateY(0)`;
+/*                     main.style.transform = `translateY(-100px)`;
+                    container_div.style.transform = `translateY(0)`; */
                     isLoading = false;
                     window.scrollTo(0, 0);
                 }, 300);

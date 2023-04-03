@@ -109,7 +109,6 @@ export default {
             this.prof_content = false
         },
         closePopupCreator: function () {
-            console.log(this.$el.querySelector('#popup_creator_parent'))
             this.$el.querySelector('#popup_creator').classList.remove('z-50')
             this.$el.querySelector('#popup_creator').classList.add('translate-y-full')
             setTimeout(e => {

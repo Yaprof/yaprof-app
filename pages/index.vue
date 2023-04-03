@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="pt-5 gap-8 flex flex-col overflow-y-scroll pb-10">
-                <Post v-for="abs in absences" :key="abs" :data="abs"></Post>
+                <Post :user="user" v-for="abs in absences" :key="abs" :data="abs"></Post>
             </div>
         </div>
     </NuxtLayout>
@@ -27,12 +27,14 @@ definePageMeta({
 </script>
 
 <script>
+import {getUser} from '../mixins/user.js'
 export default {
-/*     layout: 'main', */
     data() {
         return {
             absences: [],
             errors: [],
+            getUser: getUser,
+            config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }
     },
     methods: {
@@ -47,7 +49,6 @@ export default {
             const absences = await response.json();
             if (absences) this.absences = absences
             else this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
-            console.log(JSON.parse(window.localStorage.getItem('user')).establishment)
             return absences
         },
         handleScroll(e) {
@@ -57,7 +58,10 @@ export default {
             }
         }
     },
-    mounted() {
+    async mounted() {
+         let config = this.config
+        this.user = await this.getUser(config.api, JSON.parse(window.localStorage.getItem('user')).id);
+        console.log(this.user, JSON.parse(window.localStorage.getItem('user')).id)
         this.getDbFeed()
         let thos = this
 

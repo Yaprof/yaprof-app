@@ -12,14 +12,21 @@
     <div class="px-5 pt-10 pb-16 mt-10 transition-all">
         <slot />
     </div>
- 
   </div>
 </template>
 
-<!-- <script>
+<script>
+
 export default {
-  layout (context) {
-    return 'main'
-  }
+    data() {
+        return {
+            user: {},
+            
+        }
+    },
+    async mounted() {
+        let config = this.config
+        
+    }
 }
-</script> -->
+</script>

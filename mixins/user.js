@@ -1,6 +1,5 @@
 
 export function createUser(config, name, pp, clas, etab) {
-    console.log(config)
     fetch(config + '/user/create', {
         method: "POST",
         headers: {
@@ -25,4 +24,20 @@ export function createUser(config, name, pp, clas, etab) {
         .catch(error => console.log(error))
     return true
 
+}
+
+export async function getUser(config, userId) {
+    let request = await fetch(config + '/user/'+userId, {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    let response = await request.json()
+    response = response[0] ?? response
+    if (response?.name) {
+        window.localStorage.setItem('user', JSON.stringify(response))
+    } else return false
+    return response
 }

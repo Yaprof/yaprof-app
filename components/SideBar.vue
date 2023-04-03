@@ -93,8 +93,8 @@ export default {
         })
 
         function toggleSideBar() {
-            if ($('nav').hasClass('z-[99]')) $('nav').removeClass('z-[99]')
-            else setTimeout(function () { $('nav').addClass('z-[99]') },200)
+            if ($('nav').hasClass('!z-[99]')) $('nav').removeClass('!z-[99]')
+            else setTimeout(function () { $('nav').addClass('!z-[99]') },200)
             $('#sidebar').toggleClass('translate-x-0');
             $('#sidebar').toggleClass('-translate-x-full');
             $('#sidebar').toggleClass('shadow-xl');

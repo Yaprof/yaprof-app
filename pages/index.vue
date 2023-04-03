@@ -92,7 +92,10 @@ export default {
 /*                     main.style.transform = `translateY(-100px)`;
                     container_div.style.transform = `translateY(0)`; */
                     isLoading = false;
-                    window.scrollTo(0, 0);
+                    try {
+                        navigator.vibrate(300)
+                    } catch (e) { return }
+                    /* window.scrollTo(0, 0); */
                 }, 300);
             }else
                 return this.errors.push({ message: "Impossible de charger le feed", color: "danger" })

@@ -41,7 +41,7 @@
 <script>
 import axios from 'axios';
 
-import { generatetoken } from '~/mixins/auth.js'
+import { generatetoken, getInfos } from '~/mixins/auth.js'
 import { createUser } from '~/mixins/user.js'
 export default {
     data() {
@@ -54,11 +54,14 @@ export default {
             errors: [],
             generatetoken: generatetoken,
             createUser: createUser,
-            loading: false
+            getInfos: getInfos,
+            loading: false,
+            config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }
     },
     methods: {
         login: function (e) {
+            let config = this.config
             let loadingButton = this.$el.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
@@ -68,9 +71,9 @@ export default {
                 let etab = response.data.url.split(".")[1].replace('-', '_')
                 let ent_url = form.querySelector('#input_ent').dataset.url
                 let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
-                let new_token = await this.generatetoken(url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
+                let new_token = await this.generatetoken(config, url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
                 console.log(new_token)
-                if (new_token) await this.getInfos()
+                if (new_token) await this.getInfos(config)
 
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             }).catch(error => {
@@ -247,31 +250,7 @@ export default {
                 this.locationFailed = true;
                 }
             })
-        },
-        getInfos: async function () {
-            await fetch(this.$config.PRONOTE_API_URL + "/user?token="+window.localStorage.getItem("token"), {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            }).then(response => response.json())
-                .then(async (response) => {
-                    console.log(response)
-                    if (response == "notfound" || response == "expired") {
-                        let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-                        if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                        return
-                    }
-                    this.createUser(response.name, response.profile_picture, response.class, response.establishment)
-                })
-                .catch(async e => {
-                    console.log(e)
-                    let new_token = this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-                    if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                    return
-                })
-        },
+        }
 
     },
     async mounted() {

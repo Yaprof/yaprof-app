@@ -1,6 +1,7 @@
 
-export function createUser(name, pp, clas, etab) {
-    fetch(this.$config.API_URL + '/user/create', {
+export function createUser(config, name, pp, clas, etab) {
+    console.log(config)
+    fetch(config + '/user/create', {
         method: "POST",
         headers: {
             'Accept': 'application/json',

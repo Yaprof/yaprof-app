@@ -128,14 +128,14 @@ export default {
         }).then(response => response.json())
             .then(async (response) => {
                 if (response == "notfound" || response == "expired") {
-                    let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                    let new_token = await this.generatetoken(this.$config.PRONOTE_API_URL, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                     if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                     return
                 }
                 this.profs = response
             })
             .catch(async e => {
-                let new_token = await this.generatetoken(window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                let new_token = await this.generatetoken(this.$config.PRONOTE_API_URL, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                 return
             })

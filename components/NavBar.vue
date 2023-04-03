@@ -1,5 +1,5 @@
 <template>
-    <nav class="w-full fixed -top-[6rem] left-0 h-44 flex flex-col justify-end bg-white dark:bg-dark bg-opacity-80 backdrop-blur-3xl z-[1] !z-[99]">
+    <nav class="w-full fixed -top-[6rem] left-0 h-44 flex flex-col justify-end bg-white dark:bg-dark z-[1] !z-[99]">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="flex justify-between items-center h-20">
             <div id="sidebar-toggle" class="flex text-dark dark:text-white gap-5 items-center cursor-pointer p-5">

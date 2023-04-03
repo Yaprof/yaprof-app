@@ -17,7 +17,8 @@ export async function generatetoken(config, url, username, password, etab) {
         })
     }).then(response => response.json())
         .then(response => {
-        if (response.token == false) return response
+            if (response.token == false) return response
+            console.log(response);
         window?.localStorage.setItem('token', response.token)
         window?.localStorage.setItem('url', url)
         window?.localStorage.setItem('username', username)

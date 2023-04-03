@@ -58,12 +58,14 @@ export default {
             results: [],
             profs: [],
             errors: [],
-            generatetoken: generatetoken
+            generatetoken: generatetoken,
+            config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }
     },
     methods: {
         submitPost: function () {
             this.loading = true;
+            this.closePopupCreator()
             let form = this.$el.querySelector('#form_post')
             fetch(this.$config.API_URL + '/post', {
                 method: "POST",
@@ -73,7 +75,7 @@ export default {
                 },
                 body: JSON.stringify({
                     content: form.querySelector('#input_reason').value,
-                    authorId: JSON.parse(window.localStorage.getItem("user"))?.id,
+                    user: JSON.parse(window.localStorage.getItem("user")),
                     pointer: {
                         name: form.querySelector('#input_prof').dataset.profname,
                         subject: form.querySelector('#input_prof').value.split('(')[1].replace(')', "")
@@ -82,7 +84,6 @@ export default {
             }).then(response => response.json())
             .then(async (response) => {
                 this.loading = false;
-                this.closePopupCreator()
                 window.location.reload()
                 this.profs = response
             })
@@ -128,14 +129,14 @@ export default {
         }).then(response => response.json())
             .then(async (response) => {
                 if (response == "notfound" || response == "expired") {
-                    let new_token = await this.generatetoken(this.$config.PRONOTE_API_URL, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                    let new_token = await this.generatetoken(config, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                     if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                     return
                 }
                 this.profs = response
             })
             .catch(async e => {
-                let new_token = await this.generatetoken(this.$config.PRONOTE_API_URL, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
+                let new_token = await this.generatetoken(config, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                 if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                 return
             })

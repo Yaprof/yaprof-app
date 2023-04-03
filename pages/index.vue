@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         getDbFeed: async function () {
-            let response = await fetch(this.$config.API_URL + "/feed", {
+            let response = await fetch(this.$config.API_URL + "/feed/"+JSON.parse(window.localStorage.getItem('user'))?.id, {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json',
@@ -46,7 +46,8 @@ export default {
             })
             const absences = await response.json();
             if (absences) this.absences = absences
-            else this.errors.push({message: "Impossible de charger le feed", color: "danger"})
+            else this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
+            console.log(JSON.parse(window.localStorage.getItem('user')).establishment)
             return absences
         },
         handleScroll(e) {

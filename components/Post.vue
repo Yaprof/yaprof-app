@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-3 relative" @mouseover="hover" @mouseleave="unhover">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="flex items-center gap-2 pl-2">
             <img class="w-8 h-8 aspect-square object-cover object-center rounded-full shadow-md" :src="data.author?.profile?.pp" />
@@ -11,8 +11,7 @@
 
             </div>
         </div>
-        <div class="flex flex-col shadow-md
-         rounded-xl overflow-hidden">
+        <div class="flex flex-col shadow-md rounded-xl overflow-hidden">
             <div class="bg-opacity-40 py-3 px-6 flex items-center justify-between gap-2" :style="'background: '+(data.pointer?.color+'40')">
                 <div class="flex items-center gap-2">
                     <svg class="w-6 h-6 text-dark dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -31,7 +30,6 @@
                     <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
                 </svg>
 
-
                 <div class="flex items-center gap-2">
                     <svg id="dislike_button" @click="likeorDislikePost('dislike', data.id)" class="w-8 h-8 text-neutral-500 rotate-180 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -40,6 +38,14 @@
                     <svg id="like_button" @click="likeorDislikePost('like', data.id)" class="w-8 h-8 text-neutral-500 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
+                </div>
+                <div id="popup_info" class="bg-light dark:bg-secondary p-5 absolute top-[100%] left-0 w-full rounded-xl flex flex-col translate-y-full">
+                    <div class="flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-dark dark:text-white">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                        <p>Supprimer</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +95,7 @@ export default {
                 .catch(async e => {
                     return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                 })
-        }
+        },
     },
     mounted() {
         this.data.likes = parseInt(this.data.likedBy?.length) - parseInt(this.data.dislikedBy?.length)
@@ -108,6 +114,47 @@ export default {
             likesCounter?.classList.remove('!text-emerald-500')
             dislikeButton?.classList.add('!text-red-500')
             likesCounter?.classList.add('!text-red-500')
+        }
+
+        let show_popup = false
+        let hovering = false
+
+        $(document).ready(function () {
+            console.log('creator pupup.js loaded')
+            $('#popup_info').css('transition', 'all 250ms');
+
+            $('#popup_info').mouseover(function () {
+                hovering = true;
+                setTimeout(() =>{ if (hovering) togglePopupInfo() }, 1000);
+            })
+
+            $('#popup_info').mouseleave(function () {
+                hovering = false;
+                togglePopupInfo()
+            })
+            $("#popup_info").swipe({
+                swipeStatus: function (event, phase, direction, distance, duration, fingers) {
+                    if (phase == "move" && direction == "down") {
+                        togglePopupInfo()
+                        return false;
+                    }
+                }
+            });
+          
+        });
+
+        function togglePopupInfo() {
+            $('#popup_info').toggleClass('z-50');
+            $('#popup_info').toggleClass('translate-y-full');
+            if ($('#popup_info').hasClass('z-50'))
+                setTimeout(e => {
+                    $('html').removeClass('overflow-hidden')
+                    $('body').removeClass('overflow-hidden')
+                }, 250)
+            else {
+                $('html').addClass('overflow-hidden')
+                $('body').addClass('overflow-hidden')
+            }
         }
 
     },

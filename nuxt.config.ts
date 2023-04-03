@@ -63,8 +63,8 @@ export default defineNuxtConfig({
         public: {
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
-            API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr',
-            PRONOTE_API_URL: 'https://pronoteapi.yaprof.fr'//'https://pronoteapi.yaprof.fr',
+            API_URL: 'http://localhost:8080',//'https://api.yaprof.fr',
+            PRONOTE_API_URL: 'http://localhost:8000'//'https://pronoteapi.yaprof.fr',
         }
     },
     colorMode: {

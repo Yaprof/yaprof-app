@@ -113,7 +113,7 @@ export default {
             this.$el.querySelector('#popup_creator').classList.add('translate-y-full')
             setTimeout(e => {
                 this.$el.querySelector('#popup_creator_parent').classList.remove('!z-[99]');
-                this.$el.querySelector('body').classList.remove('overflow-y-hidden')
+                this.$el.querySelector('html').classList.remove('overflow-y-hidden')
             }, 250)
         }
     },
@@ -162,11 +162,11 @@ export default {
             $('#popup_creator').toggleClass('translate-y-full');
             if ($('#popup_creator_parent').hasClass('!z-[99]'))
                 setTimeout(e => {
-                    $('body').removeClass('overflow-y-hidden')
+                    $('html').removeClass('overflow-y-hidden')
                     $('#popup_creator_parent').removeClass('!z-[99]');
                 }, 250)
             else {
-                $('body').addClass('overflow-y-hidden')
+                $('html').addClass('overflow-y-hidden')
                 $('#popup_creator_parent').addClass('!z-[99]');
             }
         }

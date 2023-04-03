@@ -15,7 +15,7 @@ export default defineNuxtConfig({
                 { name: "manifest", content: "/manifest.webmanifest" },
                 { name: "format-detection", content: "telephone=no" },
                 { name: "apple-mobile-web-app-capable", content: "yes" },
-                { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+                { name: "apple-mobile-web-app-status-bar-style", content: "black" },
                 { name: "apple-mobile-web-app-title", content: "Yaprof" },
                 { name: "msapplication-TileColor", content: "#12d4a6" },
                 { name: "msapplication-TileImage", content: "/icons/icon_192x192.png" },

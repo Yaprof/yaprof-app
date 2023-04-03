@@ -1,8 +1,8 @@
 <template>
    <NuxtLayout>
-        <div @scroll="handleScroll" class="overflow-y-scroll">
+        <Creator />
+        <div id="container_div"  class="overflow-y-scroll transition-all">
             <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-            <Creator />
             <div class="w-full flex items-center justify-evenly">
                 <div class="py-3 flex items-center justify-center flex-col gap-2">
                     <p class="text-dark dark:text-white text-lg">Aujourd'hui</p>

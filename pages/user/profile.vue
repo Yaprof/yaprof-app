@@ -40,7 +40,7 @@ export default {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
 
-                reader.onloadend = () => {
+                reader.onloadend = async () => {
                     if (file.size > 10485760) {
                         this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
                         this.value = "";
@@ -48,7 +48,7 @@ export default {
                     };
                     let user = JSON.parse(window.localStorage.getItem("user"))
                     if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
-                    let userdb = createUser(config.api, user.name, reader.result, user.class, user.establishment, user.role)
+                    let userdb = await createUser(config.api, user.name, reader.result, user.class, user.establishment, user.role)
                     if (!userdb) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };

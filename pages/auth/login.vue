@@ -27,7 +27,7 @@
                 <button id="loading-button" class="mt-5 w-full rounded-xl bg-neutral-300 dark:bg-neutral-700 brightness-90 py-3.5 px-5 text-dark dark:text-white font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>
-        <div class="text-lg text-dark dark:text-white">Pas de compte ? <a href="#" class="text-primary">Contactez-nous</a></div>
+        <div class="text-lg text-dark dark:text-white">Pas de compte ? <a href="mail:yaprof@gmail.com" class="text-primary">Contactez-nous</a></div>
     </div>
 </template>
 

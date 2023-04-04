@@ -1,8 +1,11 @@
 <template>
     <NuxtLayout>
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
+        <div class="flex flex-col pb-5">
+            <h1 class="text-dark dark:text-white text-3xl font-bold">Profile</h1>
+        </div>
         <div>
-            <button id="avatar-upload-button" class="text-white text-lg py-3 px-6 rounded-2xl w-full bg-primary active:bg-primaryhover cursor-pointer">Changer sa photo</button>
+            <button id="avatar-upload-button" class="text-dark text-lg py-3 px-6 rounded-2xl w-full bg-light active:bg-gray-50 cursor-pointer">Changer sa photo</button>
             <input type="file" name="avatar_input" class="hidden" id="avatar_image" accept="image/*" />
         </div>
     </NuxtLayout>
@@ -50,6 +53,7 @@ export default {
                     if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
                     let userdb = await createUser(config.api, user.name, reader.result, user.class, user.establishment, user.role)
                     if (!userdb) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                    console.log(userdb)
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };
             } catch (e) {

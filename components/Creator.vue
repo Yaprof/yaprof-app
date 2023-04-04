@@ -111,10 +111,10 @@ export default {
         closePopupCreator: function () {
             this.$el.querySelector('#popup_creator').classList.remove('z-50')
             this.$el.querySelector('#popup_creator').classList.add('translate-y-full')
-            this.$el.querySelector('#popup_creator').classList.remove('bg-dark')
-            this.$el.querySelector('#popup_creator').classList.remove('bg-opacity-50')
-            this.$el.querySelector('#popup_creator').classList.remove('pointer-events-none')
-            this.$el.querySelector('#popup_creator').classList.remove('opacity-0');
+            this.$el.querySelector('#popup_creator_parent').classList.remove('bg-dark')
+            this.$el.querySelector('#popup_creator_parent').classList.remove('bg-opacity-50')
+            this.$el.querySelector('#popup_creator_parent').classList.remove('pointer-events-none')
+            this.$el.querySelector('#popup_creator_parent').classList.remove('opacity-0');
             setTimeout(e => {
                 this.$el.querySelector('html').classList.remove('overflow-hidden')
                 this.$el.querySelector('body').classList.remove('overflow-hidden')

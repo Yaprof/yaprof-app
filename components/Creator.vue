@@ -125,8 +125,8 @@ export default {
             this.$el.querySelector('#popup_creator_parent').classList.add('pointer-events-none')
             this.$el.querySelector('#popup_creator_parent').classList.add('opacity-0');
             setTimeout(e => {
-                this.$el.querySelector('html').classList.remove('overflow-hidden')
-                this.$el.querySelector('body').classList.remove('overflow-hidden')
+                window.document.querySelector('html').classList.remove('overflow-hidden')
+                window.document.querySelector('body').classList.remove('overflow-hidden')
             }, 250)
         }
     },

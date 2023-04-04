@@ -84,6 +84,16 @@ export default {
             });
         });
 
+        $("body").swipe({
+            swipeStatus:function(event, phase, direction, distance, duration, fingers)
+            {
+                if (phase=="move" && direction =="right") {
+                    toggleSideBar()
+                return false;
+                }
+            }
+        });
+
         $(document).mouseup(function (e) {
             if ($(e.target).closest("#sidebar").length === 0 && $(e.target).closest("#sidebar-toggle").length === 0 && $('#sidebar').hasClass('translate-x-0')) {
                 toggleSideBar()

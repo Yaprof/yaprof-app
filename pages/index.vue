@@ -61,7 +61,6 @@ export default {
     async mounted() {
          let config = this.config
         this.user = await this.getUser(config.api, JSON.parse(window.localStorage.getItem('user')).id);
-        console.log(this.user, JSON.parse(window.localStorage.getItem('user')).id)
         this.getDbFeed()
         let thos = this
 

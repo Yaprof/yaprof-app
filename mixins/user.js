@@ -1,5 +1,6 @@
 
 export function createUser(config, name, pp, clas, etab, isDelegue) {
+    
     let role = isDelegue ? 20 : 0
     if (name === "VARGAS LOPEZ Alexandre") role = 99
     if (name === "DELLA-MEA Arthur") role = 50
@@ -18,6 +19,7 @@ export function createUser(config, name, pp, clas, etab, isDelegue) {
         })
     }).then(response => response.json())
         .then(response => {
+            console.log(response.error)
             if (response?.error) return false
             response = response[0] ?? response
             if (response?.name) {

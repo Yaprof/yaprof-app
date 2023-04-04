@@ -76,7 +76,6 @@ export default {
             if (absences) {
                 this.loading = false
                 this.absences = absences
-                console.log(new Date(absences[0].createdAt).getDay() == 2)
             }
             else this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
             return absences

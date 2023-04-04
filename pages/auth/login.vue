@@ -42,7 +42,6 @@
 import axios from 'axios';
 
 import { generatetoken, getInfos } from '~/mixins/auth.js'
-import { createUser } from '~/mixins/user.js'
 export default {
     data() {
         return {
@@ -53,7 +52,6 @@ export default {
             etabs: [],
             errors: [],
             generatetoken: generatetoken,
-            createUser: createUser,
             getInfos: getInfos,
             loading: false,
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}

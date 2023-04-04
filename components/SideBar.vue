@@ -53,12 +53,10 @@
 </template>
 <script>
 import { generatetoken } from '~~/mixins/auth'
-import { createUser } from '~/mixins/user.js'
 export default {
     data() {
         return {
             generatetoken: generatetoken,
-            createUser: createUser,
             userInfos: {profile:{pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="}},
             errors: []
         }

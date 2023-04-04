@@ -1,8 +1,10 @@
 <template>
     <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[98] pb-5">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <NuxtLink to="/user/profile" class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden">
-            <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile.pp" />
+        <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden">
+            <NuxtLink to="/user/profile">
+                <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile.pp" />
+            </NuxtLink>
             <div class="flex flex-col p-5">
                 <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile.pp" />
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
@@ -14,7 +16,7 @@
                     </ClientOnly>
                 </div>
             </div>
-        </NuxtLink>
+        </div>
         <div class="flex flex-col p-5 h-full justify-start items-center w-full mt-5 gap-3">
             <NuxtLink to="/" class="flex items-center gap-3.5 w-full px-5 py-2 bg-opacity-30 dark:bg-opacity-20 rounded-full cursor-pointer group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-95">
@@ -63,8 +65,6 @@ export default {
     },
     mounted() {
         this.userInfos = JSON.parse(window.localStorage.getItem("user"))
-        console.log(this.userInfos)
-
         $(document).ready(function () {
             console.log('SideBar.js loaded');
             $('#sidebar').css('transition', 'all 200ms');
@@ -84,7 +84,7 @@ export default {
             });
         });
 
-        $("body").swipe({
+        $("html").swipe({
             swipeStatus:function(event, phase, direction, distance, duration, fingers)
             {
                 if (phase=="move" && direction =="right") {

@@ -56,6 +56,7 @@ import { generatetoken } from '~~/mixins/auth'
 import axios from "axios"
 
 export default {
+    props: ['user'],
     data() {
         return {
             loading: false,
@@ -69,7 +70,10 @@ export default {
     },
     methods: {
         submitPost: function () {
+            if (![50, 99].includes(this.user.role) && this.user.posts.filter(post => post.createdAt.split('T')[0].replaceAll('-0', '-') == (new Date().getFullYear()+'-'+new Date().getDate()+'-'+(new Date().getMonth()+1))).length > 5) return this.errors.push({ message: "Vous avez déjà posté 5 messages aujourd'hui", color: "danger" })
+            console.log(this.user.posts[0].createdAt.split('T')[0].replaceAll('-0', '-'), (new Date().getFullYear()+'-'+new Date().getDate()+'-'+(new Date().getMonth()+1)))
             if (!window.document.querySelector('#input_prof').dataset?.profname) return this.errors.push({ message: "Veuillez sélectionner un prof", color: "danger" })
+            
             this.loading = true;
             this.closePopupCreator()
             let form = this.$el.querySelector('#form_post')

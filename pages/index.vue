@@ -1,6 +1,6 @@
 <template>
    <NuxtLayout>
-        <Creator />
+        <Creator :user="user" />
         <div id="container_div"  class="overflow-y-scroll transition-all">
             <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
             <div class="w-full flex items-center justify-evenly">

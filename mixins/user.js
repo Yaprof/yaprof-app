@@ -40,7 +40,8 @@ export async function getUser(config, userId) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
+    }).catch(error => { console.log(error); return false })
+    if (!request) return false
     let response = await request.json()
     response = response[0] ?? response
     if (response?.name) {

@@ -1,7 +1,10 @@
 <template>
     <NuxtLayout>
         <div>
-            <p class="text-dark dark:text-white text-lg">Le shop arrive bientôt !</p>
+            <div class="flex flex-col pb-5">
+                <h1 class="text-dark dark:text-white text-3xl font-bold">Boutique</h1>
+            </div>
+            <p class="text-dark dark:text-white text-lg">La boutique arrive bientôt !</p>
         </div>
     </NuxtLayout>
 

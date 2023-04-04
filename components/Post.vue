@@ -171,10 +171,9 @@ export default {
         });
 
         function togglePopupInfo(el) {
-            console.log(el)
-            console.log("toggle popup")
             $(el).toggleClass('z-50');
             $(el).toggleClass('translate-y-full');
+
             if ($(el).hasClass('z-50'))
                 setTimeout(() => {
                     $('html').removeClass('overflow-hidden')

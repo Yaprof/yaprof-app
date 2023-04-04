@@ -19,12 +19,12 @@ body {
 }
 
 .router-link-exact-active  {
-    background-color: #12d4a781 !important;
+    background-color: #12d4a781;
 }
 
 @media (prefers-color-scheme: dark) {
     .router-link-exact-active  {
-        background-color: #12d4a721 !important;
+        background-color: #12d4a721;
     }
 }
 

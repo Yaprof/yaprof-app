@@ -21,12 +21,10 @@ export default {
     data() {
         return {
             user: {},
-            
         }
     },
     async mounted() {
         let config = this.config
-        
     }
 }
 </script>

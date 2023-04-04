@@ -8,7 +8,7 @@
                 </svg>
             </div>
         </div>
-        <div id="popup_creator_parent" class="fixed top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1]">
+        <div id="popup_creator_parent" class="fixed top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1] transition-all !z-[99] opacity-0 pointer-events-none">
             <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998]">
                 <div class="w-full flex items-center justify-between">
                     <div @click="closePopupCreator()" class="text-primary cursor-pointer text-lg">Annuler</div>
@@ -163,16 +163,19 @@ export default {
         function togglePopupCreator() {
             $('#popup_creator').toggleClass('z-50');
             $('#popup_creator').toggleClass('translate-y-full');
-            if ($('#popup_creator_parent').hasClass('!z-[99]'))
+            $('#popup_creator_parent').toggleClass('bg-dark')
+            $('#popup_creator_parent').toggleClass('bg-opacity-50')
+            $('#popup_creator_parent').toggleClass('pointer-events-none')
+            $('#popup_creator_parent').removeClass('opacity-0');
+            if ($('#popup_creator_parent').hasClass('bg-dark'))
                 setTimeout(e => {
                     $('html').removeClass('overflow-hidden')
                     $('body').removeClass('overflow-hidden')
-                    $('#popup_creator_parent').removeClass('!z-[99]');
                 }, 250)
             else {
+
                 $('html').addClass('overflow-hidden')
                 $('body').addClass('overflow-hidden')
-                $('#popup_creator_parent').addClass('!z-[99]');
             }
         }
     },

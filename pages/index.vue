@@ -15,6 +15,11 @@
             </div>
             <div class="pt-5 gap-8 flex flex-col overflow-y-scroll pb-10">
                 <Post :user="user" v-for="abs in absences" :key="abs" :data="abs"></Post>
+                <div v-if="loading" class="h-[calc(100%-2rem)] w-full flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 animate-spin text-dark dark:text-white duration-75">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                </div>
             </div>
         </div>
     </NuxtLayout>
@@ -33,12 +38,14 @@ export default {
         return {
             absences: [],
             errors: [],
+            loading: false,
             getUser: getUser,
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }
     },
     methods: {
         getDbFeed: async function () {
+            this.loading = true
             let response = await fetch(this.$config.API_URL + "/feed/"+JSON.parse(window.localStorage.getItem('user'))?.id, {
                 method: "GET",
                 headers: {
@@ -47,7 +54,10 @@ export default {
                 },
             })
             const absences = await response.json();
-            if (absences) this.absences = absences
+            if (absences) {
+                this.loading = false
+                this.absences = absences
+            }
             else this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
             return absences
         },
@@ -59,8 +69,13 @@ export default {
         }
     },
     async mounted() {
-         let config = this.config
+        let config = this.config
+        this.loading = true
         this.user = await this.getUser(config.api, JSON.parse(window.localStorage.getItem('user')).id);
+        if (!this.user) {
+            console.log('error user')
+            return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+        }
         this.getDbFeed()
         let thos = this
 
@@ -73,21 +88,20 @@ export default {
         async function loading() {
             if (isLoading) return
             isLoading = true;
-/*             main.style.transform = `translateY(0px)`;
-            container_div.style.transform = `translateY(100px)`; */
+            thos.loading = true
             let infos = await thos.getDbFeed()
             if (infos) {
                 setTimeout(function () {
-/*                     main.style.transform = `translateY(-100px)`;
-                    container_div.style.transform = `translateY(0)`; */
                     isLoading = false;
+                    this.loading = false
                     try {
                         navigator.vibrate()
                     } catch (e) { return }
-                    /* window.scrollTo(0, 0); */
-                }, 300);
-            }else
+                }, 500);
+            } else {
+                thos.loading = false
                 return this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
+            }
         }
 
         function swipeStart(e) {

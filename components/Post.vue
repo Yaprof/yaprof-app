@@ -157,7 +157,6 @@ export default {
             }); */
 
             $('#container_info_'+thos.data.id).on('taphold', function (el) {
-                console.log(thos)
                 togglePopupInfo($("#popup_info_"+thos.data.id))
             })
 

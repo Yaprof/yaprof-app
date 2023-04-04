@@ -65,14 +65,15 @@ export default {
     },
     mounted() {
         this.userInfos = JSON.parse(window.localStorage.getItem("user"))
-        $(document).ready(function () {
-            console.log('SideBar.js loaded');
-            $('#sidebar').css('transition', 'all 200ms');
+        console.log('SideBar.js loaded');
+        $('#sidebar').css('transition', 'all 200ms');
 
-            $('#sidebar-toggle').click(function (event) {
-                toggleSideBar()
+        $('#sidebar-toggle').click(function (event) {
+            toggleSideBar()
+        });
 
-                $("#sidebar").swipe({
+        if (!$('nav').hasClass('!z-[99]')) {
+            $("#sidebar").swipe({
                     swipeStatus:function(event, phase, direction, distance, duration, fingers)
                     {
                         if (phase=="move" && direction =="left") {
@@ -80,10 +81,8 @@ export default {
                         return false;
                         }
                     }
-                });
             });
-        });
-
+        }
         $("html").swipe({
             swipeStatus:function(event, phase, direction, distance, duration, fingers)
             {

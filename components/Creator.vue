@@ -127,6 +127,7 @@ export default {
             },
         }).then(response => response.json())
             .then(async (response) => {
+                console.log(response)
                 if (response == "notfound" || response == "expired") {
                     let new_token = await this.generatetoken(this.config, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
                     if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })

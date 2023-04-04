@@ -17,15 +17,16 @@ export async function generatetoken(config, url, username, password, etab) {
         })
     }).then(response => response.json())
         .then(response => {
-            if (response.token == false) return response
             console.log(response);
-        window?.localStorage.setItem('token', response.token)
-        window?.localStorage.setItem('url', url)
-        window?.localStorage.setItem('username', username)
-        window?.localStorage.setItem('password', password)
-        window?.localStorage.setItem('ent', etab)
-        getInfos(urls)
-        /* if(window.location.pathname == "/auth/login") window.location.replace('/') */
+            if (response.token == false) return response
+            
+            window?.localStorage.setItem('token', response.token)
+            window?.localStorage.setItem('url', url)
+            window?.localStorage.setItem('username', username)
+            window?.localStorage.setItem('password', password)
+            window?.localStorage.setItem('ent', etab)
+            getInfos(urls)
+            /* if(window.location.pathname == "/auth/login") window.location.replace('/') */
         return true
     })
     .catch(error => { console.log(error);  return false; })

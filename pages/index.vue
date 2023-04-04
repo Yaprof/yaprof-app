@@ -28,7 +28,7 @@
                 <!-- Weekly -->
                 <div v-if="type=='weekly'" class="flex flex-col gap-8">
                     <p class="text-dark dark:text-white text-2xl font-bold">Lundi</p>
-                    <Post  :user="user" v-for="abs in absences.filter(ab=> new Date(ab.createdAt).getDay() == 1)" :key="abs" :data="abs"></Post>
+                    <Post :user="user" v-for="abs in absences.filter(ab=> new Date(ab.createdAt).getDay() == 1)" :key="abs" :data="abs"></Post>
                     <p class="text-dark dark:text-white text-2xl font-bold">Mardi</p>
                     <Post :user="user" v-for="abs in absences.filter(ab=> new Date(ab.createdAt).getDay() == 2)" :key="abs" :data="abs"></Post>
                     <p class="text-dark dark:text-white text-2xl font-bold">Mercredi</p>
@@ -87,10 +87,10 @@ export default {
                 this.$emit("refresh");
             }
         },
-        changeType(type) {
+        async changeType(type) {
             this.type = type
             window.localStorage.setItem('type_post', type)
-            window.location.reload()
+            await this.getDbFeed()
         }
     },
     async mounted() {

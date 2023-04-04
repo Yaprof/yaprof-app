@@ -96,11 +96,13 @@ export default {
                 })
         },
         deletePost: function (id) {
+            if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
             fetch(this.$config.API_URL + `/post/${id}`, {
                 method: "DELETE",
             }).then(response => response.json())
                 .then(async (response) => {
-                    if (response?.error) return this.errors.push({ message: "Impossible de réaliser l'action", color: "danger" })
+                    console.log(response)
+                    if (response?.error || !response) return this.errors.push({ message: "Impossible de réaliser l'action", color: "danger" })
                     window.document.querySelector('#container_info_'+this.data.id).classList.add('hidden')
                     this.closePopupInfos()
                 })

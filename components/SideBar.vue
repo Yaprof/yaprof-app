@@ -72,17 +72,17 @@ export default {
             toggleSideBar()
         });
 
-        if (!$('#sidebar').hasClass('-translate-x-full')) {
-            $("#sidebar").swipe({
-                    swipeStatus:function(event, phase, direction, distance, duration, fingers)
-                    {
-                        if (phase=="move" && direction =="left") {
-                            toggleSideBar()
-                        return false;
-                        }
+        $("#sidebar").swipe({
+            swipeStatus:function(event, phase, direction, distance, duration, fingers){
+                if (phase == "move" && direction == "left") {
+                    if (!$('#sidebar').hasClass('-translate-x-full')) {
+                        toggleSideBar()
                     }
-            });
-        }
+                        return false;
+                }
+            }
+        });
+
         $("html").swipe({
             swipeStatus:function(event, phase, direction, distance, duration, fingers)
             {

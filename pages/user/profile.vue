@@ -1,0 +1,61 @@
+<template>
+    <NuxtLayout>
+        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
+        <div>
+            <button id="avatar-upload-button" class="text-white text-lg py-3 px-6 rounded-2xl w-full bg-primary active:bg-primaryhover cursor-pointer">Changer sa photo</button>
+            <input type="file" name="avatar_input" class="hidden" id="avatar_image" accept="image/*" />
+        </div>
+    </NuxtLayout>
+
+</template>
+
+<script setup>
+    definePageMeta({
+        middleware: ["auth"]
+    })
+
+</script >
+
+<script>
+import { createUser } from '../../mixins/user.js'
+export default {
+    data() {
+        return {
+            createUser: createUser,
+            config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
+            errors: []
+        }
+    },
+    mounted() {
+        let config = this.config
+        const UPLOAD_BUTTON = window.document.getElementById("avatar-upload-button");
+        const FILE_INPUT = window.document.getElementById("avatar_image");
+
+        UPLOAD_BUTTON.addEventListener("click", () => FILE_INPUT.click());
+
+        FILE_INPUT.addEventListener("change", event => {
+            const file = event.target.files[0];
+
+            try {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onloadend = () => {
+                    if (file.size > 10485760) {
+                        this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                        this.value = "";
+                        return;
+                    };
+                    let user = JSON.parse(window.localStorage.getItem("user"))
+                    if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                    let userdb = createUser(config.api, user.name, reader.result, user.class, user.establishment, user.role)
+                    if (!userdb) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                    this.errors.push({ message: "Photo de profile changée", color: "success" })
+                };
+            } catch (e) {
+                return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+            }
+        });
+    },
+}
+</script>

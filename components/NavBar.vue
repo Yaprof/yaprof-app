@@ -14,7 +14,9 @@
                     </ClientOnly>
                     <img src="~/assets/imgs/icons/coin.svg" class="w-6 h-6 object-cover object-center rounded-full" />
                 </NuxtLink>
-                <img :src="userInfos?.profile?.pp" class="w-10 h-10 object-cover object-center rounded-full shadow-md" />
+                <NuxtLink to="/user/profile" >
+                    <img :src="userInfos?.profile?.pp" class="w-10 h-10 object-cover object-center rounded-full shadow-md" />
+                </NuxtLink>
             </div>
         </div>
     </nav>

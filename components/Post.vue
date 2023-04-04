@@ -184,7 +184,7 @@ export default {
                 }, 150)
             else {
                 try {
-                    navigator.vibrate(300);
+                    navigator.vibrate();
                 } catch (e) {
                     return
                 }

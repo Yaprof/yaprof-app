@@ -83,7 +83,7 @@ export default {
                     container_div.style.transform = `translateY(0)`; */
                     isLoading = false;
                     try {
-                        navigator.vibrate(300)
+                        navigator.vibrate()
                     } catch (e) { return }
                     /* window.scrollTo(0, 0); */
                 }, 300);

@@ -50,8 +50,9 @@ export async function getInfos(config) {
                 if (!new_token) return false
                 return true
             }
-            console.log("createUser", urls.api, response.name, response.profile_picture, response.class, response.establishment)
-            createUser(urls.api, response.name, response.profile_picture, response.class, response.establishment)
+            console.log(response)
+            console.log("createUser", urls.api, response.name, response.profile_picture, response.class, response.establishment, (response.delegue.length < 1 ? false : true))
+            createUser(urls.api, response.name, response.profile_picture, response.class, response.establishment, (response.delegue.length < 1 ? false : true))
         })
         .catch(async e => {
             console.log(e)

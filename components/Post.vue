@@ -20,8 +20,8 @@
                 </div>
             <p class="text-dark dark:text-white opacity-80">{{ new Date(new Date(data.createdAt).setHours(new Date(data.createdAt).getHours())).getHours() + "h" + new Date(data.createdAt).getMinutes() }}</p>
             </div>
-            <div class="px-6 py-3 bg-white dark:bg-secondary">
-                <p class="text-dark dark:text-white text-lg break-words">{{ data.content }}</p>
+            <div class="px-6 pt-3 bg-white dark:bg-secondary">
+                <p class="text-dark dark:text-white text-lg break-words"><span class="opacity-60">Raison:</span> <span class="font-medium">{{ data.content }}</span></p>
             </div>
             <div class="px-6 py-3 bg-white dark:bg-secondary flex items-center justify-between gap-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
@@ -113,7 +113,6 @@ export default {
         closePopupInfos: function () {
             let el = window.document.querySelector('#popup_info_'+this.data.id)
             if (!el) return
-            console.log(el)
             if (el.classList.contains('translate-y-full')) return
             el.classList.add('translate-y-full');
             window.document.querySelector('#popup_info_parent').classList.remove('bg-dark')

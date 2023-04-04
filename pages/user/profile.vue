@@ -52,12 +52,12 @@ export default {
                     let user = JSON.parse(window.localStorage.getItem("user"))
                     if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
                     let userdb = await createUser(config.api, user.name, reader.result, user.class, user.establishment, user.role)
-                    if (!userdb) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                    if (!userdb) return this.errors.push({ message: "Image trop lourde", color: "danger" })
                     console.log(userdb)
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };
             } catch (e) {
-                return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                return this.errors.push({ message: "Image trop lourde", color: "danger" })
             }
         });
     },

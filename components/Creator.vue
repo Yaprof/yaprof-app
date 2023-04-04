@@ -25,9 +25,9 @@
                         </svg>
 
                         <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Nom du professeur" />
-                        <div v-show="prof_content" class="absolute top-[calc(100%+5px)] left-0 rounded-b-xl bg-light dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99]">
+                        <div v-show="prof_content" class="absolute top-[calc(100%+10px)] left-0 rounded-b-xl bg-neutral-200 dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99] transition-all">
                             <div v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
-                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOption($event.target, prof.name)">{{ prof.name }} ({{ prof.functions[0] }})</p>
+                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOptionProf($event.target, prof.name)">{{ prof.name }} ({{ prof.functions[0] }})</p>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,12 @@
                             <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
                         </svg>
 
-                        <input type="text" id="input_reason" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Raison de l'absence" />
+                        <select class="bg-transparent focus:outline-none w-full text-dark dark:text-white w-full" id="input_reason">
+                            <option class="w-full" value="Autre">Autre</option>
+                            <option class="w-full" value="Grève">Grève</option>
+                            <option class="w-full" value="Maladie">Maladie</option>
+                        </select>
+
                     </div>
                 </div>
             </div>
@@ -64,6 +69,7 @@ export default {
     },
     methods: {
         submitPost: function () {
+            if (!window.document.querySelector('#input_prof').dataset?.profname) return this.errors.push({ message: "Veuillez sélectionner un prof", color: "danger" })
             this.loading = true;
             this.closePopupCreator()
             let form = this.$el.querySelector('#form_post')
@@ -99,7 +105,7 @@ export default {
             this.results = this.profs.filter(s => s.name.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10)
             if (this.results.length < 1) this.results = [{ name: "Aucun résultat", functions: ["Aucun"] }]
         },
-        selectOption: function (e, profName) {
+        selectOptionProf: function (e, profName) {
             this.$el.querySelector('#input_prof').setAttribute("data-profname", profName)
             if (this.$el.querySelector("#input_prof"))
                 this.$el.querySelector('#input_prof').value = e.innerHTML

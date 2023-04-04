@@ -170,7 +170,7 @@ export default {
             $('#popup_creator_parent').toggleClass('bg-opacity-50')
             $('#popup_creator_parent').toggleClass('pointer-events-none')
             $('#popup_creator_parent').removeClass('opacity-0');
-            if (!$('#popup_creator').hasClass('translate-y-full'))
+            if ($('#popup_creator').hasClass('translate-y-full'))
                 setTimeout(e => {
                     $('html').removeClass('overflow-hidden')
                     $('body').removeClass('overflow-hidden')

@@ -2,11 +2,11 @@
     <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[98] pb-5">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden">
-            <NuxtLink to="/user/profile">
-                <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile.pp" />
-            </NuxtLink>
+            <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile.pp" />
             <div class="flex flex-col p-5">
-                <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile.pp" />
+                <NuxtLink to="/user/profile">
+                    <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile.pp" />
+                </NuxtLink>
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
                 <div class="flex items-center gap-2 opacity-70">
                     <ClientOnly>
@@ -72,7 +72,7 @@ export default {
             toggleSideBar()
         });
 
-        if (!$('nav').hasClass('!z-[99]')) {
+        if (!$('#sidebar').hasClass('-translate-x-full')) {
             $("#sidebar").swipe({
                     swipeStatus:function(event, phase, direction, distance, duration, fingers)
                     {

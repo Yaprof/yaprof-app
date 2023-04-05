@@ -16,7 +16,7 @@
             <div class="pt-5 gap-8 flex flex-col overflow-y-scroll pb-10">
                 <!-- Daily -->
                 <div class="flex flex-col gap-8" v-if="type=='daily'" >
-                    <Post :user="user" v-for="abs in absences" :key="abs" :data="abs"></Post>
+                    <Post :user="user" v-for="abs in absences.filter(ab=> new Date(ab.createdAt).getDay() == new Date().getDay())" :key="abs" :data="abs"></Post>
                 </div>
 
                 <div v-if="loading" class="h-[calc(100%-2rem)] w-full flex justify-center items-center">

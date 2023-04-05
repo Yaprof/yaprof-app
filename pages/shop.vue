@@ -10,14 +10,6 @@
 
 </template>
 
-<!-- <script setup>
-definePageMeta({
-  middleware: ["auth"]
-})
-</script>
- -->
 <script>
-/* export default {
-    layout: 'default',
-} */
+
 </script>

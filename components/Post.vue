@@ -160,7 +160,7 @@ export default {
             }); */
 
             $('#container_info_' + thos.data.id).on('taphold', function (el) {
-                if (thos.data.author.id != thos.user.id) return
+                if (thos.data.author.id != thos.user.id && ![20, 50, 99].includes(thos.user?.role)) return
                 togglePopupInfo($("#popup_info_"+thos.data.id))
             })
 

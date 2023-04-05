@@ -159,7 +159,8 @@ export default {
                 clearTimeout(this.timeoutId);
             }); */
 
-            $('#container_info_'+thos.data.id).on('taphold', function (el) {
+            $('#container_info_' + thos.data.id).on('taphold', function (el) {
+                if (thos.data.author.id != thos.user.id) return
                 togglePopupInfo($("#popup_info_"+thos.data.id))
             })
 

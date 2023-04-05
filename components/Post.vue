@@ -18,7 +18,7 @@
                     </svg>
                     <p class="text-dark dark:text-white">{{ data.pointer?.name }}</p>
                 </div>
-            <p class="text-dark dark:text-white opacity-80">{{ new Date(new Date(data.createdAt).setHours(new Date(data.createdAt).getHours())).getHours() + "h" + new Date(data.createdAt).getMinutes() }}</p>
+            <p v-if="type == 'daily'" class="text-dark dark:text-white opacity-80">{{ new Date(new Date(data.createdAt).setHours(new Date(data.createdAt).getHours())).getHours() + "h" + (new Date(data.createdAt).getMinutes().length == 1 ? ("0" + new Date(data.createdAt).getMinutes()) : new Date(data.createdAt).getMinutes() ) }}</p>
             </div>
             <div class="px-6 pt-3 bg-white dark:bg-secondary">
                 <p class="text-dark dark:text-white text-lg break-words"><span class="opacity-60">Raison:</span> <span class="font-medium">{{ data.content }}</span></p>
@@ -53,7 +53,7 @@
 </template>
 <script>
 export default {
-    props: ['data', 'user'],
+    props: ['data', 'user', 'type'],
     data() {
         return {
             errors: []

@@ -60,7 +60,7 @@ export default {
     methods: {
         login: function (e) {
             let config = this.config
-            let loadingButton = this.$el.querySelector('#loading-button')
+            let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
             let form = this.$el.querySelector('#form_login')
@@ -70,14 +70,17 @@ export default {
                 let ent_url = form.querySelector('#input_ent').dataset.url
                 let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
                 let new_token = await this.generatetoken(config, url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
-                console.log(new_token)
-                if (new_token) await this.getInfos(config)
 
-                if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                if (!new_token) {
+                    e.classList.remove('hidden')
+                    loadingButton.classList.add('hidden')
+                    return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+                }
+                if (new_token) await this.getInfos(config)
             }).catch(error => {
+                e.classList.remove('hidden')
+                loadingButton.classList.add('hidden')
                 this.errors.push({ message: "Informations incorrectes", color: "danger" })
-                e.classList.toggle('hidden')
-                loadingButton.classList.toggle('hidden')
                 return console.log(e)
             })
 

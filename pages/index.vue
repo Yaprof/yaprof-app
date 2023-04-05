@@ -57,7 +57,7 @@ export default {
             absences: [],
             errors: [],
             loading: false,
-            type: window.localStorage.getItem('type_post'),
+            type: window.localStorage.getItem('type_post') ?? 'daily',
             getUser: getUser,
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }

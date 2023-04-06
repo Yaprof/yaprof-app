@@ -76,7 +76,7 @@ export default {
                     loadingButton.classList.add('hidden')
                     return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                 }
-                if (new_token) await this.getInfos(config)
+/*                 if (new_token) await this.getInfos(config) */
             }).catch(error => {
                 e.classList.remove('hidden')
                 loadingButton.classList.add('hidden')

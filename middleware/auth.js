@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
             return navigateTo('/howitswork')
         }
 
-        let isAuth = (window?.localStorage.getItem('token') && window.localStorage.getItem('username') && window.localStorage.getItem('password') && window.localStorage.getItem('ent') && window.localStorage.getItem('url') && window.localStorage.getItem('user')) ? true : false
+        let isAuth = (window?.localStorage.getItem('token') && window?.localStorage.getItem('userInfos')) ? true : false
         if (isAuth == false && to.path !== '/auth/login') {
             return navigateTo('/auth/login')
         }else if (to.path === '/auth/login' && isAuth == true) {

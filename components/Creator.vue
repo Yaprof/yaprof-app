@@ -151,26 +151,21 @@ export default {
     },
     mounted() {
         let config = this.config
-        fetch(this.$config.PRONOTE_API_URL + '/recipients?token=' + window.localStorage.getItem("token"), {
+        fetch(this.$config.API_URL + '/recipients', {
             method: "GET",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
             },
         }).then(response => response.json())
             .then(async (response) => {
                 console.log(response)
-                if (response == "notfound" || response == "expired") {
-                    let new_token = await this.generatetoken(config, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-                    if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                    return
-                }
+                if (!response || response.error) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
                 this.profs = response
             })
             .catch(async e => {
-                let new_token = await this.generatetoken(config, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-                if (!new_token) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                return
+                return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             })
 
         $(document).ready(function () {

@@ -73,13 +73,14 @@ export default {
 
         $("html").swipe({
             swipeStatus:function(event, phase, direction, distance, duration, fingers){
-                if (phase == "move" && direction == "left") {
+                if (phase == "move" && direction == "left" && distance >= 20) {
                     if (!$('#sidebar').hasClass('-translate-x-full')) {
                         toggleSideBar()
                     }
                         return false;
                 }
-            }
+            },
+            threshold: 100
         });
 
         $(document).mouseup(function (e) {

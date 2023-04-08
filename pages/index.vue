@@ -65,11 +65,12 @@ export default {
     methods: {
         getDbFeed: async function () {
             this.loading = true
-            let response = await fetch(this.$config.API_URL + "/feed/"+JSON.parse(window.localStorage.getItem('user'))?.id+"?type="+this.type, {
+            let response = await fetch(this.$config.API_URL + "/feed/"+JSON.parse(window.localStorage.getItem('user'))?.id+"?userInfos="+window.localStorage.getItem('userInfos'), {
                 method: "GET",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
                 },
             })
             const absences = await response.json();
@@ -95,7 +96,7 @@ export default {
     async mounted() {
         let config = this.config
         this.loading = true
-        this.user = await this.getUser(config.api, JSON.parse(window.localStorage.getItem('user')).id);
+        this.user = await this.getUser(config.api);
         if (!this.user) {
             console.log('error user')
             return this.errors.push({ message: "Impossible de se connecter", color: "danger" })

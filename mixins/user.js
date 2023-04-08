@@ -1,46 +1,41 @@
+import axios from "axios"
 
-export async function createUser(config, name, pp, clas, etab, isDelegue) {
-    let role = isDelegue ? 20 : 0
-    if (name === "VARGAS LOPEZ Alexandre") role = 99
-    if (name === "DELLA-MEA Arthur") role = 50
-    let request = await fetch(config + '/user/create', {
-        method: "POST",
+export async function updateUser(config, name, pp, clas, etab, role) {
+    let response = await axios.post(config + '/user/create', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            "name": name,
-            "pp": pp,
-            "class": clas,
-            "etab": etab,
-            "role": role
-        })
+        body: {
+            name: name,
+            pp: pp,
+            class: clas,
+            etab: etab,
+            role: role
+        }
     }).catch(error => console.log(error))
-    if (!request) return false
-    let response = await request.json()
-    console.log(response.profile.pp)
-    if (response?.name) {
-        window.localStorage.setItem('user', JSON.stringify(response))
+    console.log(response.data)
+    if (response?.data.name) {
+        window.localStorage.setItem('user', JSON.stringify(response.data))
         window.location.reload()
     } else
         return false
     return response
 }
 
-export async function getUser(config, userId) {
-    let request = await fetch(config + '/user/'+userId, {
-        method: "GET",
+export async function getUser(config) {
+    let response = await axios.get(config + '/user?userInfos='+window.localStorage.getItem('userInfos'), {
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token')
         }
     }).catch(error => { console.log(error); return false })
-    if (!request) return false
-    let response = await request.json()
-    response = response[0] ?? response
-    if (response?.name) {
-        window.localStorage.setItem('user', JSON.stringify(response))
+    console.log(response.data)
+    if (!response.data) return false
+    if (response?.data?.name) {
+        console.log(response.data)
+        window.localStorage.setItem('user', JSON.stringify(response?.data))
     } else return false
-    return response
+    return response.data
 }

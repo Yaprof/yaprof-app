@@ -1,51 +1,48 @@
-import { createUser } from "./user"
+import { updateUser } from "./user"
+import axios from "axios"
 
-export async function generatetoken(config, url, username, password, etab) {
+export async function login(config, username, password, ent_url) {
+    console.log(config, username, password, ent_url)
     let urls = JSON.parse(JSON.stringify(config))
-    let request = await fetch(urls.pronote + '/generatetoken', {
+    let request = await fetch(urls.api + '/login', {
         method: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            "url": url,
             "username": username,
             "password": password,
-            "ent": etab
+            "ent_url": ent_url
         })
     }).catch(error => { console.log(error); return false; })
     let response = await request.json()
-    if (response?.token == false || response?.error) return false
+    if (!response?.token || !response?.userInfos || response?.error) return false
     console.log(response)
     window?.localStorage.setItem('token', response.token)
-    window?.localStorage.setItem('url', url)
-    window?.localStorage.setItem('username', username)
-    window?.localStorage.setItem('password', password)
-    window?.localStorage.setItem('ent', etab)
+    window?.localStorage.setItem('userInfos', response.userInfos)
+    window?.localStorage.setItem('user', response.user)
 
-    await getInfos(urls)
+    window.location.href = "/"
     return true
 }
 
 export async function getInfos(config) {
     let urls = JSON.parse(JSON.stringify(config))
-    let request = await fetch(urls.pronote + "/user?token="+window.localStorage.getItem("token"), {
-        method: "GET",
+    let request = await axios.post(urls.api + "/getInfos", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token')
         },
-    }).catch(async e => {
-        let new_token = await generatetoken(urls.pronote, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-        if (!new_token) return false
+        body: {
+            userInfos: window.localStorage.getItem('userInfos')
+        }
     })
     let response = await request.json()
-    if (response == "notfound" || response == "expired" || response?.error) {
-        let new_token = await generatetoken(urls.pronote, window.localStorage.getItem("url"), window.localStorage.getItem("username"), window.localStorage.getItem("password"), window.localStorage.getItem("ent"))
-        if (!new_token) return false
-    }
+    console.log(response)
+    if (!response || response.error) return false
 
-    await createUser(urls.api, response.name, response.profile_picture, response.class, response.establishment, (response.delegue.length < 1 ? false : true))
+    await updateUser(urls.api, response.name, response.profile_picture, response.class, response.establishment, (response.delegue.length < 1 ? false : true))
     return true
 }

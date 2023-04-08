@@ -65,8 +65,13 @@ export default {
             let dislikeButton = this.$el.querySelector('#dislike_button')
             let likeButton = this.$el.querySelector('#like_button')
 
-            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user.id, {
+            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
                 method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                }
             }).then(response => response.json())
                 .then(async (response) => {
                     if (response?.error) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
@@ -97,8 +102,13 @@ export default {
         },
         deletePost: function (id) {
             if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
-            fetch(this.$config.API_URL + `/post/${id}`, {
+            fetch(this.$config.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
                 method: "DELETE",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                }
             }).then(response => response.json())
                 .then(async (response) => {
                     console.log(response)
@@ -132,7 +142,7 @@ export default {
         let likeButton = this.$el.querySelector('#like_button')
 
         let Localuser = JSON.parse(window.localStorage.getItem('user'))
-        if (this.data.likedBy.find(u=>u.id == Localuser.id)) {
+        if (this.data.likedBy.find(u=>u.id == Localuser?.id)) {
             likeButton?.classList.add('!text-emerald-500')
             likesCounter?.classList.add('!text-emerald-500')
             dislikeButton?.classList.remove('!text-red-500')

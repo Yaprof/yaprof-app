@@ -17,8 +17,9 @@
                 <!-- Daily -->
                 <div class="flex flex-col gap-8" v-if="type=='daily'" >
                     <Post :user="user" :type="type" v-for="abs in absences.filter(ab=> new Date(ab.createdAt).getDay() == new Date().getDay())" :key="abs" :data="abs"></Post>
-                    <div v-if="!loading && absences.filter(ab=> new Date(ab.createdAt).getDay() == new Date().getDay()).length < 1" class="bg-light dark:bg-secon rounded-xl py-2">
-                        <p class="text-dark dark:text-white w-full text-center">Aucune absence en vue</p>
+                    <div v-if="!loading && absences.filter(ab=> new Date(ab.createdAt).getDay() == new Date().getDay()).length < 1" class="bg-light dark:bg-secon rounded-xl py-3.5 flex justify-center items-center flex-col gap-1">
+                        <img src="~/public/no.png" class="w-10 h-10" />
+                        <p class="text-dark dark:text-white w-full text-center font-medium">Aucune absence en vue</p>
                     </div>
                 </div>
 

@@ -23,7 +23,7 @@
                     <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
                     <input id="input_password" type="password" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
                 </div>
-                <button @click="login($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
+                <button @click="connect($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
                 <button id="loading-button" class="mt-5 w-full rounded-xl bg-neutral-300 dark:bg-neutral-700 brightness-90 py-3.5 px-5 text-dark dark:text-white font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>
@@ -41,7 +41,7 @@
 <script>
 import axios from 'axios';
 
-import { generatetoken, getInfos } from '~/mixins/auth.js'
+import { login } from '~/mixins/auth.js'
 export default {
     data() {
         return {
@@ -51,38 +51,24 @@ export default {
             position: null,
             etabs: [],
             errors: [],
-            generatetoken: generatetoken,
-            getInfos: getInfos,
+            login: login,
             loading: false,
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }
     },
     methods: {
-        login: function (e) {
+        connect: async function (e) {
             let config = this.config
             let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
             let form = this.$el.querySelector('#form_login')
-            axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(form.querySelector('#input_ent').dataset.url)}`)
-            .then(async(response) => {
-                let etab = response.data.url.split(".")[1].replace('-', '_')
-                let ent_url = form.querySelector('#input_ent').dataset.url
-                let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
-                let new_token = await this.generatetoken(config, url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
-
-                if (!new_token) {
-                    e.classList.remove('hidden')
-                    loadingButton.classList.add('hidden')
-                    return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                }
-/*                 if (new_token) await this.getInfos(config) */
-            }).catch(error => {
+            let logged = await this.login(config, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
+            if (!logged) {
                 e.classList.remove('hidden')
                 loadingButton.classList.add('hidden')
-                this.errors.push({ message: "Informations incorrectes", color: "danger" })
-                return console.log(e)
-            })
+                return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+            }
 
         },
         searchEnt: function (e) {

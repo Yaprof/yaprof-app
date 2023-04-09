@@ -5,6 +5,8 @@
     "start_url": "/",
     "display": "standalone",
     "scope": "/",
+    "id": "yaprof",
+    "orientation": "natural",
     "background_color": "#12d4a6",
     "theme_color": "#12d4a6",
     "icons": [
@@ -37,6 +39,12 @@
         "src": "icons/icon_512x512.png",
         "sizes": "512x512",
         "type": "image/png"
+        },
+        {
+        "src": "icons/icon_512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
         }
     ]
 }

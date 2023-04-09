@@ -20,11 +20,10 @@
 </script >
 
 <script>
-import { createUser } from '../../mixins/user.js'
+import { updateUser } from '../../mixins/user.js'
 export default {
     data() {
         return {
-            createUser: createUser,
             config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
             errors: []
         }
@@ -51,7 +50,7 @@ export default {
                     };
                     let user = JSON.parse(window.localStorage.getItem("user"))
                     if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
-                    let userdb = await createUser(config.api, user.name, reader.result, user.class, user.establishment, user.role)
+                    let userdb = await updateUser(config.api, reader.result)
                     if (!userdb) return this.errors.push({ message: "Image trop lourde", color: "danger" })
                     console.log(userdb)
                     this.errors.push({ message: "Photo de profile changée", color: "success" })

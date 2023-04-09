@@ -18,6 +18,7 @@ export default defineNuxtConfig({
                 { name: "apple-mobile-web-app-title", content: "Yaprof" },
                 { name: "msapplication-TileColor", content: "#12d4a6" },
                 { name: "msapplication-TileImage", content: "/icons/icon_192x192.png" },
+                { name: "msapplication-tap-highlight", content: "no" },
                 { name: "theme-color", content: "#ffffff", media: "(prefers-color-scheme: light)" },
                 { name: "theme-color", content: "#1f2937", media: "(prefers-color-scheme: dark)" },
 
@@ -69,7 +70,7 @@ export default defineNuxtConfig({
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
             API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr', // 'http://localhost:8080',
-            PRONOTE_API_URL: 'https://api.pronote.plus'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000',
+            PRONOTE_API_URL: 'https://pronoteapi.yaprof.fr'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000'
         }
     },
     colorMode: {

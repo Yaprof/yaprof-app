@@ -7,7 +7,7 @@
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
                     <label for="ent" class="text-lg text-dark dark:text-white">Établissement</label>
                     <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Lycée des kabis" name="ent" />
-                    <div v-show="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full">
+                    <div v-show="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full z-50">
                         <div v-for="cas in results" :key="cas.url" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
                             <ClientOnly>
                                 <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOption($event.target, cas.url, cas.py)">{{ cas.nomEtab }}</p>
@@ -21,9 +21,22 @@
                 </div>
                 <div class="flex flex-col gap-1 w-full">
                     <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
-                    <input id="input_password" type="password" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
+                    <div class="w-full relative text-dark">
+                        <input id="input_password" :type="!eyes ? 'password' : 'text'" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
+                        <svg @click="eyes=false" v-if="eyes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 absolute right-5 top-1/3">
+                            <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                            <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                        </svg>
+                        <svg @click="eyes=true" v-if="!eyes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 absolute right-5 top-1/3">
+                            <path fill-rule="evenodd" d="M3.28 2.22a.75.75 0 00-1.06 1.06l14.5 14.5a.75.75 0 101.06-1.06l-1.745-1.745a10.029 10.029 0 003.3-4.38 1.651 1.651 0 000-1.185A10.004 10.004 0 009.999 3a9.956 9.956 0 00-4.744 1.194L3.28 2.22zM7.752 6.69l1.092 1.092a2.5 2.5 0 013.374 3.373l1.091 1.092a4 4 0 00-5.557-5.557z" clip-rule="evenodd" />
+                            <path d="M10.748 13.93l2.523 2.523a9.987 9.987 0 01-3.27.547c-4.258 0-7.894-2.66-9.337-6.41a1.651 1.651 0 010-1.186A10.007 10.007 0 012.839 6.02L6.07 9.252a4 4 0 004.678 4.678z" />
+                        </svg>
+                    </div>
+
+
+
                 </div>
-                <button @click="login($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
+                <button @click="connect($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
                 <button id="loading-button" class="mt-5 w-full rounded-xl bg-neutral-300 dark:bg-neutral-700 brightness-90 py-3.5 px-5 text-dark dark:text-white font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>
@@ -41,49 +54,35 @@
 <script>
 import axios from 'axios';
 
-import { generatetoken, getInfos } from '~/mixins/auth.js'
+import { login } from '~/mixins/auth.js'
 export default {
     data() {
         return {
+            eyes: false,
             ent_content: false,
             results: [],
             ents: [],
             position: null,
             etabs: [],
             errors: [],
-            generatetoken: generatetoken,
-            getInfos: getInfos,
+            login: login,
             loading: false,
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }
     },
     methods: {
-        login: function (e) {
+        connect: async function (e) {
             let config = this.config
             let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
             let form = this.$el.querySelector('#form_login')
-            axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(form.querySelector('#input_ent').dataset.url)}`)
-                .then(async (response) => {
-                    if (!response.data?.url || !response.data?.url.includes('.')) return this.errors.push({ message: "Établissement incorrect", color: "danger" })
-                let etab = response.data.url.split(".")[1].replace('-', '_')
-                let ent_url = form.querySelector('#input_ent').dataset.url
-                let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')
-                let new_token = await this.generatetoken(config, url, form.querySelector('#input_username').value, form.querySelector('#input_password').value, etab)
-
-                if (!new_token) {
-                    e.classList.remove('hidden')
-                    loadingButton.classList.add('hidden')
-                    return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                }
-/*                 if (new_token) await this.getInfos(config) */
-            }).catch(error => {
+            let logged = await this.login(config, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
+            if (!logged) {
                 e.classList.remove('hidden')
                 loadingButton.classList.add('hidden')
-                this.errors.push({ message: "Informations incorrectes", color: "danger" })
-                return console.log(e)
-            })
+                return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+            }
 
         },
         searchEnt: function (e) {

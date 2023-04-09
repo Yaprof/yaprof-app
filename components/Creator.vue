@@ -67,7 +67,6 @@
 
 
 <script>
-import { generatetoken } from '~~/mixins/auth'
 import axios from "axios"
 
 export default {
@@ -79,7 +78,6 @@ export default {
             results: [],
             profs: [],
             errors: [],
-            generatetoken: generatetoken,
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
         }
     },
@@ -91,11 +89,12 @@ export default {
             this.loading = true;
             this.closePopupCreator()
             let form = this.$el.querySelector('#form_post')
-            fetch(this.$config.API_URL + '/post', {
+            fetch(this.$config.API_URL + '/post?userInfos='+window.localStorage.getItem('userInfos'), {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
                 },
                 body: JSON.stringify({
                     content: form.querySelector('#input_reason').value,
@@ -114,7 +113,7 @@ export default {
                 this.loading = false;
                 window.location.reload()
             })
-                .catch(async e => {
+            .catch(async e => {
                 console.log(e)
                 this.loading = false
                 return this.errors.push({ message: "Impossible de créer le post", color: "danger" })
@@ -149,24 +148,26 @@ export default {
             }, 250)
         }
     },
-    mounted() {
+    async mounted() {
         let config = this.config
-        fetch(this.$config.API_URL + '/recipients', {
-            method: "GET",
+        let response = await axios.get(this.$config.API_URL + '/recipients?userInfos='+window.localStorage.getItem('userInfos'), {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
             },
-        }).then(response => response.json())
-            .then(async (response) => {
-                console.log(response)
-                if (!response || response.error) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-                this.profs = response
-            })
-            .catch(async e => {
-                return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-            })
+            body: {
+                userInfos: window.localStorage.getItem('userInfos')
+            }
+        }).catch(async e => {
+            return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+        })
+
+        if (!response.data || response.data.error) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
+        this.profs = response.data.profs
+        console.log(response.data.token, response.data.userInfos)
+        window.localStorage.setItem('token', response.data.token)
+        window.localStorage.setItem('userInfos', response.data.userInfos)
 
         $(document).ready(function () {
             console.log('PopupCreator.js loaded')
@@ -177,11 +178,12 @@ export default {
 
                 $("#popup_creator").swipe({
                     swipeStatus: function (event, phase, direction, distance, duration, fingers) {
-                        if (phase == "move" && direction == "down") {
+                        if (phase == "move" && direction == "down" && distance >= 100) {
                             togglePopupCreator()
                             return false;
                         }
-                    }
+                    },
+                    threshold: 100
                 });
             });
         });

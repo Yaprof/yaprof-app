@@ -65,8 +65,43 @@ export default {
             let dislikeButton = this.$el.querySelector('#dislike_button')
             let likeButton = this.$el.querySelector('#like_button')
 
-            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user.id, {
+            /* if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
+                if (dislikeButton.classList.contains('!text-red-500'))
+                    this.data.likes = this.data.likes + 1
+                this.data.likes = this.data.likes + 1
+                likeButton?.classList.add('!text-emerald-500')
+                likesCounter?.classList.add('!text-emerald-500')
+                dislikeButton?.classList.remove('!text-red-500')
+                likesCounter?.classList.remove('!text-red-500')
+            } else if (!dislikeButton.classList.contains('!text-red-500') && type != 'like') {
+                if (likeButton.classList.contains('!text-emerald-500'))
+                    this.data.likes = this.data.likes - 1
+                this.data.likes = this.data.likes - 1
+                likeButton?.classList.remove('!text-emerald-500')
+                likesCounter?.classList.remove('!text-emerald-500')
+                dislikeButton?.classList.add('!text-red-500')
+                likesCounter?.classList.add('!text-red-500')
+            } else {
+                if (dislikeButton.classList.contains('!text-red-500'))
+                    this.data.likes = this.data.likes + 1
+                if (likeButton.classList.contains('!text-emerald-500'))
+                    this.data.likes = this.data.likes - 1
+                likeButton?.classList.remove('!text-emerald-500')
+                likeButton?.classList.remove('!text-red-500')
+                dislikeButton?.classList.remove('!text-red-500')
+                dislikeButton?.classList.remove('!text-emerald-500')
+                likesCounter?.classList.remove('!text-red-500')
+                likesCounter?.classList.remove('!text-emerald-500')
+            }
+ */
+
+            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
                 method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                }
             }).then(response => response.json())
                 .then(async (response) => {
                     if (response?.error) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
@@ -89,16 +124,38 @@ export default {
                         likesCounter?.classList.remove('!text-red-500')
                         likesCounter?.classList.remove('!text-emerald-500')
                     }
-
                 })
                 .catch(async e => {
+                    if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
+                        likeButton?.classList.add('!text-emerald-500')
+                        likesCounter?.classList.add('!text-emerald-500')
+                        dislikeButton?.classList.remove('!text-red-500')
+                        likesCounter?.classList.remove('!text-red-500')
+                    } else if (!dislikeButton.classList.contains('!text-red-500') && type != 'like') {
+                        likeButton?.classList.remove('!text-emerald-500')
+                        likesCounter?.classList.remove('!text-emerald-500')
+                        dislikeButton?.classList.add('!text-red-500')
+                        likesCounter?.classList.add('!text-red-500')
+                    } else {
+                        likeButton?.classList.remove('!text-emerald-500')
+                        likeButton?.classList.remove('!text-red-500')
+                        dislikeButton?.classList.remove('!text-red-500')
+                        dislikeButton?.classList.remove('!text-emerald-500')
+                        likesCounter?.classList.remove('!text-red-500')
+                        likesCounter?.classList.remove('!text-emerald-500')
+                    }
                     return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                 })
         },
         deletePost: function (id) {
             if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
-            fetch(this.$config.API_URL + `/post/${id}`, {
+            fetch(this.$config.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
                 method: "DELETE",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                }
             }).then(response => response.json())
                 .then(async (response) => {
                     console.log(response)
@@ -132,7 +189,7 @@ export default {
         let likeButton = this.$el.querySelector('#like_button')
 
         let Localuser = JSON.parse(window.localStorage.getItem('user'))
-        if (this.data.likedBy.find(u=>u.id == Localuser.id)) {
+        if (this.data.likedBy.find(u=>u.id == Localuser?.id)) {
             likeButton?.classList.add('!text-emerald-500')
             likesCounter?.classList.add('!text-emerald-500')
             dislikeButton?.classList.remove('!text-red-500')

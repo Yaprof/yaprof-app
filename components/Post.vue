@@ -65,7 +65,7 @@ export default {
             let dislikeButton = this.$el.querySelector('#dislike_button')
             let likeButton = this.$el.querySelector('#like_button')
 
-            if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
+            /* if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
                 if (dislikeButton.classList.contains('!text-red-500'))
                     this.data.likes = this.data.likes + 1
                 this.data.likes = this.data.likes + 1
@@ -93,8 +93,7 @@ export default {
                 likesCounter?.classList.remove('!text-red-500')
                 likesCounter?.classList.remove('!text-emerald-500')
             }
-
-            
+ */
 
             fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
                 method: "POST",
@@ -107,6 +106,24 @@ export default {
                 .then(async (response) => {
                     if (response?.error) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                     this.data.likes = parseInt(response.likedBy?.length) - parseInt(response.dislikedBy?.length)
+                    if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
+                        likeButton?.classList.add('!text-emerald-500')
+                        likesCounter?.classList.add('!text-emerald-500')
+                        dislikeButton?.classList.remove('!text-red-500')
+                        likesCounter?.classList.remove('!text-red-500')
+                    } else if (!dislikeButton.classList.contains('!text-red-500') && type != 'like') {
+                        likeButton?.classList.remove('!text-emerald-500')
+                        likesCounter?.classList.remove('!text-emerald-500')
+                        dislikeButton?.classList.add('!text-red-500')
+                        likesCounter?.classList.add('!text-red-500')
+                    } else {
+                        likeButton?.classList.remove('!text-emerald-500')
+                        likeButton?.classList.remove('!text-red-500')
+                        dislikeButton?.classList.remove('!text-red-500')
+                        dislikeButton?.classList.remove('!text-emerald-500')
+                        likesCounter?.classList.remove('!text-red-500')
+                        likesCounter?.classList.remove('!text-emerald-500')
+                    }
                 })
                 .catch(async e => {
                     if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {

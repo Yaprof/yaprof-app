@@ -1,10 +1,11 @@
 import axios from "axios"
 
-export async function updateUser(config, name, pp, clas, etab, role) {
-    let response = await axios.post(config + '/user/create', {
+export async function updateUser(config, pp, name, clas, etab, role) {
+    let response = await axios.post(config + '/user/update?userInfos='+window.localStorage.getItem('userInfos'), {
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token')
         },
         body: {
             name: name,

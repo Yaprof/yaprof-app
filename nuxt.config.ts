@@ -18,6 +18,7 @@ export default defineNuxtConfig({
                 { name: "apple-mobile-web-app-title", content: "Yaprof" },
                 { name: "msapplication-TileColor", content: "#12d4a6" },
                 { name: "msapplication-TileImage", content: "/icons/icon_192x192.png" },
+                { name: "msapplication-tap-highlight", content: "no" },
                 { name: "theme-color", content: "#ffffff", media: "(prefers-color-scheme: light)" },
                 { name: "theme-color", content: "#1f2937", media: "(prefers-color-scheme: dark)" },
 

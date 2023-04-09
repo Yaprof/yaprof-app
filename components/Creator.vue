@@ -178,11 +178,12 @@ export default {
 
                 $("#popup_creator").swipe({
                     swipeStatus: function (event, phase, direction, distance, duration, fingers) {
-                        if (phase == "move" && direction == "down") {
+                        if (phase == "move" && direction == "down" && distance >= 100) {
                             togglePopupCreator()
                             return false;
                         }
-                    }
+                    },
+                    threshold: 100
                 });
             });
         });

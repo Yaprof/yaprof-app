@@ -65,7 +65,8 @@ export default {
             loadingButton.classList.toggle('hidden')
             let form = this.$el.querySelector('#form_login')
             axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(form.querySelector('#input_ent').dataset.url)}`)
-            .then(async(response) => {
+                .then(async (response) => {
+                    if (!response.data?.url || !response.data?.url.includes('.')) return this.errors.push({ message: "Établissement incorrect", color: "danger" })
                 let etab = response.data.url.split(".")[1].replace('-', '_')
                 let ent_url = form.querySelector('#input_ent').dataset.url
                 let url = ent_url + (ent_url.includes('eleve.html') ? '' : '/eleve.html')

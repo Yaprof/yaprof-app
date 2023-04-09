@@ -76,11 +76,14 @@ export default {
             let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
-            let form = this.$el.querySelector('#form_login')
+            let form = window.document.querySelector('#form_login')
             let logged = await this.login(config, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
-            if (!logged) {
+console.log(logged)
+            if (!logged || logged.error) {
                 e.classList.remove('hidden')
                 loadingButton.classList.add('hidden')
+                console.log(logged.error)
+                if (logged?.error == "Établissement incorrect") return this.errors.push({ message: "Veuillez séletionner votre établissement", color: "danger" })
                 return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             }
 
@@ -92,6 +95,7 @@ export default {
             if (this.results.length < 1) this.results = [{nomEtab:"Aucun résultat"}]
         },
         selectOption: function (e, url, py) {
+            if (e.innerHTML == 'Aucun résultat') return
             this.$el.querySelector('#input_ent').setAttribute("data-url", url)
             this.$el.querySelector('#input_ent').setAttribute("data-ent", py)
             this.$el.querySelector('#input_ent').value = e.innerHTML

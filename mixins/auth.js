@@ -17,7 +17,8 @@ export async function login(config, username, password, ent_url) {
         })
     }).catch(error => { console.log(error); return false; })
     let response = await request.json()
-    if (!response?.token || !response?.userInfos || response?.error) return false
+    console.log(response.error)
+    if (!response?.token || !response?.userInfos || response?.error) return response || false
     console.log(response)
     window?.localStorage.setItem('token', response.token)
     window?.localStorage.setItem('userInfos', response.userInfos)

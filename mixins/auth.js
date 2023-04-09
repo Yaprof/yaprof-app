@@ -44,6 +44,6 @@ export async function getInfos(config) {
     console.log(response)
     if (!response || response.error) return false
 
-    await updateUser(urls.api, response.name, response.profile_picture, response.class, response.establishment, (response.delegue.length < 1 ? false : true))
+    await updateUser(urls.api, response.profile_picture, response.name, response.class, response.establishment, (response.delegue.length < 1 ? false : true))
     return true
 }

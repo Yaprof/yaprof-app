@@ -6,7 +6,7 @@
     "display": "standalone",
     "scope": "/",
     "id": "yaprof",
-    "orientation": "natural",
+    "orientation": "portrait",
     "background_color": "#12d4a6",
     "theme_color": "#12d4a6",
     "icons": [

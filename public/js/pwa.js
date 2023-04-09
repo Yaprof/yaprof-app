@@ -8,6 +8,9 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 window.addEventListener('load', (e) => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+    }
     let buttonInstall = document.getElementById('buttonInstall');
     if (!buttonInstall) return
     buttonInstall.addEventListener('click', async () => {

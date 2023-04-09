@@ -10,7 +10,7 @@ export default defineNuxtConfig({
             },
             meta: [
                 { charset: "utf-8" },
-                { name: "viewport", content: "width=device-width, initial-scale=1" },
+                { name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" },
                 { hid: "description", name: "description", content: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas" },
                 { name: "manifest", content: "/manifest.webmanifest" },
                 { name: "format-detection", content: "telephone=no" },
@@ -19,6 +19,7 @@ export default defineNuxtConfig({
                 { name: "msapplication-TileColor", content: "#12d4a6" },
                 { name: "msapplication-TileImage", content: "/icons/icon_192x192.png" },
                 { name: "msapplication-tap-highlight", content: "no" },
+                { name: "HandheldFriendly", content: "true" },
                 { name: "theme-color", content: "#ffffff", media: "(prefers-color-scheme: light)" },
                 { name: "theme-color", content: "#1f2937", media: "(prefers-color-scheme: dark)" },
 

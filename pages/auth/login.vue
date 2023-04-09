@@ -22,7 +22,7 @@
                 <div class="flex flex-col gap-1 w-full">
                     <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
                     <div class="w-full relative text-dark">
-                        <input id="input_password" :type="!this?.eyes ? 'password' : 'text'" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
+                        <input id="input_password" :type="!eyes ? 'password' : 'text'" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
                         <svg @click="eyes=false" v-if="eyes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 absolute right-5 top-1/3">
                             <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
                             <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />

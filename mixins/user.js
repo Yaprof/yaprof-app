@@ -40,3 +40,16 @@ export async function getUser(config) {
     } else return false
     return response.data
 }
+
+export async function getUsers(config) {
+    let response = await axios.get(config + '/admin/users?userInfos='+window.localStorage.getItem('userInfos'), {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+        }
+    }).catch(error => { console.log(error); return false })
+    console.log(response.data)
+    if (!response.data) return false
+    return response.data
+}

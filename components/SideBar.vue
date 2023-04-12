@@ -1,7 +1,7 @@
 <template>
     <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[98] pb-5">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:text-light">
+        <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light">
             <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile?.pp" />
             <div class="flex flex-col p-5">
                 <NuxtLink to="/user/profile" class="z-50 !bg-transparent">

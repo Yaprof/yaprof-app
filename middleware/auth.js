@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to, from) => {
     try {
-        if (!window.matchMedia('(display-mode: standalone)').matches && /^iP|MacIntel/.test(navigator.platform)) {
+        if (!window.matchMedia('(display-mode: standalone)').matches && /^iP/.test(navigator.platform)) {
             return navigateTo('/howitswork')
         }
 

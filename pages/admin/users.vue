@@ -5,7 +5,7 @@
                 <h1 class="text-dark dark:text-white text-3xl font-bold">Users ({{ users?.length ?? 0 }})</h1>
             </div>
             <div class="flex flex-col gap-2">
-                <div v-for="user in users" :key="user.id" class="w-full h-fit shadow-md rounded-xl p-5 gap-2 flex flex-col border">
+                <NuxtLink :to="'/user/'+user.id" v-for="user in users" :key="user.id" class="w-full h-fit shadow-md rounded-xl p-5 gap-2 flex flex-col border">
                     <div class="flex items-center gap-3 w-full overflow-hidden">
                         <img class="w-12 h-12 aspect-square object-cover object-center rounded-full shadow-md" :src="user.profile?.pp" />
                         <div class="flex flex-col">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </NuxtLink>
             </div>
         </div>
     </NuxtLayout>

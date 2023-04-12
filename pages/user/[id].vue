@@ -11,7 +11,7 @@
             </div>
             <div class="flex flex-col gap-2">
                 <div class="w-full shadow-md relative rounded-xl overflow-hidden bg-dark dark:bg-light h-[164px]">
-                    <img class="w-full h-[164px] object-cover object-center absolute top-0 left-0 blur-lg scale-150 brightness-110 dark:brightness-90 rounded-xl" :src="user.profile?.pp" />
+                    <img class="w-full h-[164px] object-cover object-center absolute top-0 left-0 blur-lg brightness-110 dark:brightness-90 rounded-xl" :src="user.profile?.pp" />
                     <div class="flex flex-col p-5">
                         <div class="flex items-center gap-1">
                             <img class="mb-2 h-16 w-16 object-cover z-10 rounded-full object-center mr-2" :src="user.profile?.pp" />

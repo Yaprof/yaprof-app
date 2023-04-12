@@ -50,7 +50,11 @@ export default {
     },
     methods: {
         goToPrev() {
-            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+            let params = (new URL(window.document.location)).searchParams;
+            console.log(params)
+            if (params.get('q') == "admin")
+                this.$router.push('/admin/users')
+            else this.$router.push('/')
         }
     },
     async mounted() {

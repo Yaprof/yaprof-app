@@ -2,7 +2,7 @@
     <NuxtLayout>
         <div>
             <div class="flex items-center gap-3 pb-3 -mt-2">
-                <button @click="goToPrev()" class="active:scale-95 transition-all cursor-pointer p-2 z-50">
+                <button @click="goToPrev()" class="active:scale-95 transition-all cursor-pointer p-2 z-50 text-dark dark:text-light">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-8 h-8">
                         <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
                     </svg>
@@ -53,8 +53,8 @@ export default {
             let params = (new URL(window.document.location)).searchParams;
             console.log(params)
             if (params.get('q') == "admin")
-                this.$router.push('/admin/users')
-            else this.$router.push('/')
+                this.$router.push({ path: '/admin/users' })
+            else this.$router.push({ path: '/' })
         }
     },
     async mounted() {

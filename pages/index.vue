@@ -71,6 +71,7 @@ definePageMeta({
 <script>
 import {getUser} from '../mixins/user.js'
 export default {
+    name: "Home",
     data() {
         return {
             absences: [],

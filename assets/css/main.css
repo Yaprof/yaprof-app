@@ -12,6 +12,11 @@ body {
     -webkit-touch-callout: none;
 }
 
+html, body {
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         background-color: #1f2937;

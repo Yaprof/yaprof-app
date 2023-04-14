@@ -78,6 +78,9 @@ export default defineNuxtConfig({
         classSuffix: ""
     },
     pwa: {
+/*         strategies: 'injectManifest',
+        srcDir: 'public',
+        filename: 'sw.ts', */
         manifest: {
             name: "Yaprof",
             short_name: "Yaprof",

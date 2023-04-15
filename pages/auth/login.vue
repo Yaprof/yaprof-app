@@ -133,7 +133,7 @@ export default {
             });
         },
         GetLocation(navigator) {
-            if(navigator.geolocation){
+            if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     let coordinates = position.coords;
                     let lat = coordinates.latitude;
@@ -145,9 +145,6 @@ export default {
                     console.log(error)
                     this.findEstablishments(43.6832581, 6.9835905)
                     return 43.6832581, 6.9835905
-                }, {
-                    timeout: 5000,
-                    maximumAge: 0,
                 })
             } else {
                 this.findEstablishments(43.6832581, 6.9835905)

@@ -107,8 +107,9 @@ export default {
                 })
             }).then(response => response.json())
             .then(async (response) => {
+                console.log(response)
                 if (response.error) {
-                    if (response.error == 'Post déjà existant') return this.errors.push({ message: "Ce prof est déjà signalé absent", color: "danger" })
+                    if (response.error == 'Prof déjà signalé ce jour') return this.errors.push({ message: response.error, color: "danger" })
                 }
                 this.loading = false;
                 window.location.reload()

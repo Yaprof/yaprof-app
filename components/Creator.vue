@@ -9,7 +9,7 @@
             </div>
         </div>
         <div id="popup_creator_parent" class="fixed top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1] transition-all !z-[99] opacity-0 pointer-events-none">
-            <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998]">
+            <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998] transform-gpu">
                 <div class="w-full flex items-center justify-between">
                     <div @click="closePopupCreator()" class="text-primary cursor-pointer text-lg">Annuler</div>
                     <a class="text-dark dark:text-white cursor-pointer text-lg font-medium">Créer un post</a>
@@ -107,8 +107,9 @@ export default {
                 })
             }).then(response => response.json())
             .then(async (response) => {
+                console.log(response)
                 if (response.error) {
-                    if (response.error == 'Post déjà existant') return this.errors.push({ message: "Ce prof est déjà signalé absent", color: "danger" })
+                    if (response.error == 'Prof déjà signalé ce jour') return this.errors.push({ message: response.error, color: "danger" })
                 }
                 this.loading = false;
                 window.location.reload()

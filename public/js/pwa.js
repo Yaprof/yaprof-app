@@ -1,5 +1,16 @@
 let deferredPrompt;
 console.log('prompt')
+navigator.storage.persist()
+
+try {
+    if (window.safari) {
+        history.pushState(null, null, location.href);
+        window.onpopstate = function (event) {
+            history.go(1);
+        };
+    }
+} catch (e) { return }
+
 window.addEventListener('beforeinstallprompt', (e) => {
   // Prevent the mini-infobar from appearing on mobile
   /* e.preventDefault(); */

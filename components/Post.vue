@@ -1,7 +1,7 @@
 <template>
     <div :id="'container_info_'+data.id" class="flex flex-col gap-3 relative">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <div class="flex items-center gap-2 pl-2">
+        <NuxtLink :to="'/user/'+data.author.id" class="flex items-center gap-2 pl-2">
             <img class="w-8 h-8 aspect-square object-cover object-center rounded-full shadow-md" :src="data.author?.profile?.pp" />
             <p class="text-dark dark:text-white text-md whitespace-nowrap truncate">{{ data.author?.name }}</p>
             <div>
@@ -9,7 +9,7 @@
                     <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
                 </svg>
             </div>
-        </div>
+        </NuxtLink>
         <div class="flex flex-col shadow-md rounded-xl overflow-hidden">
             <div class="bg-opacity-40 py-3 px-6 flex items-center justify-between gap-2" :style="'background: '+(data.pointer?.color+'40')">
                 <div class="flex items-center gap-2">
@@ -65,7 +65,7 @@ export default {
             let dislikeButton = this.$el.querySelector('#dislike_button')
             let likeButton = this.$el.querySelector('#like_button')
 
-            /* if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
+            if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
                 if (dislikeButton.classList.contains('!text-red-500'))
                     this.data.likes = this.data.likes + 1
                 this.data.likes = this.data.likes + 1
@@ -93,7 +93,7 @@ export default {
                 likesCounter?.classList.remove('!text-red-500')
                 likesCounter?.classList.remove('!text-emerald-500')
             }
- */
+
 
             fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
                 method: "POST",
@@ -106,7 +106,7 @@ export default {
                 .then(async (response) => {
                     if (response?.error) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                     this.data.likes = parseInt(response.likedBy?.length) - parseInt(response.dislikedBy?.length)
-                    if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
+                    /* if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {
                         likeButton?.classList.add('!text-emerald-500')
                         likesCounter?.classList.add('!text-emerald-500')
                         dislikeButton?.classList.remove('!text-red-500')
@@ -123,7 +123,7 @@ export default {
                         dislikeButton?.classList.remove('!text-emerald-500')
                         likesCounter?.classList.remove('!text-red-500')
                         likesCounter?.classList.remove('!text-emerald-500')
-                    }
+                    } */
                 })
                 .catch(async e => {
                     if (type == 'like' && !likeButton.classList.contains('!text-emerald-500')) {

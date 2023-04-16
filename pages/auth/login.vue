@@ -6,23 +6,30 @@
             <div id="form_login" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
                     <label for="ent" class="text-lg text-dark dark:text-white">Établissement</label>
-                    <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Lycée des kabis" name="ent" />
+                    <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Sélectionnez votre établissement" name="ent" />
                     <div v-show="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full z-50">
-                        <div v-for="cas in results" :key="cas.url" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
+                        <div v-for="cas in results" :key="cas.url" class="py-3.5 px-2 hover:bg-primary hover:bg-opacity-30 border-b dark:border-secondary last:border-b-transparent flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 min-w-[1.25rem] text-dark dark:text-white">
+                                <path fill-rule="evenodd" d="M9.664 1.319a.75.75 0 01.672 0 41.059 41.059 0 018.198 5.424.75.75 0 01-.254 1.285 31.372 31.372 0 00-7.86 3.83.75.75 0 01-.84 0 31.508 31.508 0 00-2.08-1.287V9.394c0-.244.116-.463.302-.592a35.504 35.504 0 013.305-2.033.75.75 0 00-.714-1.319 37 37 0 00-3.446 2.12A2.216 2.216 0 006 9.393v.38a31.293 31.293 0 00-4.28-1.746.75.75 0 01-.254-1.285 41.059 41.059 0 018.198-5.424zM6 11.459a29.848 29.848 0 00-2.455-1.158 41.029 41.029 0 00-.39 3.114.75.75 0 00.419.74c.528.256 1.046.53 1.554.82-.21.324-.455.63-.739.914a.75.75 0 101.06 1.06c.37-.369.69-.77.96-1.193a26.61 26.61 0 013.095 2.348.75.75 0 00.992 0 26.547 26.547 0 015.93-3.95.75.75 0 00.42-.739 41.053 41.053 0 00-.39-3.114 29.925 29.925 0 00-5.199 2.801 2.25 2.25 0 01-2.514 0c-.41-.275-.826-.541-1.25-.797a6.985 6.985 0 01-1.084 3.45 26.503 26.503 0 00-1.281-.78A5.487 5.487 0 006 12v-.54z" clip-rule="evenodd" />
+                            </svg>
+
                             <ClientOnly>
                                 <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOption($event.target, cas.url, cas.py)">{{ cas.nomEtab }}</p>
                             </ClientOnly>
+                        </div>
+                        <div v-if="results.length < 1" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 flex items-center gap-3">
+                            <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate">Aucun résultat</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col gap-1 w-full">
                     <label for="ent" class="text-lg text-dark dark:text-white">Nom d'utilisateur</label>
-                    <input id="input_username" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="kapibara.mathieu" name="ent" />
+                    <input id="input_username" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="Entrez votre nom d'utilisateur" name="ent" />
                 </div>
                 <div class="flex flex-col gap-1 w-full">
                     <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
-                    <div class="w-full relative text-dark">
-                        <input id="input_password" :type="!eyes ? 'password' : 'text'" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="**************" name="ent" />
+                    <div class="w-full relative text-dark dark:text-light">
+                        <input id="input_password" :type="!eyes ? 'password' : 'text'" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg text-dark dark:text-light" placeholder="**************" name="ent" />
                         <svg @click="eyes=false" v-if="eyes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 absolute right-5 top-1/3">
                             <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
                             <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
@@ -72,15 +79,19 @@ export default {
     },
     methods: {
         connect: async function (e) {
+            console.log('push notif', window.document.querySelector('push-permission'))
             let config = this.config
             let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
-            let form = this.$el.querySelector('#form_login')
+            let form = window.document.querySelector('#form_login')
             let logged = await this.login(config, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
-            if (!logged) {
+            console.log(logged)
+            if (!logged || logged.error) {
                 e.classList.remove('hidden')
                 loadingButton.classList.add('hidden')
+                console.log(logged.error)
+                if (logged?.error == "Établissement incorrect") return this.errors.push({ message: "Veuillez séletionner votre établissement", color: "danger" })
                 return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
             }
 
@@ -88,10 +99,11 @@ export default {
         searchEnt: function (e) {
             this.ent_content = true
             let content = e.parentElement.querySelector('#ent_content')
-            this.results = this.etabs.filter(s => s.nomEtab.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10)
-            if (this.results.length < 1) this.results = [{nomEtab:"Aucun résultat"}]
+            this.results = this.etabs.filter(s => s.nomEtab.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim()))
+            if (this.results.length < 1) this.results = []
         },
         selectOption: function (e, url, py) {
+            if (e.innerHTML == 'Aucun résultat') return
             this.$el.querySelector('#input_ent').setAttribute("data-url", url)
             this.$el.querySelector('#input_ent').setAttribute("data-ent", py)
             this.$el.querySelector('#input_ent').value = e.innerHTML
@@ -121,7 +133,7 @@ export default {
             });
         },
         GetLocation(navigator) {
-            if(navigator.geolocation){
+            if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     let coordinates = position.coords;
                     let lat = coordinates.latitude;
@@ -133,9 +145,6 @@ export default {
                     console.log(error)
                     this.findEstablishments(43.6832581, 6.9835905)
                     return 43.6832581, 6.9835905
-                }, {
-                    timeout: 5000,
-                    maximumAge: 0,
                 })
             } else {
                 this.findEstablishments(43.6832581, 6.9835905)

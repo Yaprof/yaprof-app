@@ -71,13 +71,16 @@ export default defineNuxtConfig({
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
             API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr', // 'http://localhost:8080',
-            PRONOTE_API_URL: 'https://api.getpapillon.xyz'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000'
+            PRONOTE_API_URL: 'https://pronoteapi.yaprof.fr'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000'
         }
     },
     colorMode: {
         classSuffix: ""
     },
     pwa: {
+/*         strategies: 'injectManifest',
+        srcDir: 'public',
+        filename: 'sw.ts', */
         manifest: {
             name: "Yaprof",
             short_name: "Yaprof",

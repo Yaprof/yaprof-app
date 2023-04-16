@@ -1,7 +1,7 @@
 <template>
    <NuxtLayout>
         <Creator :user="user" />
-        <div id="container_div"  class="overflow-y-scroll transition-all">
+        <div id="container_div"  class="transition-all">
             <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
             <div class="w-full flex items-center justify-evenly">
                 <div @click="changeType('daily')" class="py-3 flex items-center justify-center flex-col gap-2">
@@ -13,7 +13,7 @@
                     <div class="w-full px-1"><div :class="(type == 'weekly' ? 'bg-primary ': '') + ' opacity-40 w-full h-[3px] rounded-full'"></div></div>
                 </div>
             </div>
-            <div class="pt-5 gap-8 flex flex-col overflow-y-scroll pb-10">
+            <div class="pt-5 gap-8 flex flex-col pb-10">
                 <!-- Daily -->
                 <div class="flex flex-col gap-8" v-if="type=='daily'" >
                     <Post :user="user" :type="type" v-for="abs in absences.filter(ab=> new Date(ab.createdAt).getDay() == new Date().getDay())" :key="abs" :data="abs"></Post>
@@ -71,6 +71,7 @@ definePageMeta({
 <script>
 import {getUser} from '../mixins/user.js'
 export default {
+    name: "Home",
     data() {
         return {
             absences: [],

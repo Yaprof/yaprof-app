@@ -1,4 +1,4 @@
-<img align="center" width="100" height="100" src="./public/icons/icon_512x512.png">
+<img align="center" width="100" height="100" src="https://yaprof.fr/favicon.ico">
 
 # [Yaprof](https://yaprof.fr) - La nouvelle app des étudiants
 

@@ -1,5 +1,6 @@
 <img align="center" width="100" height="100" src="./public/icons/icon_512x512.png">
-# Yaprof - La nouvelle app des étudiants
+
+# [Yaprof](https://yaprof.fr) - La nouvelle app des étudiants
 
 Bienvenue sur le readme de l'**application** 🎉
 Avant de commencer, il est important de lire ce fichier et de respecter les différentes règles pour le bon fonctionnement du projet.
@@ -20,7 +21,7 @@ Lancez le serveur sur `http://localhost:3000`
 npm run dev
 ```
 
-## Version roduction
+## Version production
 
 ```bash
 npm run build

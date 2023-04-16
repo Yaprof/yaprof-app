@@ -1,10 +1,10 @@
-# Nuxt 3 Minimal Starter
+# Yaprof - La nouvelle app des étudiants
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Bienvenue sur le readme de l'**application** 🎉
 
-## Setup
+## Installation
 
-Make sure to install the dependencies:
+Pour commencer, installez les modules :
 
 ```bash
 # yarn
@@ -17,9 +17,9 @@ npm install
 pnpm install
 ```
 
-## Development Server
+## Serveur de développement
 
-Start the development server on http://localhost:3000
+Lancez le serveur sur `http://localhost:3000`
 
 ```bash
 npm run dev
@@ -27,16 +27,16 @@ npm run dev
 
 ## Production
 
-Build the application for production:
+Pour build en production :
 
 ```bash
 npm run build
 ```
 
-Locally preview production build:
+Pour visualiser localement le build de production :
 
 ```bash
 npm run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Pour toutes informations veuillez rejoindre notre [Discord](https://discord.gg/yaprof)

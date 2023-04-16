@@ -1,5 +1,7 @@
 # Yaprof - La nouvelle app des étudiants
 
+<img align="center" width="100" height="100" src="./public/icons/icon_512x512.png">
+
 Bienvenue sur le readme de l'**application** 🎉
 
 ## Installation

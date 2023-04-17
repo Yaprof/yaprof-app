@@ -1,6 +1,12 @@
 let deferredPrompt;
 console.log('prompt')
-navigator.storage.persist()
+navigator.storage.persist().then(function (persistent) {
+    if (persistent) {
+        console.log('Storage will not be cleared except by explicit user action');
+    } else {
+        console.log('Storage may be cleared by the UA under storage pressure.');
+    }
+});
 
 try {
     if (window.safari) {
@@ -9,7 +15,7 @@ try {
             history.go(1);
         };
     }
-} catch (e) { return }
+} catch (e) { console.log(e) }
 
 window.addEventListener('beforeinstallprompt', (e) => {
   // Prevent the mini-infobar from appearing on mobile

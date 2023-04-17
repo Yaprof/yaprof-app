@@ -1,17 +1,15 @@
 <template>
-    <nav class="w-full fixed -top-0 left-0 h-fit flex flex-col justify-end bg-white dark:bg-dark z-[1] !z-[99]">
+    <nav class="w-full fixed -top-0 left-0 h-fit flex flex-col justify-end bg-white dark:bg-dark z-[1] !z-[99]" ref="nav">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="flex justify-between items-center h-20">
-            <div id="sidebar-toggle" class="flex text-dark dark:text-white gap-5 items-center cursor-pointer p-5">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            <div @click="toggleSidebar()" class="flex text-dark dark:text-white gap-5 items-center cursor-pointer p-5 sidebar-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 sidebar-toggle">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" class="sidebar-toggle" />
                 </svg>
             </div>
             <div class="flex text-dark dark:text-white items-center gap-3 p-5">
                 <NuxtLink to="/shop" class="flex bg-primary bg-opacity-10 rounded-full py-2 pl-4 pr-2 items-center gap-1">
-                    <ClientOnly>
-                        <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>
-                    </ClientOnly>
+                    <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>
                     <img src="~/assets/imgs/icons/coin.svg" class="w-6 h-6 object-cover object-center rounded-full" />
                 </NuxtLink>
                 <NuxtLink to="/user/profile" class="rounded-full" >
@@ -29,7 +27,13 @@ export default {
         return {
             userInfos: { pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" },
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL},
-            errors: []
+            errors: [],
+            isSidebarOpen: false
+        }
+    },
+    methods: {
+        toggleSidebar() {
+            this.$emit('toggle-sidebar');
         }
     },
     async mounted() {

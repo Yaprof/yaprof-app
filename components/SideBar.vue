@@ -1,5 +1,5 @@
 <template>
-    <div id="sidebar" class="h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center -translate-x-full z-[98] pb-5 transform-gpu">
+    <div v-click-outside="closeSidebar" id="sidebar" :class="(isOpen  ? 'translate-x-0 shadow-xl' : '-translate-x-full') + ' h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center z-[99] pb-5 transform-gpu transition-all'">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light">
             <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile?.pp" />
@@ -9,11 +9,9 @@
                 </NuxtLink>
                 <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
                 <div class="flex items-center gap-2 opacity-70">
-                    <ClientOnly>
-                        <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
-                        <p class="text-md text-white z-50">-</p>
-                        <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
-                    </ClientOnly>
+                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
+                    <p class="text-md text-white z-50">-</p>
+                    <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
                 </div>
             </div>
         </div>
@@ -63,16 +61,59 @@
 </template>
 <script>
 export default {
+    props: {
+        isOpen: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             userInfos: {pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="},
-            errors: []
+            errors: [],
+            touchStartX: 0,
+            touchEndX: 0
         }
     },
+    methods: {
+        closeSidebar(event) {
+            if (!event.target.classList.contains('sidebar-toggle'))
+                this.$emit('close-sidebar');
+        },
+        touchStart(event) {
+            this.touchStartX = event.touches[0].clientX;
+        },
+        touchMove(event) {
+            this.touchEndX = event.touches[0].clientX;
+        },
+        touchEnd() {
+            // Check if swipe direction is to the left
+            if (this.touchEndX < this.touchStartX) {
+                this.$emit('close-sidebar');
+            }
+        }
+    },
+    beforeRouteLeave() {
+        this.isOpen = false
+    },
+    beforeDestroy() {
+        this.isOpen = false
+        document.removeEventListener('click', this.closeSidebar);
+        document.removeEventListener('touchstart', this.touchStart);
+        document.removeEventListener('touchmove', this.touchMove);
+        document.removeEventListener('touchend', this.touchEnd);
+    },
     mounted() {
-        console.log(JSON.parse(window.localStorage.getItem("user")))
+        console.log('woe')
+         console.log(JSON.parse(window.localStorage.getItem("user")))
         this.userInfos = JSON.parse(window.localStorage.getItem("user"))
         console.log('SideBar.js loaded');
+
+        document.addEventListener('click', this.closeSidebar);
+        document.addEventListener('touchstart', this.touchStart);
+        document.addEventListener('touchmove', this.touchMove);
+        document.addEventListener('touchend', this.touchEnd);
+        /*
         $('#sidebar').css('transition', 'all 200ms');
 
         $('#sidebar-toggle').click(function (event) {
@@ -80,12 +121,12 @@ export default {
         });
 
         $("html").swipe({
-            swipeStatus:function(event, phase, direction, distance, duration, fingers){
+            swipeStatus: function (event, phase, direction, distance, duration, fingers) {
                 if (phase == "move" && direction == "left" && distance >= 20) {
                     if (!$('#sidebar').hasClass('-translate-x-full')) {
                         toggleSideBar()
                     }
-                        return false;
+                    return false;
                 }
             },
             threshold: 100
@@ -99,11 +140,11 @@ export default {
 
         function toggleSideBar() {
             if ($('nav').hasClass('!z-[99]')) $('nav').removeClass('!z-[99]')
-            else setTimeout(function () { $('nav').addClass('!z-[99]') },200)
+            else setTimeout(function () { $('nav').addClass('!z-[99]') }, 200)
             $('#sidebar').toggleClass('translate-x-0');
             $('#sidebar').toggleClass('-translate-x-full');
             $('#sidebar').toggleClass('shadow-xl');
-        }
+        } */
     },
 }
 </script>

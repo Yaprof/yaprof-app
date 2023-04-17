@@ -161,12 +161,13 @@ export default {
                 userInfos: window.localStorage.getItem('userInfos')
             }
         }).catch(async e => {
+            console.log(e)
             return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
         })
 
         if (!response.data || response.data.error) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
         this.profs = response.data.profs
-        console.log(response.data.token, response.data.userInfos)
+        console.log(this.profs)
         window.localStorage.setItem('token', response.data.token)
         window.localStorage.setItem('userInfos', response.data.userInfos)
 

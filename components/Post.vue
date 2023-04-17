@@ -40,15 +40,6 @@
                 </div>
             </div>
         </div>
-        <div id="popup_info_parent" class="fixed top-0 left-0 h-screen w-full opacity-0 pointer-events-none z-[100] transition-all"></div>
-        <div v-if="data.author.id == user.id || [20, 50, 99].includes(user?.role)" :id="'popup_info_'+data.id" class="bg-light dark:bg-secondary p-5 pb-14 fixed bottom-0 left-0 w-full flex flex-col translate-y-full text-dark dark:text-white transition-all z-[101]" v-click-outside="closePopupInfos">
-            <div @click="deletePost(data.id)" class="flex items-center justify-center gap-2 text-red-500 group cursor-pointer active:text-red-400">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-active:scale-95">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                </svg>
-                <p>Supprimer</p>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -147,39 +138,8 @@ export default {
                     return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
                 })
         },
-        deletePost: function (id) {
-            if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
-            fetch(this.$config.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
-                method: "DELETE",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
-                }
-            }).then(response => response.json())
-                .then(async (response) => {
-                    console.log(response)
-                    if (response?.error || !response) return this.errors.push({ message: "Impossible de réaliser l'action", color: "danger" })
-                    window.document.querySelector('#container_info_'+this.data.id).classList.add('hidden')
-                    this.closePopupInfos()
-                })
-                .catch(async e => {
-                    return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
-                })
-        },
         closePopupInfos: function () {
-            let el = window.document.querySelector('#popup_info_'+this.data.id)
-            if (!el) return
-            if (el.classList.contains('translate-y-full')) return
-            el.classList.add('translate-y-full');
-            window.document.querySelector('#popup_info_parent').classList.remove('bg-dark')
-            window.document.querySelector('#popup_info_parent').classList.remove('bg-opacity-50')
-            window.document.querySelector('#popup_info_parent').classList.add('pointer-events-none')
-            window.document.querySelector('#popup_info_parent').classList.add('opacity-0');
-            setTimeout(e => {
-                this.$el.querySelector('html').classList.remove('overflow-hidden')
-                this.$el.querySelector('body').classList.remove('overflow-hidden')
-            }, 250)
+            this.holded = false
         }
     },
     mounted() {
@@ -200,60 +160,6 @@ export default {
             dislikeButton?.classList.add('!text-red-500')
             likesCounter?.classList.add('!text-red-500')
         }
-
-        let thos = this
-
-        $(document).ready(function () {
-            console.log('creator pupup.js loaded')
-            $('#popup_info').css('transition', 'all 150ms');
-
-          /*   $('#container_info').on('taphold', function () {
-                console.log("taphold")
-                const timeoutId = setTimeout(() => { togglePopupInfo() }, 500);
-                console.log(this.timeoutId)
-            }).on('mouseup mouseleave', function () {
-                console.log('clear')
-                clearTimeout(this.timeoutId);
-            }); */
-
-            $('#container_info_' + thos.data.id).on('taphold', function (el) {
-                if (thos.data.author.id != thos.user.id && ![20, 50, 99].includes(thos.user?.role)) return
-                togglePopupInfo($("#popup_info_"+thos.data.id))
-            })
-
-            $("#popup_info_"+thos.data.id).swipe({
-                swipeStatus: function (event, phase, direction, distance, duration, fingers) {
-                    if (phase == "move" && direction == "down") {
-                        togglePopupInfo()
-                        return false;
-                    }
-                }
-            });
-        });
-
-        function togglePopupInfo(el) {
-            $(el).toggleClass('translate-y-full');
-            $('#popup_info_parent').toggleClass('bg-dark')
-            $('#popup_info_parent').toggleClass('bg-opacity-50')
-            $('#popup_info_parent').toggleClass('pointer-events-none')
-            $('#popup_info_parent').removeClass('opacity-0');
-
-            if ($(el).hasClass('translate-y-full'))
-                setTimeout(() => {
-                    $('html').removeClass('overflow-hidden')
-                    $('body').removeClass('overflow-hidden')
-                }, 150)
-            else {
-                try {
-                    navigator.vibrate();
-                } catch (e) {
-                    return
-                }
-                $('html').addClass('overflow-hidden')
-                $('body').addClass('overflow-hidden')
-            }
-        }
-
     },
 }
 </script>

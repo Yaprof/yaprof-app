@@ -27,7 +27,7 @@
                         <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Nom du professeur" />
                         <div v-show="prof_content" class="absolute top-[calc(100%+10px)] left-0 rounded-b-xl bg-neutral-200 dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99] transition-all">
                             <div v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
-                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOptionProf($event.target, prof.name)">{{ prof.name }} ({{ prof.functions[0] }})</p>
+                                <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOptionProf($event.target, prof.name)">{{ prof.name }} ({{ prof.functions[0]?.replace('&amp;', '&') }})</p>
                             </div>
                         </div>
                     </div>
@@ -128,9 +128,10 @@ export default {
             if (this.results.length < 1) this.results = [{ name: "Aucun résultat", functions: ["Aucun"] }]
         },
         selectOptionProf: function (e, profName) {
-            this.$el.querySelector('#input_prof').setAttribute("data-profname", profName)
+            console.log(profName.replace('&amp;', '&'))
+            this.$el.querySelector('#input_prof').setAttribute("data-profname", profName?.replace('&amp;', '&'))
             if (this.$el.querySelector("#input_prof"))
-                this.$el.querySelector('#input_prof').value = e.innerHTML
+                this.$el.querySelector('#input_prof').value = e.innerHTML?.replace('&amp;', '&')
             this.prof_content = false
         },
         closeProfSearch: function () {

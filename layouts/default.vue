@@ -26,12 +26,18 @@ export default {
     },
     methods: {
         onToggleSidebar() {
+            if (window.document.querySelector('html').style.overflowY)
+                window.document.querySelector('html').style.overflowY = null;
+            else
+                window.document.querySelector('html').style.overflowY = 'hidden';
             this.isSidebarOpen = !this.isSidebarOpen;
         },
         closeSidebar() {
-            if (this.isSidebarOpen)
+            if (this.isSidebarOpen) {
                 this.isSidebarOpen = false;
-        },
+                window.document.querySelector('html').style.overflowY = null;
+            }
+        }
     },
 }
 </script>

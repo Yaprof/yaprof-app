@@ -1,8 +1,8 @@
 <template>
-    <div :id="'container_info_'+data.id" class="flex flex-col gap-3 relative">
+    <div :id="'container_info_'+data?.id" class="flex flex-col gap-3 relative">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <NuxtLink :to="'/user/'+data.author.id" class="flex items-center gap-2 pl-2">
-            <img class="w-8 h-8 aspect-square object-cover object-center rounded-full shadow-md" :src="data.author?.profile?.pp" />
+        <NuxtLink :to="'/user/'+data.author?.id" class="flex items-center gap-2 pl-2 !bg-transparent">
+            <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';" class="w-8 h-8 aspect-square object-cover object-center rounded-full shadow-md" :src="data.author?.profile?.pp" />
             <p class="text-dark dark:text-white text-md whitespace-nowrap truncate">{{ data.author?.name }}</p>
             <div>
                 <svg v-if="[20, 50, 99].includes(data.author?.role)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-sky-400">
@@ -21,7 +21,7 @@
             <p v-if="type == 'daily'" class="text-dark dark:text-white opacity-80">{{ new Date(new Date(data.createdAt).setHours(new Date(data.createdAt).getHours())).getHours() + "h" + (new Date(data.createdAt).getMinutes().length == 1 ? ("0" + new Date(data.createdAt).getMinutes()) : new Date(data.createdAt).getMinutes() ) }}</p>
             </div>
             <div class="px-6 pt-3 bg-white dark:bg-secondary">
-                <p class="text-dark dark:text-white text-lg break-words"><span class="opacity-60">Raison:</span> <span class="font-medium">{{ data.content }}</span></p>
+                <p class="text-dark dark:text-white text-lg break-words"><span class="opacity-60">Raison:</span> <span class="font-medium">{{ data?.content }}</span></p>
             </div>
             <div class="px-6 py-3 bg-white dark:bg-secondary flex items-center justify-between gap-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
@@ -30,11 +30,11 @@
                 </svg>
 
                 <div class="flex items-center gap-2">
-                    <svg id="dislike_button" @click="likeorDislikePost('dislike', data.id)" class="w-8 h-8 text-neutral-500 rotate-180 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <svg id="dislike_button" @click="likeorDislikePost('dislike', data?.id)" class="w-8 h-8 text-neutral-500 rotate-180 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <p id="counter_likes" class="text-dark dark:text-white text-md font-medium">{{ data?.likes ?? 0 }}</p>
-                    <svg id="like_button" @click="likeorDislikePost('like', data.id)" class="w-8 h-8 text-neutral-500 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <svg id="like_button" @click="likeorDislikePost('like', data?.id)" class="w-8 h-8 text-neutral-500 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
@@ -86,7 +86,7 @@ export default {
             }
 
 
-            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
+            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user?.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -154,7 +154,7 @@ export default {
             likesCounter?.classList.add('!text-emerald-500')
             dislikeButton?.classList.remove('!text-red-500')
             likesCounter?.classList.remove('!text-red-500')
-        } else if (this.data.dislikedBy.find(u=>u.id == Localuser.id)) {
+        } else if (this.data.dislikedBy.find(u=>u.id == Localuser?.id)) {
             likeButton?.classList.remove('!text-emerald-500')
             likesCounter?.classList.remove('!text-emerald-500')
             dislikeButton?.classList.add('!text-red-500')

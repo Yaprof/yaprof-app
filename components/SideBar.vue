@@ -40,8 +40,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-9">
                     <path d="M10 9a3 3 0 100-6 3 3 0 000 6zM6 8a2 2 0 11-4 0 2 2 0 014 0zM1.49 15.326a.78.78 0 01-.358-.442 3 3 0 014.308-3.516 6.484 6.484 0 00-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 01-2.07-.655zM16.44 15.98a4.97 4.97 0 002.07-.654.78.78 0 00.357-.442 3 3 0 00-4.308-3.517 6.484 6.484 0 011.907 3.96 2.32 2.32 0 01-.026.654zM18 8a2 2 0 11-4 0 2 2 0 014 0zM5.304 16.19a.844.844 0 01-.277-.71 5 5 0 019.947 0 .843.843 0 01-.277.71A6.975 6.975 0 0110 18a6.974 6.974 0 01-4.696-1.81z" />
                 </svg>
-
-
                 <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium w-full">Users</p>
             </NuxtLink>
             <div class="w-[90%] h-0.5 bg-light dark:bg-dark"></div>
@@ -53,13 +51,23 @@
             </NuxtLink>
         </div>
         <div class="flex flex-col w-full p-5">
-            <div class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
-                <p class="text-md text-neutral-600 dark:text-neutral-300 z-50 font-medium">Version: v1_beta</p>
+            <div class="flex items-center gap-3.5 w-full px-5 py-2 rounded-full cursor-pointer group bg-transparent">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-9">
+                <path d="M4.464 3.162A2 2 0 016.28 2h7.44a2 2 0 011.816 1.162l1.154 2.5c.067.145.115.291.145.438A3.508 3.508 0 0016 6H4c-.288 0-.568.035-.835.1.03-.147.078-.293.145-.438l1.154-2.5z" />
+                <path fill-rule="evenodd" d="M2 9.5a2 2 0 012-2h12a2 2 0 110 4H4a2 2 0 01-2-2zm13.24 0a.75.75 0 01.75-.75H16a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75h-.01a.75.75 0 01-.75-.75V9.5zm-2.25-.75a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 00.75-.75V9.5a.75.75 0 00-.75-.75h-.01zM2 15a2 2 0 012-2h12a2 2 0 110 4H4a2 2 0 01-2-2zm13.24 0a.75.75 0 01.75-.75H16a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75h-.01a.75.75 0 01-.75-.75V15zm-2.25-.75a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75h-.01z" clip-rule="evenodd" />
+                </svg>
+
+                <div class="flex items-center justify-between gap-2 w-full">
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium w-full">Services</p>
+                    <p :class="(isOnline ? 'bg-[#4AFF9321] text-emerald-400 dark:text-emerald-500' : 'bg-light text-neutral-300 dark:text-neutral-400') +' text-md z-50 w-full whitespace-nowrap truncate rounded-full bg-opacity-30 flex items-center justify-center py-1'">{{ isOnline ? 'En ligne' : 'Hors ligne' }}</p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import pkg from '~/package.json'
+console.log(pkg)
 export default {
     props: {
         isOpen: {
@@ -72,7 +80,9 @@ export default {
             userInfos: {pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="},
             errors: [],
             touchStartX: 0,
-            touchEndX: 0
+            touchEndX: 0,
+            versionPkg: pkg['version'],
+            isOnline: false
         }
     },
     methods: {
@@ -104,8 +114,7 @@ export default {
         document.removeEventListener('touchend', this.touchEnd);
     },
     mounted() {
-        console.log('woe')
-         console.log(JSON.parse(window.localStorage.getItem("user")))
+        this.isOnline = navigator?.onLine || false
         this.userInfos = JSON.parse(window.localStorage.getItem("user"))
         console.log('SideBar.js loaded');
 
@@ -113,38 +122,9 @@ export default {
         document.addEventListener('touchstart', this.touchStart);
         document.addEventListener('touchmove', this.touchMove);
         document.addEventListener('touchend', this.touchEnd);
-        /*
-        $('#sidebar').css('transition', 'all 200ms');
 
-        $('#sidebar-toggle').click(function (event) {
-            toggleSideBar()
-        });
-
-        $("html").swipe({
-            swipeStatus: function (event, phase, direction, distance, duration, fingers) {
-                if (phase == "move" && direction == "left" && distance >= 20) {
-                    if (!$('#sidebar').hasClass('-translate-x-full')) {
-                        toggleSideBar()
-                    }
-                    return false;
-                }
-            },
-            threshold: 100
-        });
-
-        $(document).mouseup(function (e) {
-            if ($(e.target).closest("#sidebar").length === 0 && $(e.target).closest("#sidebar-toggle").length === 0 && $('#sidebar').hasClass('translate-x-0')) {
-                toggleSideBar()
-            }
-        })
-
-        function toggleSideBar() {
-            if ($('nav').hasClass('!z-[99]')) $('nav').removeClass('!z-[99]')
-            else setTimeout(function () { $('nav').addClass('!z-[99]') }, 200)
-            $('#sidebar').toggleClass('translate-x-0');
-            $('#sidebar').toggleClass('-translate-x-full');
-            $('#sidebar').toggleClass('shadow-xl');
-        } */
+        window.addEventListener("offline", (e) => this.isOnline = false);
+        window.addEventListener("online", (e) => this.isOnline = true);
     },
 }
 </script>

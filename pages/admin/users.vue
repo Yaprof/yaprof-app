@@ -12,7 +12,7 @@
                         </svg>
                         <p class="text-dark dark:text-white">Chargement en cours</p>
                     </div>
-                    <NuxtLink :to="'/user/'+user.id+'?q=admin'" v-for="user in users" :key="user.id" class="w-full h-fit shadow-md rounded-xl p-5 gap-2 flex flex-col border">
+                    <NuxtLink :to="'/user/'+user.id+'?q=admin'" v-for="user in users" :key="user.id" class="w-full h-fit shadow-md rounded-xl p-5 gap-2 flex flex-col border dark:border-secondary">
                         <div class="flex items-center gap-3 w-full overflow-hidden">
                             <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';" class="w-12 h-12 aspect-square object-cover object-center rounded-full shadow-md" :src="user.profile?.pp" />
                             <div class="flex flex-col">

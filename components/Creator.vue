@@ -11,9 +11,9 @@
         <div id="popup_creator_parent" class="fixed top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1] transition-all !z-[99] opacity-0 pointer-events-none">
             <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998] transform-gpu">
                 <div class="w-full flex items-center justify-between">
-                    <div @click="closePopupCreator()" class="text-primary cursor-pointer text-lg">Annuler</div>
+                    <div @click="closePopupCreator()" class="text-emerald-400 cursor-pointer text-lg">Annuler</div>
                     <a class="text-dark dark:text-white cursor-pointer text-lg font-medium">Créer un post</a>
-                    <div @click="submitPost()" class="text-primary cursor-pointer text-lg">Créer</div>
+                    <div @click="submitPost()" class="text-emerald-400 cursor-pointer text-lg">Créer</div>
                 </div>
 
                 <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-neutral-700 px-5 w-full py-3 gap-2">

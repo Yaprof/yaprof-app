@@ -1,5 +1,5 @@
 <template>
-    <div v-click-outside="closeSidebar" id="sidebar" :class="(isOpen  ? 'translate-x-0 shadow-xl' : '-translate-x-full') + ' h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center z-[99] pb-5 transform-gpu transition-all'">
+    <div v-click-outside="closeSidebar" id="sidebar" :class="(isOpen  ? 'translate-x-0 shadow-xl' : '-translate-x-full') + ' h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center z-[99] pb-5 transform-gpu transition-all duration-200'">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light relative">
             <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile?.pp" />

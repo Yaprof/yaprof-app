@@ -1,6 +1,6 @@
 <template>
     <div>
-    <NuxtLayout>
+        <NuxtLayout>
             <Creator :user="user" />
             <div id="container_div"  class="transition-all">
                 <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>

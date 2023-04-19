@@ -28,6 +28,7 @@ export default defineNuxtConfig({
             link: [
                 { rel: "icon", type: "image/png", href: "/favicon.ico" },
                 { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" },
+                { rel: "stylesheet", href: "https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap" },
                 { rel: "apple-touch-icon", sizes: "96x96", href: "/icons/icon_96x96.png" },
                 { rel: "apple-touch-startup-image", href: "/splash/iPhone_14_Pro_Max_portrait.png", media: "screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
                 { rel: "apple-touch-startup-image", href: "/splash/iPhone_14_Pro_portrait.png", media: "screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },

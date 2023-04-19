@@ -40,8 +40,8 @@
 
 
                 </div>
-                <button @click="connect($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
-                <button id="loading-button" class="mt-5 w-full rounded-xl bg-neutral-300 dark:bg-neutral-700 brightness-90 py-3.5 px-5 text-dark dark:text-white font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
+                <button @click="connect($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
+                <button id="loading-button" class="mt-5 w-full rounded-xl bg-primaryhover brightness-90 py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>
         <div class="text-lg text-dark dark:text-white">Pas de compte ? <a href="mail:yaprof@gmail.com" class="text-primary">Contactez-nous</a></div>

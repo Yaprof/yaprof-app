@@ -5,7 +5,7 @@
             <h1 class="text-dark dark:text-white text-3xl font-bold">Changelog - {{ release?.name }}</h1>
         </div>
         <p class="text-dark dark:text-white text-2xl pb-5">Quoi de neuf sur l'app ?</p>
-        <div ref="body" class=" text-lg font-medium leading-loose pt-5"></div>
+        <div ref="body" class="text-lg font-medium leading-loose pt-5 text-dark dark:text-white"></div>
 
         <div class="fixed bottom-14 left-0 px-5 w-full">
             <p class="text-dark dark:text-white text-opacity-50 text-lg">Merci aux contribuateurs qui nous aident 💚</p>

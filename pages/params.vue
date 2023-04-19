@@ -28,7 +28,7 @@
                         </button>
                     </div>
                     <div class=" text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full bg-light dark:bg-secondary flex flex-col gap-3 transition-all">
-                        <p class="text-md font-medium text-dark text-opacity-50">Le top contribuateurs</p>
+                        <p class="text-md font-medium text-dark dark:text-white !text-opacity-50">Le top contribuateurs</p>
                         <div class="flex flex-col gap-3">
                             <div v-if="loading" class="h-[calc(100%-2rem)] w-full flex items-center justify-between gap-2 group">
                                 <div class="flex items-center gap-4">
@@ -95,7 +95,7 @@
                                     <img class="w-10 h-10 rounded-full" :src="user.avatar_url" />
                                     <div class="flex flex-col">
                                         <p class="text-md font-bold">{{ user.login }}</p>
-                                        <p class="text-md font-medium text-sm -mt-1 text-dark text-opacity-50">{{ user.contributions }} contribuations</p>
+                                        <p class="text-md font-medium text-sm -mt-1 text-dark dark:text-white !text-opacity-50">{{ user.contributions }} contribuations</p>
                                     </div>
                                 </div>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-400 dark:text-neutral-300 group-active:translate-x-1 transition-all">
@@ -114,7 +114,7 @@
                                 </div>
 
                                 <div class="flex flex-col justify-start">
-                                    <p class="text-sm truncate text-left -mt-1 text-opacity-50 text-dark dark:text-white">Communauté</p>
+                                    <p class="text-sm truncate text-left -mt-1 !text-opacity-50 text-dark dark:text-white">Communauté</p>
                                     <p class="text-base font-bold text-left">Rejoindre le Discord</p>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <div class="w-full px-5"><div class="bg-neutral-200 h-[1px] w-full rounded-full"></div></div>
+                        <div class="w-full px-5"><div class="bg-neutral-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
                         <a href="https://docs.yaprof.fr" target="_blank" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
                             <div class="flex items-center gap-2">
                                 <div class="w-fit h-fit p-2 bg-">
@@ -133,7 +133,7 @@
                                 </div>
 
                                 <div class="flex flex-col justify-start">
-                                    <p class="text-sm truncate text-left -mt-1 text-opacity-50 text-dark dark:text-white">Légalité</p>
+                                    <p class="text-sm truncate text-left -mt-1 !text-opacity-50 text-dark dark:text-white">Légalité</p>
                                     <p class="text-base font-bold text-left">Politiques et légal</p>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <div class="w-full px-5"><div class="bg-neutral-200 h-[1px] w-full rounded-full"></div></div>
+                        <div class="w-full px-5"><div class="bg-neutral-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
                         <nuxt-link to="/changelog" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
                             <div class="flex items-center gap-2">
                                 <div class="w-fit h-fit p-2 bg-">
@@ -152,7 +152,7 @@
                                 </div>
 
                                 <div class="flex flex-col justify-start">
-                                    <p class="text-sm truncate text-left -mt-1 text-opacity-50 text-dark dark:text-white">Changelog</p>
+                                    <p class="text-sm truncate text-left -mt-1 !text-opacity-50 text-dark dark:text-white">Changelog</p>
                                     <p class="text-base font-bold text-left">Nouveautés sur l'app</p>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                 </div>
 
                                 <div class="flex flex-col justify-start">
-                                    <p class="text-sm truncate text-left -mt-1 text-opacity-50 text-dark dark:text-white">Version de l'app</p>
+                                    <p class="text-sm truncate text-left -mt-1 !text-opacity-50 text-dark dark:text-white">Version de l'app</p>
                                     <p class="text-base font-bold text-left">{{ versionPkg }}</p>
                                 </div>
                             </div>

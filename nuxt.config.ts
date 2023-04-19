@@ -3,6 +3,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineNuxtConfig({
     modules: ['@nuxtjs/color-mode', '@vite-pwa/nuxt'],
     app: {
+/*         pageTransition: { name: 'page', mode: 'out-in' }, */
         head: {
             title: "Yaprof",
             htmlAttrs: {
@@ -28,8 +29,13 @@ export default defineNuxtConfig({
                 { rel: "icon", type: "image/png", href: "/favicon.ico" },
                 { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" },
                 { rel: "apple-touch-icon", sizes: "96x96", href: "/icons/icon_96x96.png" },
-                { rel: "apple-touch-startup-image", media: "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)", href: "/splash/launch-828x1792.png" },
-
+                { rel: "apple-touch-startup-image", href: "/splash/launch-640x1136.png", media: "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+                { rel: "apple-touch-startup-image", href: "/splash/launch-750x1294.png", media: "(device-width: 375px) and (device-height: 667px)  and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+                { rel: "apple-touch-startup-image", href: "/splash/launch-1242x2148.png", media: "(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
+                { rel: "apple-touch-startup-image", href: "/splash/launch-1125x2436.png", media: "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
+                { rel: "apple-touch-startup-image", href: "/splash/launch-1536x2048.png", media: "(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+                { rel: "apple-touch-startup-image", href: "/splash/launch-1668x2224.png", media: "(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+                { rel: "apple-touch-startup-image", href: "/splash/launch-2048x2732.png", media: "(min-device-width: 1024px) and (max-device-width: 1024px)  and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
             ],
             script: [
                 {

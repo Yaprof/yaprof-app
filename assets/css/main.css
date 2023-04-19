@@ -12,6 +12,10 @@ body {
     -webkit-touch-callout: none;
 }
 
+h1 {
+    font-family: 'Clash Display', sans-serif;
+}
+
 html, body {
     overscroll-behavior-y: contain;
     overscroll-behavior-x: none;
@@ -26,12 +30,12 @@ html, body {
 }
 
 .router-link-exact-active  {
-    background-color: #12d4a781;
+    background-color: #4AFF9381;
 }
 
 @media (prefers-color-scheme: dark) {
     .router-link-exact-active  {
-        background-color: #12d4a721;
+        background-color: #4AFF9321;
     }
 }
 
@@ -72,3 +76,14 @@ html, body {
   transform: translateY(-20px);
   opacity: 0;
 } */
+
+.opacity-enter-active {
+  transition: all 0.1s ease-out;
+}
+.opacity-leave-active {
+ /*  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); */
+}
+.opacity-enter-from,
+.opacity-leave-to {
+  opacity: 0;
+}

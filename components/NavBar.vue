@@ -6,6 +6,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 sidebar-toggle">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" class="sidebar-toggle" />
                 </svg>
+                <Transition name="opacity" mode="out-in">
+                    <h1 v-if="!isHiddenTitle" class="text-2xl text-dark dark:text-white font-semibold">{{ pages[this?.$route?.name] }}</h1>
+                </Transition>
             </div>
             <div class="flex text-dark dark:text-white items-center gap-3 p-5">
                 <NuxtLink to="/shop" class="flex bg-primary bg-opacity-10 rounded-full py-2 pl-4 pr-2 items-center gap-1">
@@ -29,7 +32,16 @@ export default {
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL},
             errors: [],
             isSidebarOpen: false,
-            isShadowed: false
+            isShadowed: false,
+            pages: {
+                'index': "Asbences",
+                'cantine': "Cantine",
+                'shop': "Boutique",
+                'params': "Paramètres",
+                'user-profile': 'Profile',
+                'admin-users': "Users"
+            },
+            isHiddenTitle: true
         }
     },
     methods: {
@@ -37,17 +49,17 @@ export default {
             this.$emit('toggle-sidebar');
         },
         onScroll() {
-            // Get the current scroll position
             const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            // Set isShadowed to true if scroll position is greater than 0, otherwise set it to false
             this.isShadowed = scrollPosition > 0;
+            if (scrollPosition > 28) this.isHiddenTitle = false
+            else this.isHiddenTitle = true
         }
     },
     beforeUnmount() {
-        window.removeEventListener('scroll', this.onScroll); // Remove scroll event listener before component unmount
+        window.removeEventListener('scroll', this.onScroll)
     },
     async mounted() {
-        window.addEventListener('scroll', this.onScroll); // Add scroll event listener on component mount
+        window.addEventListener('scroll', this.onScroll)
         this.userInfos = JSON.parse(window.localStorage.getItem("user"))
         let user = await getUser(this.config.api, this.userInfos.id)
         if (!user) return this.errors.push({message: "Impossible de charger l'utilisateur", color: "danger"})

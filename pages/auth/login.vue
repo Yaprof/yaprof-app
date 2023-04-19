@@ -6,7 +6,7 @@
             <div id="form_login" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
                     <label for="ent" class="text-lg text-dark dark:text-white">Établissement</label>
-                    <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Sélectionnez votre établissement" name="ent" />
+                    <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg" placeholder="Cherchez avec un code postal" name="ent" />
                     <div v-show="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-5 py-5 flex flex-col w-full z-50">
                         <div v-for="cas in results" :key="cas.url" class="py-3.5 px-2 hover:bg-primary hover:bg-opacity-30 border-b dark:border-secondary last:border-b-transparent flex items-center gap-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 min-w-[1.25rem] text-dark dark:text-white">
@@ -96,7 +96,8 @@ export default {
         searchEnt: function (e) {
             this.ent_content = true
             let content = e.parentElement.querySelector('#ent_content')
-            this.results = this.etabs.filter(s => s.nomEtab.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim()))
+            if (/^\d/.test(e.value)) this.getPostal(e.value)
+            else this.results = this.etabs.filter(s => s.nomEtab.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim()))
             if (this.results.length < 1) this.results = []
         },
         selectOption: function (e, url, py) {
@@ -140,18 +141,16 @@ export default {
                     return position.coords;
                 }, error => {
                     console.log(error)
-                    this.findEstablishments(43.6832581, 6.9835905)
-                    return 43.6832581, 6.9835905
+                    return false
                 })
             } else {
-                this.findEstablishments(43.6832581, 6.9835905)
-                return 43.6832581, 6.9835905
+                return false
             }
 
             this.isLoading = true;
         },
         getPostal(e) {
-            let postal = e.detail.value
+            let postal = e
             if (postal.trim().length != 5) {
                 if (postal.trim().length == 0) {
                     this.clearEtabs();
@@ -159,12 +158,14 @@ export default {
                 }
                 return;
             }
+
             postal = postal.normalize("NFD").replace(/\p{Diacritic}/gu, "");
             if(postal.trim() == "") {
                 this.clearEtabs();
                 this.locationFailed = false;
                 return;
             }
+
             this.etabs = [];
             this.etabsEmpty = false;
             this.locationFailed = false;
@@ -180,6 +181,7 @@ export default {
                 }
             })
             .then(response => {
+                console.log(response.data.data)
                 let data = response.data.data;
                 let lat = data[0].latitude;
                 let lon = data[0].longitude;
@@ -193,6 +195,7 @@ export default {
             })
         },
         findEstablishments(lat, lon) {
+            console.log(lat, lon)
             fetch("https://www.index-education.com/swie/geoloc.php", {
                 headers: {
                     accept: "*/*",
@@ -221,7 +224,8 @@ export default {
             })
             .then((response) => response.json())
                 .then((data) => {
-                this.etabs = data;
+                    this.etabs = data;
+                    this.results = data;
                 if (this.etabs.length == 0) {
                     this.etabsEmpty = true;
                 } else {

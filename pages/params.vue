@@ -248,11 +248,12 @@ export default {
                 login: contributor.login,
                 contributions: contributor.contributions,
                 avatar_url: contributor.avatar_url
-            }));
+            }))
         }
     },
     async mounted() {
         this.contribuators = await this.fetchContribuators()
+        this.contribuators.splice(5)
         this.loading = false
     }
 }

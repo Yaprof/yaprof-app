@@ -148,6 +148,8 @@ export default {
                     window.document.querySelector('#container_info_'+this.holded.id).classList.add('hidden')
                     this.holded = false
                     this.darkOpacity = false
+                    console.log(response)
+                    this.absences.splice(this.absences.indexOf(this.absences.find(e=> e.id == response.id)), 1)
                 })
                 .catch(async e => {
                     return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
@@ -227,6 +229,7 @@ export default {
             isLoading = true;
             thos.loading = true
             let infos = await thos.getDbFeed()
+            
             if (infos) {
                 setTimeout(function () {
                     isLoading = false;

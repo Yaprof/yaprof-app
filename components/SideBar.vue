@@ -7,7 +7,7 @@
                 <NuxtLink to="/user/profile" class="z-50 !bg-transparent">
                     <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile?.pp" />
                 </NuxtLink>
-                <p class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</p>
+                <h1 class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</h1>
                 <div class="flex items-center gap-2 opacity-70">
                     <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
                     <p class="text-md text-white z-50">-</p>
@@ -66,8 +66,7 @@
     </div>
 </template>
 <script>
-import pkg from '~/package.json'
-console.log(pkg)
+
 export default {
     props: {
         isOpen: {
@@ -81,7 +80,6 @@ export default {
             errors: [],
             touchStartX: 0,
             touchEndX: 0,
-            versionPkg: pkg['version'],
             isOnline: false
         }
     },

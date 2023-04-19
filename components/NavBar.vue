@@ -39,7 +39,7 @@ export default {
                 'shop': "Boutique",
                 'params': "Paramètres",
                 'user-profile': 'Profile',
-                'admin-users': "Users"
+                'admin-users': "Utilisateurs"
             },
             isHiddenTitle: true
         }

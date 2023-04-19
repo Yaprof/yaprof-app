@@ -11,7 +11,7 @@
                     <h1 class="text-dark dark:text-white text-3xl font-bold">Informations</h1>
                 </div>
                 <div class="flex flex-col gap-5">
-                    <div class="w-full shadow-md relative rounded-xl overflow-hidden bg-dark dark:bg-light h-[164px]">
+                    <div class="w-full shadow-md relative rounded-xl overflow-hidden bg-dark dark:bg-secondary h-[164px]">
                         <img class="w-full h-[164px] object-cover object-center absolute top-0 left-0 blur-lg brightness-110 dark:brightness-90 rounded-xl" :src="user.profile?.pp" />
                         <div class="flex flex-col p-5">
                             <div class="flex items-center gap-1">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="rounded-xl bg-light dark:bg-secondary py-3.5 px-6">
-                        <p class="font-medium text-lg pb-5">Ensemble des posts ({{ user?.posts?.length }})</p>
+                        <p class="font-medium text-lg pb-5 text-dark dark:text-white">Ensemble des posts ({{ user?.posts?.length }})</p>
                         <TransitionGroup name="slide-up" tag="Post" @enter="onEnterListSlideUp" class="flex flex-col gap-8">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in user.posts" :key="abs" :data="abs"></Post>
                         </TransitionGroup>

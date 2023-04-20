@@ -208,77 +208,9 @@ export default {
         }
     },
     async mounted() {
-        let config = this.config
         this.loading = true
-        this.user = await this.getUser(config.api);
-        if (!this.user) {
-            console.log('error user')
-            return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
-        }
+        this.user = JSON.parse(window.localStorage.getItem('user'))
         this.getDbFeed()
-        let thos = this
-
-        const pStart = { x: 0, y: 0 };
-        const pCurrent = { x: 0, y: 0 };
-        const main = document.querySelector("#loading_div");
-        const container_div = document.querySelector("#container_div")
-        let isLoading = false;
-
-        async function loading() {
-            if (isLoading) return
-            isLoading = true;
-            thos.loading = true
-            let infos = await thos.getDbFeed()
-            
-            if (infos) {
-                setTimeout(function () {
-                    isLoading = false;
-                    this.loading = false
-                    try {
-                        navigator.vibrate()
-                    } catch (e) { return }
-                }, 500);
-            } else {
-                thos.loading = false
-                return this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
-            }
-        }
-
-        function swipeStart(e) {
-        if (typeof e["targetTouches"] !== "undefined") {
-            let touch = e.targetTouches[0];
-            pStart.x = touch.screenX;
-            pStart.y = touch.screenY;
-        } else {
-            pStart.x = e.screenX;
-            pStart.y = e.screenY;
-        }
-        }
-
-        function swipeEnd(e) {
-            if (document.body.scrollTop === 0 && !isLoading) {
-            }
-        }
-
-        function swipe(e) {
-            if (typeof e["changedTouches"] !== "undefined") {
-                let touch = e.changedTouches[0];
-                pCurrent.x = touch.screenX;
-                pCurrent.y = touch.screenY;
-            } else {
-                pCurrent.x = e.screenX;
-                pCurrent.y = e.screenY;
-            }
-            let changeY = pStart.y < pCurrent.y ? Math.abs(pStart.y - pCurrent.y) : 0;
-            const rotation = changeY < 100 ? changeY * 30 / 100 : 30;
-            if (window.scrollY === 0 || document.body.scrollTop === 0) {
-                if (changeY > 200) loading();
-            }
-        }
-
-        document.addEventListener("touchstart", e => swipeStart(e), false);
-        document.addEventListener("touchmove", e => swipe(e), false);
-        document.addEventListener("touchend", e => swipeEnd(e), false);
     },
 
 }

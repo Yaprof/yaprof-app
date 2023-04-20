@@ -94,7 +94,7 @@ definePageMeta({
 </script>
 
 <script>
-import { getUser } from '../mixins/user.js'
+import { getUser, getDbFeed } from '../mixins/user.js'
 import { gsap } from "gsap";
 
 export default {
@@ -107,6 +107,7 @@ export default {
             type: window.localStorage.getItem('type_post') ?? 'daily',
             user: {},
             getUser: getUser,
+            getDbFeed: getDbFeed,
             config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
             holdTimer: null,
             holded: false,
@@ -115,24 +116,6 @@ export default {
         }
     },
     methods: {
-        getDbFeed: async function () {
-            this.loading = true
-            let response = await fetch(this.$config.API_URL + "/feed/"+JSON.parse(window.localStorage.getItem('user'))?.id+"?userInfos="+window.localStorage.getItem('userInfos'), {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
-                },
-            })
-            const absences = await response.json();
-            if (absences) {
-                this.loading = false
-                this.absences = absences
-            }
-            else this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
-            return absences
-        },
         deletePost: function (id) {
             if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
             fetch(this.$config.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
@@ -163,7 +146,7 @@ export default {
         async changeType(type) {
             this.type = type
             window.localStorage.setItem('type_post', type)
-            await this.getDbFeed()
+            await this.getDbFeed(this.$config.API_URL)
         },
         onEnterListSlideUp(el, done) {
             gsap.fromTo(el, {y: 5, opacity: 0.2}, {
@@ -210,7 +193,7 @@ export default {
     async mounted() {
         this.loading = true
         this.user = JSON.parse(window.localStorage.getItem('user'))
-        this.getDbFeed()
+        this.getDbFeed(this.$config.API_URL)
     },
 
 }

@@ -32,7 +32,6 @@ export async function getUser(config) {
             'Authorization': 'Bearer ' + window.localStorage.getItem('token')
         }
     }).catch(error => { console.log(error); return false })
-    console.log(response.data)
     if (!response.data) return false
     if (response?.data?.name) {
         console.log(response.data)
@@ -65,4 +64,22 @@ export async function getUserById(config, id) {
     console.log(response.data)
     if (!response.data) return false
     return response.data
+}
+
+export async function getDbFeed(config) {
+    let response = await fetch(config + "/feed/"+JSON.parse(window.localStorage.getItem('user'))?.id+"?userInfos="+window.localStorage.getItem('userInfos'), {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+        },
+    })
+    const absences = await response.json();
+    if (absences) {
+        this.loading = false
+        this.absences = absences
+    }
+    else this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
+    return absences
 }

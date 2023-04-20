@@ -12,11 +12,11 @@
             </div>
             <div class="flex text-dark dark:text-white items-center gap-3 p-5">
                 <NuxtLink to="/shop" class="flex bg-primary bg-opacity-10 rounded-full py-2 pl-4 pr-2 items-center gap-1">
-                    <p class="text-dark dark:text-white">{{ userInfos?.profile?.coins }}</p>
+                    <p class="text-dark dark:text-white">{{ user?.profile?.coins }}</p>
                     <img src="~/assets/imgs/icons/coin.svg" class="w-6 h-6 object-cover object-center rounded-full" />
                 </NuxtLink>
                 <NuxtLink to="/user/profile" class="rounded-full" >
-                    <img :src="userInfos.profile?.pp" class="w-10 h-10 object-cover object-center rounded-full shadow-md" />
+                    <img :src="user.profile?.pp" class="w-10 h-10 object-cover object-center rounded-full shadow-md" />
                 </NuxtLink>
             </div>
         </div>
@@ -26,9 +26,9 @@
 <script>
 import { getUser } from '~~/mixins/user';
 export default {
+    props: ['user'],
     data() {
         return {
-            userInfos: { pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" },
             config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL},
             errors: [],
             isSidebarOpen: false,
@@ -60,9 +60,9 @@ export default {
     },
     async mounted() {
         window.addEventListener('scroll', this.onScroll)
-        this.userInfos = JSON.parse(window.localStorage.getItem("user"))
+        /* this.userInfos = JSON.parse(window.localStorage.getItem("user"))
         let user = await getUser(this.config.api, this.userInfos.id)
-        if (!user) return this.errors.push({message: "Impossible de charger l'utilisateur", color: "danger"})
+        if (!user) return this.errors.push({message: "Impossible de charger l'utilisateur", color: "danger"}) */
     },
 }
 </script>

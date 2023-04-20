@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-10 flex items-center justify-center fixed top-5 left-0 z-[99] pointer-events-none">
-        <Transition name="slide-down" mode="out-in">
+        <Transition name="slide-up" mode="out-in">
             <div id="toast" class="w-[80%] h-fit py-2.5 rounded-xl text-white flex items-center px-5 justify-center text-center shadow-md z-[999]" v-show="!loading" :style="'background-color:'+this.color">{{ data.message }}</div>
         </Transition>
     </div>

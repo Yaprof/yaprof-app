@@ -179,6 +179,7 @@ export default {
             this.endEventTarget = event.target;
         },
         getDayOfWeek(number) {
+            if (!this.absences?.length) return []
             let new_absences = this.absences.filter(ab => new Date(ab.createdAt).getDay() == number)
             return new_absences.filter(ab => this.isSameWeek(new Date(ab.createdAt), new Date()))
         },

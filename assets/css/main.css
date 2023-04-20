@@ -39,6 +39,21 @@ html, body {
     }
 }
 
+/* Transition slide up */
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+    transition: all 0.2s;
+}
+.slide-up-enter-from{
+    transform: translateY(-1rem);
+}
+.slide-up-leave-to {
+    opacity: 0;
+    transform: translateY(-1rem);
+}
+
+
 /* Transition slide down */
 
 .slide-down-enter-active,

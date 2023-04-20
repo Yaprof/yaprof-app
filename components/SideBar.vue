@@ -1,11 +1,10 @@
 <template>
     <div v-click-outside="closeSidebar" id="sidebar" :class="(isOpen  ? 'translate-x-0 shadow-xl' : '-translate-x-full') + ' h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center z-[99] pb-5 transform-gpu transition-all duration-200'">
-        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light relative">
             <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="user.profile?.pp" />
             <div class="flex flex-col p-5">
                 <NuxtLink to="/user/profile" class="z-50 !bg-transparent">
-                    <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="user.profile?.pp" />
+                    <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';"  class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="user.profile?.pp || '/icons/icon_48x48.png'" />
                 </NuxtLink>
                 <h1 class="text-lg text-white z-50 font-medium">{{ user.name }}</h1>
                 <div class="flex items-center gap-2 opacity-70">
@@ -59,7 +58,7 @@
 
                 <div class="flex items-center justify-between gap-2 w-full">
                     <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium w-full">Services</p>
-                    <p :class="(isOnline ? 'bg-[#4AFF9321] text-emerald-400 dark:text-emerald-500' : 'bg-light text-neutral-300 dark:text-neutral-400') +' text-md z-50 w-full whitespace-nowrap truncate rounded-full bg-opacity-30 flex items-center justify-center py-1'">{{ isOnline ? 'En ligne' : 'Hors ligne' }}</p>
+                    <p :class="(isOnline && errors.length < 1 ? 'bg-[#4AFF9321] text-emerald-400 dark:text-emerald-500' : 'bg-light text-neutral-400 dark:text-neutral-400') +' text-md z-50 w-full whitespace-nowrap truncate rounded-full bg-opacity-30 flex items-center justify-center py-1'">{{ isOnline && errors.length < 1 ? 'En ligne' : 'Hors ligne' }}</p>
                 </div>
             </div>
         </div>
@@ -76,11 +75,14 @@ export default {
         user: {
             type: Object,
             default: {pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="}
+        },
+        errors: {
+            type: Array,
+            default: []
         }
     },
     data() {
         return {
-            errors: [],
             touchStartX: 0,
             touchEndX: 0,
             isOnline: false

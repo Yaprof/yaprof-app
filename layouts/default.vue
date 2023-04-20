@@ -55,9 +55,11 @@ export default {
         async function loading() {
             if (isLoading) return
             isLoading = true;
+            try {
+                navigator.vibrate(100);
+            } catch(e) { console.log(e) }
             thos.user = await getUser(thos.config.api, thos.user.id)
             if (!thos.user) return thos.errors.push({ message: "Impossible de charger l'utilisateur", color: "danger" })
-            if (window.location.pathname == '/')
             setTimeout(() => {
                 isLoading = false;
             }, 2000)

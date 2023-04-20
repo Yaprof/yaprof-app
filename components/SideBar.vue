@@ -1,17 +1,16 @@
 <template>
     <div v-click-outside="closeSidebar" id="sidebar" :class="(isOpen  ? 'translate-x-0 shadow-xl' : '-translate-x-full') + ' h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center z-[99] pb-5 transform-gpu transition-all duration-200'">
-        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light relative">
-            <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="userInfos.profile?.pp" />
+            <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="user.profile?.pp" />
             <div class="flex flex-col p-5">
                 <NuxtLink to="/user/profile" class="z-50 !bg-transparent">
-                    <img class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="userInfos.profile?.pp" />
+                    <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';"  class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="user.profile?.pp || '/icons/icon_48x48.png'" />
                 </NuxtLink>
-                <h1 class="text-lg text-white z-50 font-medium">{{ userInfos.name }}</h1>
+                <h1 class="text-lg text-white z-50 font-medium">{{ user.name }}</h1>
                 <div class="flex items-center gap-2 opacity-70">
-                    <p class="text-md text-white z-50 whitespace-nowrap">{{ userInfos.class }}</p>
+                    <p class="text-md text-white z-50 whitespace-nowrap">{{ user.class }}</p>
                     <p class="text-md text-white z-50">-</p>
-                    <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userInfos.establishment }}</p>
+                    <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ user.establishment }}</p>
                 </div>
             </div>
         </div>
@@ -36,7 +35,7 @@
 
                 <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium w-full">Boutique</p>
             </NuxtLink>
-            <NuxtLink to="/admin/users" v-if="[50, 99].includes(userInfos.role)" class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
+            <NuxtLink to="/admin/users" v-if="[50, 99].includes(user.role)" class="flex items-center gap-3.5 w-full px-5 py-2 bg-transparent bg-opacity-30 rounded-full cursor-pointer group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-600 dark:text-neutral-400 group-active:scale-9">
                     <path d="M10 9a3 3 0 100-6 3 3 0 000 6zM6 8a2 2 0 11-4 0 2 2 0 014 0zM1.49 15.326a.78.78 0 01-.358-.442 3 3 0 014.308-3.516 6.484 6.484 0 00-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 01-2.07-.655zM16.44 15.98a4.97 4.97 0 002.07-.654.78.78 0 00.357-.442 3 3 0 00-4.308-3.517 6.484 6.484 0 011.907 3.96 2.32 2.32 0 01-.026.654zM18 8a2 2 0 11-4 0 2 2 0 014 0zM5.304 16.19a.844.844 0 01-.277-.71 5 5 0 019.947 0 .843.843 0 01-.277.71A6.975 6.975 0 0110 18a6.974 6.974 0 01-4.696-1.81z" />
                 </svg>
@@ -59,7 +58,7 @@
 
                 <div class="flex items-center justify-between gap-2 w-full">
                     <p class="text-lg text-neutral-600 dark:text-neutral-400 z-50 font-medium w-full">Services</p>
-                    <p :class="(isOnline ? 'bg-[#4AFF9321] text-emerald-400 dark:text-emerald-500' : 'bg-light text-neutral-300 dark:text-neutral-400') +' text-md z-50 w-full whitespace-nowrap truncate rounded-full bg-opacity-30 flex items-center justify-center py-1'">{{ isOnline ? 'En ligne' : 'Hors ligne' }}</p>
+                    <p :class="(isOnline && errors.length < 1 ? 'bg-[#4AFF9321] text-emerald-400 dark:text-emerald-500' : 'bg-light text-neutral-400 dark:text-neutral-400') +' text-md z-50 w-full whitespace-nowrap truncate rounded-full bg-opacity-30 flex items-center justify-center py-1'">{{ isOnline && errors.length < 1 ? 'En ligne' : 'Hors ligne' }}</p>
                 </div>
             </div>
         </div>
@@ -72,12 +71,18 @@ export default {
         isOpen: {
             type: Boolean,
             default: false
+        },
+        user: {
+            type: Object,
+            default: {pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="}
+        },
+        errors: {
+            type: Array,
+            default: []
         }
     },
     data() {
         return {
-            userInfos: {pp: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="},
-            errors: [],
             touchStartX: 0,
             touchEndX: 0,
             isOnline: false
@@ -113,8 +118,6 @@ export default {
     },
     mounted() {
         this.isOnline = navigator?.onLine || false
-        this.userInfos = JSON.parse(window.localStorage.getItem("user"))
-        console.log('SideBar.js loaded');
 
         document.addEventListener('click', this.closeSidebar);
         document.addEventListener('touchstart', this.touchStart);

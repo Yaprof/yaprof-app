@@ -13,7 +13,7 @@
                     <p class="text-dark dark:text-white">Chargement en cours</p>
                 </div>
                 <div class="grid grid-cols-2 gap-5">
-                    <div class="flex flex-col shadow-md rounded-xl overflow-hidden items-center justify-center group bg-light dark:bg-secondary !bg-opacity-50 relative" v-for="badge in badges" @click="this.popup_buy = badge; this.darkOpacity = true; this.pointer_event = true" :key="badge">
+                    <div class="flex flex-col shadow-md rounded-xl overflow-hidden items-center justify-center group bg-light dark:bg-secondary !bg-opacity-50 relative" v-for="badge in badges" @click="openPopupBuy(badge)" :key="badge">
                         <div class="w-full h-28 flex items-center justify-center">
                             <img class="w-12 h-12 mt-5" :src="'https://res.cloudinary.com/dzg9awmm8/image/upload/v1682000898/badges/'+badge.id+'.webp'" />
                         </div>
@@ -81,6 +81,11 @@ export default {
             setTimeout(() => {
                 this.pointer_event = false
             }, 500)
+        },
+        openPopupBuy: function (badge) {
+            this.popup_buy = badge;
+            this.darkOpacity = true;
+            this.pointer_event = true
         },
         buyBadgeClient: async function (id) {
             if (!id) {

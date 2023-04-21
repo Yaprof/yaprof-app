@@ -83,7 +83,6 @@ export default {
         }
     },
     beforeUnmount() {
-        console.log('destroy', this.swipeStart, this.swipeStart, this.swipe)
         let swipeStart = this.swipeStart
         let swipe = this.swipe
         window.removeEventListener("touchstart", swipeStart);
@@ -95,7 +94,6 @@ export default {
         if (!this.user) return this.errors.push({ message: "Impossible de charger l'utilisateur", color: "danger" })
         let swipeStart = this.swipeStart
         let swipe = this.swipe
-        console.log(this.swipeStart)
         window.addEventListener("touchstart", swipeStart);
         window.addEventListener("touchmove", swipe);
     },

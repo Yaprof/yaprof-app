@@ -61,11 +61,11 @@ html, body {
     transition: all 0.2s;
 }
 .slide-down-enter-from{
-    transform: translateY(-50rem);
+    transform: translateY(1rem);
 }
 .slide-down-leave-to {
     opacity: 0;
-    transform: translateY(50rem);
+    transform: translateY(1rem);
 }
 
 .page-enter-active {

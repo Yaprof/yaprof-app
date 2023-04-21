@@ -29,10 +29,10 @@
                 <div :class="(darkOpacity ? 'bg-dark bg-opacity-50' : ' opacity-0') + (pointer_event ? '': ' pointer-events-none') + ' fixed top-0 left-0 h-screen w-full z-[100] transition-all'"></div>
                 <Transition name="slide-down" mode="out-in">
                     <div v-if="popup_buy"  :class="(popup_buy ? '': 'translate-y-full') + ' bg-light dark:bg-secondary p-5 pb-14 fixed bottom-0 left-0 w-full flex flex-col items-center justify-center gap-3 text-dark dark:text-white transition-all z-[101]'" v-click-outside="closePopupBuy">
-                        <div v-if="user.profile.badges?.find(b => b == popup_buy.id)" :class="'bg-neutral-200 dark:bg-neutral-500 text-dark dark:text-white flex items-center justify-center gap-2 group cursor-pointer py-3 px-6 rounded-xl w-full transition-all ' + (loadingBuy ? 'bg-primaryhover' : '')">
+                        <div v-if="user.profile.badges?.find(b => b == popup_buy.id)" :class="'bg-slate-200 dark:bg-slate-500 text-dark dark:text-white flex items-center justify-center gap-2 group cursor-pointer py-3 px-6 rounded-xl w-full transition-all ' + (loadingBuy ? 'bg-primaryhover' : '')">
                             <p>Déjà acheté</p>
                         </div>
-                        <div v-else-if="popup_buy.price > user?.profile?.coins" :class="'bg-primary active:bg-primaryhover text-dark flex items-center justify-center gap-2 group cursor-pointer py-3 px-6 rounded-xl w-full transition-all ' + (loadingBuy ? 'bg-primaryhover' : '')">
+                        <div v-else-if="popup_buy.price > user?.profile?.coins" :class="'bg-slate-200 dark:bg-slate-500 text-dark dark:text-white flex items-center justify-center gap-2 group cursor-pointer py-3 px-6 rounded-xl w-full transition-all ' + (loadingBuy ? 'bg-primaryhover' : '')">
                             <p>Il vous manque {{ popup_buy.price - user?.profile?.coins }} coins</p>
                         </div>
                         <div v-else @click="  buyBadgeClient(popup_buy.id)" :class="'bg-primary active:bg-primaryhover text-dark flex items-center justify-center gap-2 group cursor-pointer py-3 px-6 rounded-xl w-full transition-all ' + (loadingBuy ? 'bg-primaryhover' : '')">

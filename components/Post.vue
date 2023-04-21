@@ -4,10 +4,12 @@
         <NuxtLink :to="'/user/'+data.author?.id" class="flex items-center gap-2 pl-2 !bg-transparent">
             <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';" class="w-8 h-8 aspect-square object-cover object-center rounded-full shadow-md" :src="data.author?.profile?.pp" />
             <p class="text-dark dark:text-white text-md whitespace-nowrap truncate">{{ data.author?.name }}</p>
-            <div>
+            <div class="flex items-center gap-2">
                 <svg v-if="[20, 50, 99].includes(data.author?.role)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-sky-400">
                     <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
                 </svg>
+
+                <img class="w-5 h-5" :src="'https://res.cloudinary.com/dzg9awmm8/image/upload/v1682000898/badges/'+badge+'.webp?w=10'" v-for="badge in data.author.profile.badges.slice(0, [20, 50, 99].includes(data.author?.role) ? 2 : 3)" :key="badge" />
             </div>
         </NuxtLink>
         <div class="flex flex-col shadow-md rounded-xl overflow-hidden">
@@ -18,7 +20,7 @@
                     </svg>
                     <p class="text-dark dark:text-white">{{ data.pointer?.name }}</p>
                 </div>
-            <p v-if="type == 'daily'" class="text-dark dark:text-white opacity-80">{{ new Date(new Date(data.createdAt).setHours(new Date(data.createdAt).getHours())).getHours() + "h" + (new Date(data.createdAt).getMinutes().length == 1 ? ("0" + new Date(data.createdAt).getMinutes()) : new Date(data.createdAt).getMinutes() ) }}</p>
+            <p v-if="type == 'daily'" class="text-dark dark:text-white opacity-80">{{ new Date(new Date(data.createdAt).setHours(new Date(data.createdAt).getHours())).getHours() + "h" + (new Date(data.createdAt).getMinutes().toString().length == 1 ? ("0" + new Date(data.createdAt).getMinutes()) : new Date(data.createdAt).getMinutes().toString() ) }}</p>
             </div>
             <div class="px-6 pt-3 bg-white dark:bg-secondary">
                 <p class="text-dark dark:text-white text-lg break-words"><span class="opacity-60">Raison:</span> <span class="font-medium">{{ data?.content }}</span></p>

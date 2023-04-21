@@ -36,6 +36,7 @@ export async function getUser(config) {
     if (response?.data?.name) {
         console.log(response.data)
         window.localStorage.setItem('user', JSON.stringify(response?.data))
+        window.localStorage.setItem('token', response?.data.token)
     } else return false
     return response.data
 }
@@ -76,10 +77,32 @@ export async function getDbFeed(config) {
         },
     })
     const absences = await response.json();
-    if (absences) {
-        this.loading = false
-        this.absences = absences
-    }
-    else this.errors.push({ message: "Impossible de charger le feed", color: "danger" })
+    if (!absences) return { error: "Impossible de charger le feed"}
     return absences
+}
+
+export async function getAllBadges(config) {
+    let response = await fetch(config + "/badges?userInfos=" + window.localStorage.getItem('userInfos'), {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+        },
+    })
+    const badges = await response.json();
+    if (!badges) return { error: "Impossible de charger les badges" }
+    return badges
+}
+
+export async function buyBadge(config, id) {
+     let response = await axios.put(config + "/badge/"+id+"?userInfos=" + window.localStorage.getItem('userInfos'), {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+        },
+    })
+    if (!response || !response.data) return { error: "Impossible de charger les badges" }
+    return response.data
 }

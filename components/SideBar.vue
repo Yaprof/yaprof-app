@@ -3,7 +3,7 @@
         <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light relative">
             <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="user.profile?.pp" />
             <div class="flex flex-col p-5">
-                <NuxtLink to="/user/profile" class="z-50 !bg-transparent">
+                <NuxtLink :to="'/user/' + user.id" class="z-50 !bg-transparent">
                     <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';"  class="mb-2 h-12 w-12 object-cover z-10 rounded-full object-center" :src="user.profile?.pp || '/icons/icon_48x48.png'" />
                 </NuxtLink>
                 <h1 class="text-lg text-white z-50 font-medium">{{ user.name }}</h1>

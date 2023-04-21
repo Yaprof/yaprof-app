@@ -32,11 +32,11 @@
                 </svg>
 
                 <div class="flex items-center gap-2">
-                    <svg id="dislike_button" @click="likeorDislikePost('dislike', data?.id)" class="w-8 h-8 text-neutral-500 rotate-180 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <svg id="dislike_button" @click="likeorDislikePost('dislike', data?.id)" class="w-8 h-8 text-slate-500 rotate-180 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <p id="counter_likes" class="text-dark dark:text-white text-md font-medium">{{ data?.likes ?? 0 }}</p>
-                    <svg id="like_button" @click="likeorDislikePost('like', data?.id)" class="w-8 h-8 text-neutral-500 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <svg id="like_button" @click="likeorDislikePost('like', data?.id)" class="w-8 h-8 text-slate-500 active:scale-95 active:brightness-105 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>

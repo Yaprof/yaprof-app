@@ -2,7 +2,7 @@
     <div>
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <NavBar :user="user" @toggle-sidebar="onToggleSidebar" />
-        <SideBar :errors="errors" :user="user" :is-open="isSidebarOpen" @close-sidebar="closeSidebar" />
+        <SideBar v-click-outside="closeSidebar" :errors="errors" :user="user" :is-open="isSidebarOpen" @close-sidebar="closeSidebar" />
         <div id="loading_div" class="pt-6 pb-10 mt-10 transition-all z-0 absolute top-0 left-0 w-full" style="transform: translateY(-100px);">
             <div class="w-full h-24 bg-primary flex items-center justify-center pt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 animate-spin text-white">

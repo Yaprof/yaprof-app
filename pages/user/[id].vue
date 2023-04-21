@@ -11,7 +11,7 @@
                     <h1 class="text-dark dark:text-white text-3xl font-bold">Profil</h1>
                 </div>
                 <div class="flex flex-col gap-5">
-                    <button v-if="user.id == userFetch.id" id="avatar-upload-button" class="group bg-light active:bg-neutral-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all">
+                    <button @click="handleClickUpload" v-if="!loading && user.id == userFetch.id" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all">
                         <div class="flex items-center gap-2">
                             <div class="w-fit h-fit p-2 bg-">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
@@ -24,20 +24,22 @@
                                 <p class="text-sm truncate text-left -mt-1">Utilise une photo de profil différente</p>
                             </div>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-neutral-400 dark:text-neutral-300 group-active:translate-x-1 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-slate-400 dark:text-slate-300 group-active:translate-x-1 transition-all">
                             <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                         </svg>
-                        <input type="file" name="avatar_input" class="hidden" id="avatar_image" accept="image/*" />
+                        <input @change="handleChange" type="file" name="avatar_input" class="hidden" id="avatar_image" accept="image/*" />
                     </button>
-                    <div class="w-full shadow-md relative rounded-xl overflow-hidden bg-dark dark:bg-secondary h-[164px]">
+                    <div v-if="!loading" class="w-full shadow-md relative rounded-xl overflow-hidden bg-dark dark:bg-secondary h-[164px]">
                         <img class="w-full h-[164px] object-cover object-center absolute top-0 left-0 blur-lg brightness-110 dark:brightness-90 rounded-xl" :src="userFetch.profile?.pp" />
                         <div class="flex flex-col p-5">
-                            <div class="flex items-center gap-1 flex-wrap">
+                            <div class="flex items-center gap-1">
                                 <img onerror="this.onerror=null;this.src='/icons/icon_72x72.png';" class="mb-2 h-16 w-16 object-cover z-10 rounded-full object-center mr-2" :src="userFetch.profile?.pp" />
-                                <svg v-if="[20, 50, 99].includes(userFetch?.role)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-sky-400 z-50">
-                                    <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                                </svg>
-                                <img class="w-5 h-5 z-50" :src="'https://res.cloudinary.com/dzg9awmm8/image/upload/v1682000898/badges/'+badge+'.webp?w=10'" v-for="badge in userFetch.profile?.badges.slice(0, 30)" :key="badge" />
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <svg v-if="[20, 50, 99].includes(userFetch?.role)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-sky-400 z-50">
+                                        <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                    </svg>
+                                    <img class="w-5 h-5 z-50" :src="'https://res.cloudinary.com/dzg9awmm8/image/upload/v1682000898/badges/'+badge+'.webp?w=10'" v-for="badge in userFetch.profile?.badges.slice(0, 16)" :key="badge" />
+                                </div>
                             </div>
                             <p class="text-lg text-white z-50 font-medium">{{ userFetch.name }}</p>
                             <div class="flex items-center gap-2 opacity-70">
@@ -47,11 +49,40 @@
                             </div>
                         </div>
                     </div>
-                    <div class="rounded-xl bg-light dark:bg-secondary py-5 px-6">
+                    <div v-if="!loading" class="rounded-xl bg-light dark:bg-secondary py-5 px-6">
                         <p class="font-medium text-lg pb-5 text-dark dark:text-white">Ensemble des posts ({{ userFetch?.posts?.length }})</p>
                         <TransitionGroup name="slide-up" tag="Post" @enter="onEnterListSlideUp" class="flex flex-col gap-8">
-                            <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="userFetch" :type="type" v-for="(abs, index) in userFetch.posts" :key="abs" :data="abs"></Post>
+                            <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="userFetch" v-for="(abs, index) in userFetch.posts" :key="abs" :data="abs"></Post>
                         </TransitionGroup>
+                    </div>
+
+                    <!--  is loading -->
+                    <div v-if="loading" class="w-full shadow-md relative rounded-xl overflow-hidden bg-dark dark:bg-secondary bg-opacity-50 h-[164px]">
+                        <div class="w-[164px] h-[164px] object-cover object-center absolute top-0 left-0 blur-lg brightness-110 dark:brightness-90 rounded-xl"> </div>
+                        <div class="flex flex-col p-5">
+                            <div class="flex items-center gap-1">
+                                <div class="mb-2 h-16 w-16 object-cover z-10 rounded-full object-center mr-2 bg-light dark:secondary animate-pulse dark:bg-slate-500"> </div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <div class="text-lg text-white z-50 font-medium w-5 h-5 rounded-full animate-pulse bg-light dark:bg-slate-500"></div>
+                                    <div class="text-lg text-white z-50 font-medium w-5 h-5 rounded-full animate-pulse bg-light dark:bg-slate-500"></div>
+                                    <div class="text-lg text-white z-50 font-medium w-5 h-5 rounded-full animate-pulse bg-light dark:bg-slate-500"></div>
+                                </div>
+                            </div>
+                            <div class="text-lg text-white z-50 font-medium w-32 h-4 rounded-full animate-pulse bg-light dark:bg-slate-500"></div>
+                            <div class="flex items-center gap-2 opacity-70 pt-2">
+                                <div class="text-lg text-white z-50 font-medium w-10 h-3.5 rounded-full animate-pulse bg-light dark:bg-slate-500"></div>
+                                <div class="text-lg text-white z-50 font-medium w-36 h-3.5 rounded-full animate-pulse bg-light dark:bg-slate-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="loading" class="rounded-xl bg-light dark:bg-secondary py-5 px-6">
+                        <p class="font-medium text-lg pb-5 text-dark dark:text-white">Ensemble des posts ({{ userFetch?.posts?.length }})</p>
+                        <div class="h-[calc(100%-2rem)] w-full flex justify-center items-center flex-col gap-2 pt-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 animate-spin text-dark dark:text-white duration-75">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                            <p class="text-dark dark:text-white">Chargement en cours</p>
+                        </div>
                     </div>
                 </div>
 
@@ -90,7 +121,8 @@ export default {
             holdTimer: null,
             holded: false,
             touchStartPosition: { x: 0, y: 0 },
-            darkOpacity: false
+            darkOpacity: false,
+            loading: true
         }
     },
     methods: {
@@ -155,21 +187,8 @@ export default {
             clearTimeout(this.holdTimer);
             this.endEventTarget = event.target;
         },
-    },
-    async mounted() {
-        let config = this.config
-        this.user = JSON.parse(window.localStorage.getItem('user'))
-        this.userFetch = await getUserById(config.api, this.$route.params.id)
-        console.log(this.user)
-
-        const UPLOAD_BUTTON = window.document.getElementById("avatar-upload-button");
-        const FILE_INPUT = window.document.getElementById("avatar_image");
-
-        UPLOAD_BUTTON?.addEventListener("click", () => FILE_INPUT.click());
-
-        FILE_INPUT?.addEventListener("change", event => {
+        handleChange(event) {
             const file = event.target.files[0];
-
             try {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -182,7 +201,7 @@ export default {
                     };
                     let user = JSON.parse(window.localStorage.getItem("user"))
                     if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
-                    let userdb = await updateUser(config.api, reader.result)
+                    let userdb = await updateUser(this.config.api, reader.result)
                     if (!userdb) return this.errors.push({ message: "Image trop lourde", color: "danger" })
                     console.log(userdb)
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
@@ -190,7 +209,18 @@ export default {
             } catch (e) {
                 return this.errors.push({ message: "Image trop lourde", color: "danger" })
             }
-        });
+        },
+        handleClickUpload(event) {
+            let FILE_INPUT = window.document.getElementById("avatar_image");
+            FILE_INPUT.click()
+        }
+    },
+    async mounted() {
+        let config = this.config
+        this.user = JSON.parse(window.localStorage.getItem('user'))
+
+        this.userFetch = await getUserById(config.api, this.$route.params.id)
+        this.loading = false
     }
 }
 </script>

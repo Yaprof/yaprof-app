@@ -16,7 +16,7 @@
                     <div @click="submitPost()" class="text-emerald-400 cursor-pointer text-lg">Créer</div>
                 </div>
 
-                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-neutral-700 px-5 w-full py-3 gap-2">
+                <div id="form_post" class="flex flex-col rounded-xl bg-slate-200 dark:bg-slate-700 px-5 w-full py-3 gap-2">
                     <div class="flex items-center gap-2 relative" v-click-outside="closeProfSearch">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
@@ -25,13 +25,13 @@
                         </svg>
 
                         <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent focus:outline-none w-full text-dark dark:text-white" placeholder="Nom du professeur" />
-                        <div v-show="prof_content" class="absolute top-[calc(100%+10px)] left-0 rounded-b-xl bg-neutral-200 dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99] transition-all">
+                        <div v-show="prof_content" class="absolute top-[calc(100%+10px)] left-0 rounded-b-xl bg-slate-200 dark:bg-dark shadow-md px-3 py-3 flex flex-col w-full z-[99] transition-all">
                             <div v-for="prof in results" :key="prof.name" class="py-2 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full">
                                 <p class="text-md text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOptionProf($event.target, prof.name)">{{ prof.name }} ({{ prof.functions[0]?.replace('&amp;', '&') }})</p>
                             </div>
                         </div>
                     </div>
-                    <div class="w-full h-[1px] bg-neutral-300 dark:bg-neutral-800"></div>
+                    <div class="w-full h-[1px] bg-slate-300 dark:bg-slate-800"></div>
                     <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
                             <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
@@ -45,7 +45,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="flex flex-col rounded-xl bg-neutral-200 dark:bg-neutral-700 px-5 w-full py-3 gap-2">
+                <div class="flex flex-col rounded-xl bg-slate-200 dark:bg-slate-700 px-5 w-full py-3 gap-2">
                     <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
                             <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />

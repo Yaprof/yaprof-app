@@ -50,9 +50,9 @@
                                         </div>
                                         <Transition name="slide-down">
                                             <div v-if="popupBadges" id="badges_list" class="absolute shadow-2xl rounded-xl px-6 py-3 flex flex-col bg-white dark:bg-secondary z-[80] top-[calc(100%+5px)] -right-[250%] gap-2">
-                                                <li v-for="badge in badges" :id="badge.id" :key="badge" @load="userFetch.profile?.badges.find(b=>b==badge.id) ? selectedNewBadges.push(badge) : ''" class="flex items-center gap-3 min-w-max">
+                                                <li v-for="badge in badges" :id="badge.id" :key="badge" @load="userFetch.profile?.badges.find(b=>b==badge.id) ? selectedNewBadges.push(badge) : ''" class="flex items-center gap-3 min-w-max w-full">
                                                     <input @change="handleChangeCheckbox" :id="badge.name" type="checkbox" :checked="userFetch.profile?.badges.find(b=>b==badge.id)" value="">
-                                                    <label :for="badge.name" class="text-md font-medium">{{ badge.name }}</label>
+                                                    <label :for="badge.name" class="text-md font-medium text-dark dark:text-white w-full">{{ badge.name }}</label>
                                                 </li>
                                                 <div @click="valideBadges" class="w-full rounded-xl py-2 px-6 text-md font-medium bg-primary mt-2 active:scale-95 transition-all text-center">Valider</div>
                                             </div>

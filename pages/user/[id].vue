@@ -2,6 +2,7 @@
     <div>
         <NuxtLayout>
             <div>
+                <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
                 <div class="flex items-center gap-3 pb-3 -mt-2">
                     <button @click="goToPrev()" class="active:scale-95 transition-all cursor-pointer p-2 z-50 text-dark dark:text-light">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-8 h-8">
@@ -11,7 +12,7 @@
                     <h1 class="text-dark dark:text-white text-3xl font-bold">Profil</h1>
                 </div>
                 <div class="flex flex-col gap-5">
-                    <button @click="handleClickUpload" v-if="!loading && user.id == userFetch.id" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all">
+                    <button @click="handleClickUpload" v-if="!loading && user.id == userFetch.id" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
                         <div class="flex items-center gap-2">
                             <div class="w-fit h-fit p-2 bg-">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
@@ -29,8 +30,10 @@
                         </svg>
                         <input @change="handleChange" type="file" name="avatar_input" class="hidden" id="avatar_image" accept="image/*" />
                     </button>
-                    <div v-if="!loading" class="w-full shadow-md relative rounded-xl overflow-hidden bg-dark dark:bg-secondary h-[164px]">
-                        <img class="w-full h-[164px] object-cover object-center absolute top-0 left-0 blur-lg brightness-110 dark:brightness-90 rounded-xl" :src="userFetch.profile?.pp" />
+                    <div v-if="!loading" class="w-full shadow-md relative rounded-xl h-[164px]">
+                        <div class="w-full h-[164px] backdrop-blur-xl overflow-hidden absolute top-0 left-0 rounded-xl">
+                            <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';" :src="userFetch.profile?.pp" />
+                        </div>
                         <div class="flex flex-col p-5">
                             <div class="flex items-center gap-1">
                                 <img onerror="this.onerror=null;this.src='/icons/icon_72x72.png';" class="mb-2 h-16 w-16 object-cover z-10 rounded-full object-center mr-2" :src="userFetch.profile?.pp" />
@@ -39,6 +42,22 @@
                                         <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
                                     </svg>
                                     <img class="w-5 h-5 z-50" :src="'https://res.cloudinary.com/dzg9awmm8/image/upload/v1682000898/badges/'+badge+'.webp?w=10'" v-for="badge in userFetch.profile?.badges.slice(0, 16)" :key="badge" />
+                                    <div v-if="[20, 50, 99].includes(user?.role)" v-click-outside="closePopupBadges" class="z-[51] relative">
+                                        <div @click="popupBadges = !popupBadges" class="p-0.5 w-fit h-fit rounded-full bg-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark">
+                                                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                            </svg>
+                                        </div>
+                                        <Transition name="slide-down">
+                                            <div v-if="popupBadges" id="badges_list" class="absolute shadow-2xl rounded-xl px-6 py-3 flex flex-col bg-white dark:bg-secondary z-[80] top-[calc(100%+5px)] -right-[250%] gap-2">
+                                                <li v-for="badge in badges" :id="badge.id" :key="badge" @load="userFetch.profile?.badges.find(b=>b==badge.id) ? selectedNewBadges.push(badge) : ''" class="flex items-center gap-3 min-w-max">
+                                                    <input @change="handleChangeCheckbox" :id="badge.name" type="checkbox" :checked="userFetch.profile?.badges.find(b=>b==badge.id)" value="">
+                                                    <label :for="badge.name" class="text-md font-medium">{{ badge.name }}</label>
+                                                </li>
+                                                <div @click="valideBadges" class="w-full rounded-xl py-2 px-6 text-md font-medium bg-primary mt-2 active:scale-95 transition-all text-center">Valider</div>
+                                            </div>
+                                        </Transition>
+                                    </div>
                                 </div>
                             </div>
                             <p class="text-lg text-white z-50 font-medium">{{ userFetch.name }}</p>
@@ -109,7 +128,7 @@ definePageMeta({
 </script>
 
 <script>
-import { getUsers, getUserById, updateUser } from '~~/mixins/user';
+import { updatebadges, getUserById, updateUser, getAllBadges } from '~~/mixins/user';
 import { gsap } from "gsap";
 
 export default {
@@ -122,7 +141,12 @@ export default {
             holded: false,
             touchStartPosition: { x: 0, y: 0 },
             darkOpacity: false,
-            loading: true
+            loading: true,
+            popupBadges: false,
+            badges: [],
+            errors: [],
+            selectedNewBadges: [],
+            getAllBadges: getAllBadges
         }
     },
     methods: {
@@ -172,6 +196,9 @@ export default {
                 this.darkOpacity = false
             }, 100)
         },
+        closePopupBadges: function () {
+            this.popupBadges = false
+        },
         startHold(event, data) {
             this.holdTimer = setTimeout(() => {
                 this.holded = data
@@ -213,12 +240,23 @@ export default {
         handleClickUpload(event) {
             let FILE_INPUT = window.document.getElementById("avatar_image");
             FILE_INPUT.click()
+        },
+        async valideBadges(event) {
+            console.log([...event.target.parentNode.querySelectorAll('li')].map(e=>e.id))
+            let all_badges = [...event.target.parentNode.querySelectorAll('li')].filter(e => e.id && (e.id.length > 0) && e.querySelector('input').checked).map(e => e.id)
+
+            console.log(all_badges)
+            let new_badges = await updatebadges(this.config.api, this.userFetch.id, all_badges)
+            if (!new_badges || new_badges.error) return this.errors.push({ message: "Impossible de mettre à jour les badges", color: "danger" })
+            this.closePopupBadges()
+            window.location.reload()
+            return this.errors.push({ message: "Badges mis à jour", color: "success" })
         }
     },
     async mounted() {
         let config = this.config
         this.user = JSON.parse(window.localStorage.getItem('user'))
-
+        this.badges = await this.getAllBadges(this.config.api)
         this.userFetch = await getUserById(config.api, this.$route.params.id)
         this.loading = false
     }

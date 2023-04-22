@@ -96,7 +96,7 @@ export async function getAllBadges(config) {
 }
 
 export async function buyBadge(config, id) {
-     let response = await axios.put(config + "/badge/"+id+"?userInfos=" + window.localStorage.getItem('userInfos'), {
+    let response = await axios.put(config + "/badge/"+id+"?userInfos=" + window.localStorage.getItem('userInfos'), {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -104,5 +104,22 @@ export async function buyBadge(config, id) {
         },
     })
     if (!response || !response.data) return { error: "Impossible de charger les badges" }
+    return response.data
+}
+
+export async function updatebadges(config, userId, new_badges) {
+    console.log(config, new_badges)
+    let response = await axios.post(config + "/badges/"+userId+"?userInfos=" + window.localStorage.getItem('userInfos'), {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+        },
+        body: {
+            new_badges: new_badges
+        }
+    })
+    console.log(response)
+    if (!response || !response.data) return { error: "Impossible de mettre à jour les badges" }
     return response.data
 }

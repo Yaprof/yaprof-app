@@ -24,7 +24,7 @@
 
                     <!-- Daily -->
                     <div v-if="type == 'daily'">
-                        <TransitionGroup class="flex flex-col gap-8" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
+                        <TransitionGroup class="flex flex-col gap-8 transition-all" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in getDayOfWeek(new Date().getDay())" :key="abs" :data="abs"></Post>
                             <div v-if="!loading && getDayOfWeek(new Date().getDay()).length < 1" class="bg-light dark:bg-secondary rounded-xl py-3.5 flex justify-center items-center flex-col gap-1">
                                 <img src="/no.png" class="w-10 h-10" />
@@ -96,7 +96,7 @@ definePageMeta({
 </script>
 
 <script>
-import { getUser, getDbFeed } from '../mixins/user.js'
+import { getUser, getDbFeed, updateFeed } from '../mixins/user.js'
 import { gsap } from "gsap";
 
 export default {
@@ -105,6 +105,8 @@ export default {
         return {
             absences: [],
             errors: [],
+            pStart: { x: 0, y: 0 },
+            pCurrent: { x: 0, y: 0 },
             loading: true,
             type: window.localStorage.getItem('type_post') ?? 'daily',
             user: {},
@@ -146,9 +148,11 @@ export default {
             }
         },
         async changeType(type) {
+            this.absences = []
+            this.loading = true
             this.type = type
             window.localStorage.setItem('type_post', type)
-            await this.getDbFeed(this.$config.API_URL)
+            await this.updateUserFeed()
         },
         onEnterListSlideUp(el, done) {
             gsap.fromTo(el, {y: 5, opacity: 0.2}, {
@@ -191,12 +195,57 @@ export default {
         },
         isSameWeek(dateA, dateB) {
             return this.getWeek(dateA) === this.getWeek(dateB);
+        },
+        async updateUserFeed() {
+            this.loading = true
+            this.absences = []
+            this.absences = await this.getDbFeed(this.$config.API_URL)
+            this.loading = false
+        },
+        async reload() {
+            if (this.loading) return
+            this.loading = true;
+            this.updateUserFeed()
+            try {
+                navigator.vibrate(100);
+            } catch(e) { console.log(e) }
+        },
+        swipeStart(e) {
+            if (typeof e["targetTouches"] !== "undefined") {
+                let touch = e.targetTouches[0];
+                this.pStart.x = touch.screenX;
+                this.pStart.y = touch.screenY;
+            } else {
+                this.pStart.x = e.screenX;
+                this.pStart.y = e.screenY;
+            }
+        },
+        swipe(e) {
+            if (typeof e["changedTouches"] !== "undefined") {
+                let touch = e.changedTouches[0];
+                this.pCurrent.x = touch.screenX;
+                this.pCurrent.y = touch.screenY;
+            } else {
+                this.pCurrent.x = e.screenX;
+                this.pCurrent.y = e.screenY;
+            }
+            let changeY = this.pStart.y < this.pCurrent.y ? Math.abs(this.pStart.y - this.pCurrent.y) : 0;
+            const rotation = changeY < 100 ? changeY * 30 / 100 : 30;
+            if (window.scrollY === 0 || window.document.body.scrollTop === 0) {
+                if (changeY > 200) this.reload();
+            }
         }
     },
+    beforeUnmount() {
+        window.removeEventListener("touchstart", this.swipeStart);
+        window.removeEventListener("touchmove", this.swipe);
+    },
     async mounted() {
+        window.addEventListener("touchstart", this.swipeStart);
+        window.addEventListener("touchmove", this.swipe);
         this.user = JSON.parse(window.localStorage.getItem('user'))
-        this.absences = await this.getDbFeed(this.$config.API_URL)
-        this.loading = false
+        await this.updateUserFeed()
+        /*         this.$root.$on('updateUserFeed', await this.updateUserFeed()); */
     },
 
 }

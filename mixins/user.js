@@ -123,3 +123,10 @@ export async function updatebadges(config, userId, new_badges) {
     if (!response || !response.data) return { error: "Impossible de mettre à jour les badges" }
     return response.data
 }
+
+let feed = false
+
+export async function updateFeed() {
+    feed = !feed
+    return feed
+}

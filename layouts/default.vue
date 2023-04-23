@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getUser } from '~~/mixins/user';
+import { getUser, updateFeed } from '~~/mixins/user';
 export default {
     data() {
         return {
@@ -83,19 +83,15 @@ export default {
         }
     },
     beforeUnmount() {
-        let swipeStart = this.swipeStart
-        let swipe = this.swipe
-        window.removeEventListener("touchstart", swipeStart);
-        window.removeEventListener("touchmove", swipe);
+        window.removeEventListener("touchstart", this.swipeStart);
+        window.removeEventListener("touchmove", this.swipe);
     },
     async mounted() {
         this.user = JSON.parse(window.localStorage.getItem("user"))
         this.user = await getUser(this.config.api, this.user.id)
         if (!this.user) return this.errors.push({ message: "Impossible de charger l'utilisateur", color: "danger" })
-        let swipeStart = this.swipeStart
-        let swipe = this.swipe
-        window.addEventListener("touchstart", swipeStart);
-        window.addEventListener("touchmove", swipe);
+        window.addEventListener("touchstart", this.swipeStart);
+        window.addEventListener("touchmove", this.swipe);
     },
 }
 </script>

@@ -46,11 +46,12 @@ html, body {
     transition: all 0.2s;
 }
 .slide-up-enter-from{
-    transform: translateY(-1rem);
+    opacity: 0.5;
+    transform: translate3d(0, -1rem, 0);
 }
 .slide-up-leave-to {
     opacity: 0;
-    transform: translateY(-1rem);
+    transform: translate3d(0, -1rem, 0);
 }
 
 

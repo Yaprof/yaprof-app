@@ -103,3 +103,18 @@ html, body {
 .opacity-leave-to {
   opacity: 0;
 }
+
+.swipe-right-enter-active {
+    transition: all 0.2s ease-out;
+}
+
+.swipe-right-leave-active {
+    transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.swipe-right-enter-from,
+.swipe-right-leave-to {
+    transform: translateX(30%);
+    opacity: 0;
+}
+

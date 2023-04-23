@@ -12,7 +12,14 @@
                         </svg>
                         <p class="text-dark dark:text-white">Chargement en cours</p>
                     </div>
-                    <NuxtLink :to="'/user/'+user.id+'?q=admin'" v-for="user in users" :key="user.id" class="w-full h-fit shadow-md rounded-xl p-5 gap-2 flex flex-col border dark:border-secondary">
+                    <div class="w-full rounded-xl bg-light dark:bg-secondary text-dark dark:text-white px-4 flex items-center py-1 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                        </svg>
+                        <input @keyup="handleKeyUpSearch" type="search" autocomplete="no" class="border-0 bg-transparent outline-none focus:outline-none focus:ring-0" placeholder="Chercher un utilisateur" />
+
+                    </div>
+                    <NuxtLink :to="'/user/'+user.id+'?q=admin'" v-for="user in search" :key="user.id" class="w-full h-fit shadow-md rounded-xl p-5 gap-2 flex flex-col border dark:border-secondary">
                         <div class="flex items-center gap-3 w-full overflow-hidden">
                             <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';" class="w-12 h-12 aspect-square object-cover object-center rounded-full shadow-md" :src="user.profile?.pp" />
                             <div class="flex flex-col">
@@ -50,14 +57,25 @@ export default {
     data() {
         return {
             users: [],
+            search: [],
             config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
             loading: false
+        }
+    },
+    methods: {
+        handleKeyUpSearch(event) {
+            if (event.target.value.trim().length > 0) {
+                this.search = this.users.filter(e => e.name.toLowerCase().includes(event.target.value.toLowerCase()))
+            } else {
+                this.search = this.users
+            }
         }
     },
     async mounted() {
         let config = this.config
         this.loading = true
         this.users = await getUsers(config.api)
+        this.search = this.users
         this.loading = false
     }
 }

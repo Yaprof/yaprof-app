@@ -34,11 +34,11 @@ export default {
             isSidebarOpen: false,
             isShadowed: false,
             pages: {
-                'index': "Asbences",
+                'index': "Absences",
                 'cantine': "Cantine",
                 'shop': "Boutique",
                 'params': "Paramètres",
-                'user-profile': 'Profile',
+                'user-id': 'Profil',
                 'admin-users': "Utilisateurs"
             },
             isHiddenTitle: true
@@ -59,6 +59,7 @@ export default {
         window.removeEventListener('scroll', this.onScroll)
     },
     async mounted() {
+        console.log(this?.$route?.name)
         window.addEventListener('scroll', this.onScroll)
         /* this.userInfos = JSON.parse(window.localStorage.getItem("user"))
         let user = await getUser(this.config.api, this.userInfos.id)

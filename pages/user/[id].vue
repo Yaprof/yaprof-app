@@ -70,7 +70,7 @@
                     </div>
                     <div v-if="!loading" class="rounded-xl bg-light dark:bg-secondary py-5 px-6">
                         <p class="font-medium text-lg pb-5 text-dark dark:text-white">Ensemble des posts ({{ userFetch?.posts?.length }})</p>
-                        <TransitionGroup name="slide-up" tag="Post" @enter="onEnterListSlideUp" class="flex flex-col gap-8">
+                        <TransitionGroup tag="Post" @enter="onEnterListSlideUp" class="flex flex-col gap-8">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="userFetch" v-for="(abs, index) in userFetch.posts" :key="abs" :data="abs"></Post>
                         </TransitionGroup>
                     </div>

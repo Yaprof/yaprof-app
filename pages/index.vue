@@ -24,7 +24,7 @@
 
                     <!-- Daily -->
                     <div v-if="type == 'daily'">
-                        <TransitionGroup class="flex flex-col gap-8 transition-all" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
+                        <TransitionGroup class="flex flex-col gap-8 transition-all" tag="Post" @enter="onEnterListSlideUp">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in getDayOfWeek(new Date().getDay())" :key="abs" :data="abs"></Post>
                             <div v-if="!loading && getDayOfWeek(new Date().getDay()).length < 1" class="bg-light dark:bg-secondary rounded-xl py-3.5 flex justify-center items-center flex-col gap-1">
                                 <img src="/no.png" class="w-10 h-10" />
@@ -36,35 +36,35 @@
                     <!-- Weekly -->
                     <div v-if="type=='weekly'" class="flex flex-col gap-8">
                         <p class="text-dark dark:text-white text-2xl font-bold">Lundi</p>
-                        <TransitionGroup class="flex flex-col gap-8" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
+                        <TransitionGroup class="flex flex-col gap-8" tag="Post" @enter="onEnterListSlideUp">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in getDayOfWeek(1)" :key="abs" :data="abs"></Post>
                             <div v-if="!loading && getDayOfWeek(1).length < 1" class="bg-light dark:bg-secondary rounded-xl py-2">
                                 <p class="text-dark dark:text-white w-full text-center">Aucune absence en vue</p>
                             </div>
                         </TransitionGroup>
                         <p class="text-dark dark:text-white text-2xl font-bold">Mardi</p>
-                        <TransitionGroup class="flex flex-col gap-8" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
+                        <TransitionGroup class="flex flex-col gap-8" tag="Post" @enter="onEnterListSlideUp">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in getDayOfWeek(2)" :key="abs" :data="abs"></Post>
                             <div v-if="!loading && getDayOfWeek(2).length < 1" class="bg-light dark:bg-secondary rounded-xl py-2">
                                 <p class="text-dark dark:text-white w-full text-center">Aucune absence en vue</p>
                             </div>
                         </TransitionGroup>
                         <p class="text-dark dark:text-white text-2xl font-bold">Mercredi</p>
-                        <TransitionGroup class="flex flex-col gap-8" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
+                        <TransitionGroup class="flex flex-col gap-8" tag="Post" @enter="onEnterListSlideUp">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in getDayOfWeek(3)" :key="abs" :data="abs"></Post>
                             <div v-if="!loading && getDayOfWeek(3).length < 1" class="bg-light dark:bg-secondary rounded-xl py-2">
                                 <p class="text-dark dark:text-white w-full text-center">Aucune absence en vue</p>
                             </div>
                         </TransitionGroup>
                         <p class="text-dark dark:text-white text-2xl font-bold">Jeudi</p>
-                        <TransitionGroup class="flex flex-col gap-8" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
+                        <TransitionGroup class="flex flex-col gap-8" tag="Post" @enter="onEnterListSlideUp">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in getDayOfWeek(4)" :key="abs" :data="abs"></Post>
                             <div v-if="!loading && getDayOfWeek(4).length < 1" class="bg-light dark:bg-secondary rounded-xl py-2">
                                 <p class="text-dark dark:text-white w-full text-center">Aucune absence en vue</p>
                             </div>
                         </TransitionGroup>
                         <p class="text-dark dark:text-white text-2xl font-bold">Vendredi</p>
-                        <TransitionGroup class="flex flex-col gap-8" name="slide-up" tag="Post" @enter="onEnterListSlideUp">
+                        <TransitionGroup class="flex flex-col gap-8" tag="Post" @enter="onEnterListSlideUp">
                             <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="user" :type="type" v-for="(abs, index) in getDayOfWeek(5)" :key="abs" :data="abs"></Post>
                             <div v-if="!loading && getDayOfWeek(5).length < 1" class="bg-light dark:bg-secondary rounded-xl py-2">
                                 <p class="text-dark dark:text-white w-full text-center">Aucune absence en vue</p>

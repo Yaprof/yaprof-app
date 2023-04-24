@@ -41,6 +41,7 @@
                             <option class="w-full" value="Autre">Autre</option>
                             <option class="w-full" value="Grève">Grève</option>
                             <option class="w-full" value="Maladie">Maladie</option>
+                            <option class="w-full" value="Réunion">Réunion</option>
                             <option class="w-full" value="Sortie pédagogique">Sortie pédagogique</option>
                         </select>
                     </div>

@@ -72,7 +72,7 @@
                         </TransitionGroup>
                     </div>
 
-                    <div :class="((holded?.id && darkOpacity) ? 'bg-dark bg-opacity-50' : 'pointer-events-none opacity-0') + ' fixed top-0 left-0 h-screen w-full z-[100] transition-all'"></div>
+                    <div :class="((holded?.id && darkOpacity && [20, 50, 99].includes(user?.role)) ? 'bg-dark bg-opacity-50' : 'pointer-events-none opacity-0') + ' fixed top-0 left-0 h-screen w-full z-[100] transition-all'"></div>
                     <Transition v-if="holded?.author?.id == user.id || [20, 50, 99].includes(user?.role)" name="slide-down" mode="out-in">
                         <div :class="(holded ? '': 'translate-y-full') + ' bg-light dark:bg-secondary p-5 pb-14 fixed bottom-0 left-0 w-full flex flex-col text-dark dark:text-white transition-all z-[101]'" v-click-outside="closePopupInfos">
                             <div @click="deletePost(holded?.id)" class="flex items-center justify-center gap-2 text-red-500 group cursor-pointer active:text-red-400">

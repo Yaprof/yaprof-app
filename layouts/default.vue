@@ -77,7 +77,7 @@ export default {
             }
             let changeY = this.pStart.y < this.pCurrent.y ? Math.abs(this.pStart.y - this.pCurrent.y) : 0;
             const rotation = changeY < 100 ? changeY * 30 / 100 : 30;
-            if (window.scrollY === 0 || window.document.body.scrollTop === 0) {
+            if (window.scrollY === 0) {
                 if (changeY > 200) this.loading();
             }
         }

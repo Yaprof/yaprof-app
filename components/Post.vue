@@ -1,6 +1,6 @@
 <template>
     <div :id="'container_info_'+data?.id" class="flex flex-col gap-3 relative">
-        <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
+        <Toast class="fixed top-5 left-0 w-full" v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <NuxtLink :to="'/user/'+data.author?.id" class="flex items-center gap-2 pl-2 !bg-transparent">
             <img onerror="this.onerror=null;this.src='/icons/icon_48x48.png';" class="w-8 h-8 aspect-square object-cover object-center rounded-full shadow-md" :src="data.author?.profile?.pp" />
             <p class="text-dark dark:text-white text-md whitespace-nowrap truncate">{{ data.author?.name }}</p>

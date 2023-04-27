@@ -29,6 +29,14 @@ html, body {
     }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #1f2937 !important;
+}
+
 .router-link-exact-active  {
     background-color: #4AFF9381;
 }
@@ -36,6 +44,14 @@ html, body {
 @media (prefers-color-scheme: dark) {
     .router-link-exact-active  {
         background-color: #4AFF9321;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        -webkit-box-shadow: 0 0 0 30px #1A232E inset !important;
+        -webkit-text-fill-color: white !important;
     }
 }
 

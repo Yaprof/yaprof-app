@@ -1,6 +1,6 @@
 <template>
     <div id="sidebar" :class="(isOpen  ? 'translate-x-0 shadow-xl' : '-translate-x-full') + ' h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center z-[99] pb-5 transform-gpu transition-all duration-200'">
-        <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light relative">
+        <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-secondary relative">
             <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="user.profile?.pp" />
             <div class="flex flex-col p-5">
                 <NuxtLink :to="'/user/' + user.id" class="z-50 !bg-transparent">
@@ -61,6 +61,7 @@
                     <p :class="(isOnline && errors.length < 1 ? 'bg-[#4AFF9321] text-emerald-400 dark:text-emerald-500' : 'bg-light text-slate-400 dark:text-slate-400') +' text-md z-50 w-full whitespace-nowrap truncate rounded-full bg-opacity-30 flex items-center justify-center py-1'">{{ isOnline && errors.length < 1 ? 'En ligne' : 'Hors ligne' }}</p>
                 </div>
             </div>
+            <a class="text-slate-600 dark:text-slate-600 w-full px-5 pt-3" href="https://docs.yaprof.fr/documents/politiques-et-legalite" target="_blank">Politiques et conditions</a>
         </div>
     </div>
 </template>

@@ -6,16 +6,16 @@
             <div id="form_login" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
                     <label for="ent" class="text-lg text-dark dark:text-white">Établissement</label>
-                    <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg " ref="input_search" autocorrect="off" placeholder="Cherchez avec un code postal" name="ent" />
+                    <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg bg-white dark:bg-secondary dark:text-white" ref="input_search" autocorrect="off" placeholder="Cherchez avec un code postal" name="ent" />
                     <div v-show="ent_content" class="absolute top-[calc(100%)] left-0 rounded-b-xl bg-white dark:bg-secondary shadow-md px-2 flex flex-col w-full z-50 py-3">
-                        <div v-for="cas in results" :key="cas.url" class="hover:bg-slate-300 hover:bg-opacity-30 px-6 w-full rounded-xl flex flex-col">
+                        <div v-for="(cas, index) in results" :key="cas.url" class="hover:bg-slate-300 hover:bg-opacity-30 px-6 w-full rounded-xl flex flex-col">
                             <div class="flex items-center gap-3 py-3.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 min-w-[1.5rem] text-dark dark:text-white">
                                     <path fill-rule="evenodd" d="M9.664 1.319a.75.75 0 01.672 0 41.059 41.059 0 018.198 5.424.75.75 0 01-.254 1.285 31.372 31.372 0 00-7.86 3.83.75.75 0 01-.84 0 31.508 31.508 0 00-2.08-1.287V9.394c0-.244.116-.463.302-.592a35.504 35.504 0 013.305-2.033.75.75 0 00-.714-1.319 37 37 0 00-3.446 2.12A2.216 2.216 0 006 9.393v.38a31.293 31.293 0 00-4.28-1.746.75.75 0 01-.254-1.285 41.059 41.059 0 018.198-5.424zM6 11.459a29.848 29.848 0 00-2.455-1.158 41.029 41.029 0 00-.39 3.114.75.75 0 00.419.74c.528.256 1.046.53 1.554.82-.21.324-.455.63-.739.914a.75.75 0 101.06 1.06c.37-.369.69-.77.96-1.193a26.61 26.61 0 013.095 2.348.75.75 0 00.992 0 26.547 26.547 0 015.93-3.95.75.75 0 00.42-.739 41.053 41.053 0 00-.39-3.114 29.925 29.925 0 00-5.199 2.801 2.25 2.25 0 01-2.514 0c-.41-.275-.826-.541-1.25-.797a6.985 6.985 0 01-1.084 3.45 26.503 26.503 0 00-1.281-.78A5.487 5.487 0 006 12v-.54z" clip-rule="evenodd" />
                                 </svg>
                                 <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate" @click="selectOption($event.target, cas.url, cas.py)">{{ cas.nomEtab }}</p>
                             </div>
-                            <div class="w-full"><div class="w-full h-[1px] bg-slate-300 rounded-full"></div></div>
+                            <div v-if="index != results.length - 1" class="w-full"><div class="w-full h-[1px] bg-slate-300 dark:bg-slate-700 rounded-full"></div></div>
                         </div>
                         <div v-if="results.length < 1 && !loadingEtabs" class="py-3.5 px-6 flex items-center gap-3">
                             <p class="text-lg text-dark dark:text-white font-medium whitespace-nowrap truncate">Aucun résultat</p>
@@ -27,12 +27,12 @@
                 </div>
                 <div class="flex flex-col gap-1 w-full">
                     <label for="ent" class="text-lg text-dark dark:text-white">Nom d'utilisateur</label>
-                    <input id="input_username" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="Entrez votre nom d'utilisateur" name="ent" />
+                    <input id="input_username" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg bg-white dark:bg-secondary dark:text-white" placeholder="Entrez votre nom d'utilisateur" name="ent" />
                 </div>
                 <div class="flex flex-col gap-1 w-full">
                     <label for="ent" class="text-lg text-dark dark:text-white">Mot de passe</label>
                     <div class="w-full relative text-dark dark:text-light">
-                        <input id="input_password" :type="!eyes ? 'password' : 'text'" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg text-dark dark:text-light" placeholder="**************" name="ent" />
+                        <input id="input_password" :type="!eyes ? 'password' : 'text'" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg text-dark dark:text-light bg-white dark:bg-secondary dark:text-white" placeholder="**************" name="ent" />
                         <svg @click="eyes=false" v-if="eyes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 absolute right-5 top-1/3">
                             <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
                             <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
@@ -43,11 +43,14 @@
                         </svg>
                     </div>
 
-
-
                 </div>
-                <button @click="connect($event.target)" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
-                <button id="loading-button" class="mt-5 w-full rounded-xl bg-primaryhover brightness-90 py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
+                <div class="w-full flex items-center gap-2 pt-3 px-1">
+                    <input id="checkbox_politics" class="w-5 h-5 bg-secondary accent-primary focus:ring-2 focus:!ring-dark outline-none rounded text-primary form-checkbox transition-all" type="checkbox" value="">
+                    <p class="text-dark dark:text-white">J'accepte les <a class="text-slate-600 dark:text-slate-500 w-full font-medium" href="https://docs.yaprof.fr/documents/politiques-et-legalite" target="_blank">Politiques et conditions</a>.</p>
+                </div>
+
+                <button @click="connect($event.target)" class="w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
+                <button id="loading-button" class="w-full rounded-xl bg-primaryhover brightness-90 py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>
         <div class="text-lg text-dark dark:text-white">Pas de compte ? <a href="mail:yaprof@gmail.com" class="text-primary">Contactez-nous</a></div>
@@ -83,7 +86,8 @@ export default {
     },
     methods: {
         connect: async function (e) {
-            console.log('push notif', window.document.querySelector('push-permission'))
+            let checkboxPolitics = window.document?.querySelector('#checkbox_politics')
+            if (!checkboxPolitics.checked) return this.errors.push({ message: "Veuillez accepter les conditions", color: "danger" })
             let config = this.config
             let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')

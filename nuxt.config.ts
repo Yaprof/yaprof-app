@@ -12,7 +12,10 @@ export default defineNuxtConfig({
             meta: [
                 { charset: "utf-8" },
                 { name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" },
-                { hid: "description", name: "description", content: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas" },
+                { hid: "description", name: "description", content: "Yaprof est une application mobile utilisant Pronote dans le but de servir d'outil aux élèves et leur indiquer si un professeur est présent ou non." },
+                { name: "robots", content: "all" },
+                { name: "keywords", content: "yaprof, app, pronote, pronoteapi, scolaire, lycée, collège, notes, profs application" },
+                { name: "publisher", content: "Alexandre VARGAS LOPEZ" },
                 { name: "manifest", content: "/manifest.webmanifest" },
                 { name: "format-detection", content: "telephone=no" },
                 { name: "apple-mobile-web-app-capable", content: "yes" },

@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     app: {
 /*         pageTransition: { name: 'page', mode: 'out-in' }, */
         head: {
-            title: "Yaprof",
+            title: "Yaprof - La nouvelle app des étudiants",
             htmlAttrs: {
                 lang: "fr",
             },
@@ -88,7 +88,7 @@ export default defineNuxtConfig({
         public: {
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
-            API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr', // 'http://localhost:8080',
+            API_URL: 'http://localhost:8080',//'https://api.yaprof.fr', // 'http://localhost:8080',
             PRONOTE_API_URL: 'https://pronoteapi.yaprof.fr'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000'
         }
     },

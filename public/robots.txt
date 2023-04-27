@@ -1,0 +1,11 @@
+Sitemap: https://yaprof.fr/sitemap.xml
+
+User-agent: *
+Disallow: /cgi-bin/
+Disallow: /shop/
+Disallow: /params/
+Disallow: /user/
+Disallow: /cantine/
+
+User-agent: rogerbot
+Crawl-delay: 2

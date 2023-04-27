@@ -1,12 +1,16 @@
-<img align="center" width="100" height="100" src="https://yaprof.fr/favicon.ico">
-
 # [Yaprof](https://yaprof.fr) - La nouvelle app des étudiants
+<a href="https://yaprof.fr"><img src="https://github.com/Yaprof/.github/blob/b914858f739433f6aa76899f7f728ee282b3ba6e/profile/Banner.png"><a/>
 
 Bienvenue sur le readme de l'**application** 🎉<br>
-Avant de commencer, il est important de lire ce fichier et de respecter les différentes règles pour le bon fonctionnement du projet.
+[Yaprof](https://yaprof.fr) est une application mobile créer en PWA permettant l'installation et la mise à jour facile de l'application sur les appareils des utilisateurs.
+L'application vous permettra de savoir si vos profs sont présents ou pas certains jours grâce à un système collaboratif d'upvote.
+Pour accéder à la l'application, connectez-vous avec vos identifiants Pronote 🦋.
+
+Vous souhaitez accéder à l'application ? Rendez-vous sur le site en [cliquant ici](https://yaprof.fr) !
 
 ## 🎈 Informations contribuateurs
 
+Avant de commencer, il est important de lire ce fichier et de respecter les différentes règles pour le bon fonctionnement du projet.
 Tout d'abord, merci à vous de nous aider sur le projet. Grâce à vous, Yaprof peut vivre et se mettre à jour régulièrement.
 En ce qui concerne le développement, quelques règles basiques :
 - Utilisez des noms de commits adéquats et raisonnables
@@ -42,3 +46,5 @@ npm run preview
 ```
 
 Pour toutes informations veuillez rejoindre notre [Discord](https://discord.gg/yaprof)
+
+Contributions : Papillon

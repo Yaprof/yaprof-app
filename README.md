@@ -46,3 +46,5 @@ npm run preview
 ```
 
 Pour toutes informations veuillez rejoindre notre [Discord](https://discord.gg/yaprof)
+
+Contributions : Papillon

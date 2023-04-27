@@ -36,7 +36,7 @@ export default {
         }
     },
     mounted() {
-        this.os = window.matchMedia('(display-mode: standalone)').matches && /^iP/.test(navigator.platform) ? 'ios' : 'android'
+        this.os = /^iP/.test(navigator.platform) ? 'ios' : 'android'
     },
 }
 </script>

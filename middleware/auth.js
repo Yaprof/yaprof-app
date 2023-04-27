@@ -2,7 +2,7 @@ import pkg from '~/package.json'
 
 export default defineNuxtRouteMiddleware((to, from) => {
     try {
-        if (!window.matchMedia('(display-mode: standalone)').matches && /^iP/.test(navigator.platform)) {
+        if (!window.matchMedia('(display-mode: standalone)').matches) {
             return window.location.replace('/howitswork')
         }
         console.log('Version: ' + pkg['version'])

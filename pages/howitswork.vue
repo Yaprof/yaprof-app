@@ -9,20 +9,20 @@
 
         <div v-if="this.os == 'ios'">
             <p class="text-primary text-xl font-medium pb-3">Étape n°1</p>
-            <img src="~/public/IMG_0748.png" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
+            <img src="/IMG_0748.png" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
             <p class="text-primary text-xl font-medium pb-3">Étape n°2</p>
-            <img src="~/public/IMG_0749.png" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
+            <img src="/IMG_0749.png" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
             <p class="text-primary text-xl font-medium pb-3">Étape n°3</p>
-            <img src="~/public/IMG_0750.png" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
+            <img src="/IMG_0750.png" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
             <p class="text-dark dark:text-white text-2xl font-medium pb-3 w-full text-center pt-5">Et voilà ! 🎉</p>
         </div>
         <div v-else>
             <p class="text-primary text-xl font-medium pb-3">Étape n°1</p>
-            <img src="~/public/Screenshot_2023-04-27-16-10-03-407_com.android.chrome.jpg" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
+            <img src="/Screenshot_2023-04-27-16-10-03-407_com.android.chrome.jpg" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
             <p class="text-primary text-xl font-medium pb-3">Étape n°2</p>
-            <img src="~/public/Screenshot_2023-04-27-16-10-10-452_com.android.chrome.jpg" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
+            <img src="/Screenshot_2023-04-27-16-10-10-452_com.android.chrome.jpg" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
             <p class="text-primary text-xl font-medium pb-3">Étape n°3</p>
-            <img src="~/public/Screenshot_2023-04-27-16-10-16-613_com.android.chrome.jpg" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
+            <img src="/Screenshot_2023-04-27-16-10-16-613_com.android.chrome.jpg" class="w-full mb-5 rounded-xl border border-light dark:border-secondary"/>
             <p class="text-dark dark:text-white text-2xl font-medium pb-3 w-full text-center pt-5">Et voilà ! 🎉</p>
         </div>
     </div>

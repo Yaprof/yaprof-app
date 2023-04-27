@@ -19,7 +19,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
                 window.location.replace('/changelog')
         }
     } catch (e) {
-        console.log(e)
         return
     }
 })

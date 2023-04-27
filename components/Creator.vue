@@ -16,7 +16,7 @@
                     <div @click="submitPost()" class="text-emerald-400 cursor-pointer text-lg">Créer</div>
                 </div>
 
-                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-700 px-5 w-full py-1.5 gap-1">
+                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-800 px-5 w-full py-1.5 gap-1">
                     <div class="flex items-center gap-1 relative" v-click-outside="closeProfSearch">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">

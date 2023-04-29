@@ -5,7 +5,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
        /*  if (!window.matchMedia('(display-mode: standalone)').matches) {
             return window.location.replace('/howitswork')
         } */
-        console.log('Version: ' + pkg['version'])
 
         let isAuth = (window?.localStorage.getItem('token') && window?.localStorage.getItem('userInfos') && window?.localStorage.getItem('user')) ? true : false
         if (isAuth == false && to.path !== '/auth/login') {

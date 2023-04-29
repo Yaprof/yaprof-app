@@ -45,7 +45,7 @@
 
                 </div>
                 <div class="w-full flex items-center gap-2 pt-3 px-1 mb-1">
-                    <input id="checkbox_politics" class="w-5 h-5 bg-secondary accent-primary focus:ring-2 focus:!ring-dark outline-none rounded text-primary form-checkbox transition-all" type="checkbox" value="">
+                    <input id="checkbox_politics" class="w-5 h-5 bg-secondary accent-primary focus:ring-2 focus:!ring-dark dark:focus:ring-light outline-none rounded text-primary form-checkbox transition-all" type="checkbox" value="">
                     <p class="text-dark dark:text-white">J'accepte les <a class="text-slate-600 dark:text-slate-500 w-full font-medium" href="https://docs.yaprof.fr/documents/politiques-et-legalite" target="_blank">Politiques et conditions</a>.</p>
                 </div>
 

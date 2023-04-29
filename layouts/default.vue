@@ -67,16 +67,13 @@ export default {
             await this.saveSubscription(subscription);
         },
         async saveSubscription(subscription) {
-            let jsonSubscription = subscription.toJSON()
-            jsonSubscription['notif'] = this.user.notification
-            console.log(jsonSubscription)
             await axios.post(this.config.public.API_URL+"/push/register?userInfos="+window.localStorage.getItem('userInfos'), {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
                     Authorization: "Bearer " + window.localStorage.getItem('token')
                 },
-                body: jsonSubscription,
+                body: subscription.toJSON(),
             }).catch(e => {
                 return console.log(e)
             })

@@ -99,7 +99,9 @@ export default defineNuxtConfig({
     },
     pwa: {
         workbox: {
-            swURL: '/sw.js',
+            importScripts: [
+                'sw.js'
+            ],
         },
     },
 })

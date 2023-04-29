@@ -124,7 +124,7 @@ export default {
         searchProf: function (e) {
             this.prof_content = true
             let content = e.parentElement.querySelector('#prof_content')
-            this.results = this.profs.filter(s => s.name.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10)
+            this.results = this.profs?.filter(s => s.name.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10) || []
             if (this.results.length < 1) this.results = [{ name: "Aucun résultat", functions: ["Aucun"] }]
         },
         selectOptionProf: function (e, profName) {

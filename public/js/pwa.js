@@ -1,7 +1,5 @@
 let deferredPrompt;
 
-navigator.serviceWorker.register('/sw.js');
-
 navigator.storage.persist().then(function (persistent) {
     if (persistent) {
         console.log('Storage will not be cleared except by explicit user action');
@@ -27,6 +25,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 window.addEventListener('load', (e) => {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+    }
+    
     if (deferredPrompt) {
         deferredPrompt.prompt();
     }

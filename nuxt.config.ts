@@ -1,6 +1,6 @@
 
 export default defineNuxtConfig({
-    modules: ['@nuxtjs/color-mode'],
+    modules: ['@nuxtjs/color-mode', '@vite-pwa/nuxt'],
     app: {
 /*         pageTransition: { name: 'page', mode: 'out-in' }, */
         head: {
@@ -96,6 +96,11 @@ export default defineNuxtConfig({
     },
     colorMode: {
         classSuffix: ""
+    },
+    pwa: {
+        workbox: {
+            swURL: '/sw.js',
+        },
     },
 })
 

@@ -81,19 +81,18 @@ export default {
             errors: [],
             login: login,
             loading: false,
-            config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
+            config: useRuntimeConfig()
         }
     },
     methods: {
         connect: async function (e) {
             let checkboxPolitics = window.document?.querySelector('#checkbox_politics')
             if (!checkboxPolitics.checked) return this.errors.push({ message: "Veuillez accepter les conditions", color: "danger" })
-            let config = this.config
             let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
             let form = window.document.querySelector('#form_login')
-            let logged = await this.login(config, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
+            let logged = await this.login(this.config.public.API_URL, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
             console.log(logged)
             if (!logged || logged.error) {
                 e.classList.remove('hidden')
@@ -278,7 +277,7 @@ export default {
     },
     async mounted() {
         this.GetLocation(navigator)
-        fetch(this.$config.PRONOTE_API_URL + "/infos")
+        fetch(this.config.public.PRONOTE_API_URL + "/infos")
             .then(response => response.json())
             .then(response => {
                 return this.ents = response["ent_list"]

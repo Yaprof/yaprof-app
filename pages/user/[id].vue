@@ -139,7 +139,7 @@ export default {
             show: false,
             user: { posts: [] },
             userFetch: { posts: [] },
-            config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
+            config: useRuntimeConfig(),
             holdTimer: null,
             holded: false,
             touchStartPosition: { x: 0, y: 0 },
@@ -161,7 +161,7 @@ export default {
         },
         deletePost: function (id) {
             if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
-            fetch(this.$config.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
+            fetch(this.config.public.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
                 method: "DELETE",
                 headers: {
                     'Accept': 'application/json',
@@ -231,7 +231,7 @@ export default {
                     };
                     let user = JSON.parse(window.localStorage.getItem("user"))
                     if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
-                    let userdb = await updateUser(this.config.api, reader.result)
+                    let userdb = await updateUser(this.config.public.API_URL, reader.result)
                     if (!userdb) return this.errors.push({ message: "Image trop lourde", color: "danger" })
                     console.log(userdb)
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
@@ -249,7 +249,7 @@ export default {
             let all_badges = [...event.target.parentNode.querySelectorAll('li')].filter(e => e.id && (e.id.length > 0) && e.querySelector('input').checked).map(e => e.id)
 
             console.log(all_badges)
-            let new_badges = await updatebadges(this.config.api, this.userFetch.id, all_badges)
+            let new_badges = await updatebadges(this.config.public.API_URL, this.userFetch.id, all_badges)
             if (!new_badges || new_badges.error) return this.errors.push({ message: "Impossible de mettre à jour les badges", color: "danger" })
             this.closePopupBadges()
             window.location.reload()
@@ -262,10 +262,9 @@ export default {
     },
     async mounted() {
         this.show = true
-        let config = this.config
         this.user = JSON.parse(window.localStorage.getItem('user'))
-        this.badges = await this.getAllBadges(this.config.api)
-        this.userFetch = await getUserById(config.api, this.$route.params.id)
+        this.badges = await this.getAllBadges(this.config.public.API_URL)
+        this.userFetch = await getUserById(this.config.public.API_URL, this.$route.params.id)
         this.loading = false
     }
 }

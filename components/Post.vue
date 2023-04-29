@@ -49,7 +49,8 @@ export default {
     props: ['data', 'user', 'type'],
     data() {
         return {
-            errors: []
+            errors: [],
+            config: useRuntimeConfig()
         }
     },
     methods: {
@@ -88,7 +89,7 @@ export default {
             }
 
 
-            fetch(this.$config.API_URL + `/post/${id}/${type}?userId=`+this.user?.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
+            fetch(this.config.public.API_URL + `/post/${id}/${type}?userId=`+this.user?.id+'&&userInfos=' + window.localStorage.getItem('userInfos'), {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',

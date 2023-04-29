@@ -1,7 +1,6 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-import { VitePWA } from 'vite-plugin-pwa'
+
 export default defineNuxtConfig({
-    modules: ['@nuxtjs/color-mode', '@vite-pwa/nuxt'],
+    modules: ['@nuxtjs/color-mode'],
     app: {
 /*         pageTransition: { name: 'page', mode: 'out-in' }, */
         head: {
@@ -16,12 +15,11 @@ export default defineNuxtConfig({
                 { name: "robots", content: "all" },
                 { name: "keywords", content: "yaprof, app, pronote, pronoteapi, scolaire, lycée, collège, notes, profs application" },
                 { name: "publisher", content: "Alexandre VARGAS LOPEZ" },
-                { name: "manifest", content: "/manifest.webmanifest" },
                 { name: "format-detection", content: "telephone=no" },
                 { name: "apple-mobile-web-app-capable", content: "yes" },
                 { name: "apple-mobile-web-app-title", content: "Yaprof" },
                 { name: "msapplication-TileColor", content: "#12d4a6" },
-                { name: "msapplication-TileImage", content: "/icons/icon_192x192.png" },
+                { name: "msapplication-TileImage", content: "/icons/icon_512x512.png" },
                 { name: "msapplication-tap-highlight", content: "no" },
                 { name: "HandheldFriendly", content: "true" },
                 { name: "theme-color", content: "#ffffff", media: "(prefers-color-scheme: light)" },
@@ -32,7 +30,8 @@ export default defineNuxtConfig({
                 { rel: "icon", type: "image/png", href: "/favicon.ico" },
                 { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" },
                 { rel: "stylesheet", href: "https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap" },
-                { rel: "apple-touch-icon", sizes: "96x96", href: "/icons/icon_96x96.png" },
+                { rel: "manifest", href: "/manifest.webmanifest" },
+                { rel: "apple-touch-icon", sizes: "512x512", href: "/icons/icon_512x512.png" },
                 { rel: "apple-touch-startup-image", href: "/splash/iPhone_14_Pro_Max_portrait.png", media: "screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
                 { rel: "apple-touch-startup-image", href: "/splash/iPhone_14_Pro_portrait.png", media: "screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
                 { rel: "apple-touch-startup-image", href: "/splash/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_portrait.png", media: "screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
@@ -91,77 +90,12 @@ export default defineNuxtConfig({
         public: {
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
-            API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr', // 'http://localhost:8080',
+            API_URL: 'http://localhost:8080',//'https://api.yaprof.fr', // 'http://localhost:8080',
             PRONOTE_API_URL: 'https://pronoteapi.yaprof.fr'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000'
         }
     },
     colorMode: {
         classSuffix: ""
     },
-    pwa: {
-/*         strategies: 'injectManifest',
-        srcDir: 'public',
-        filename: 'sw.ts', */
-        manifest: {
-            name: "Yaprof",
-            short_name: "Yaprof",
-            description: "L'application préférée des étudiants - Vous pourrez savoir si vos profs sont présents ou pas",
-            lang: "fr",
-            theme_color: "#12d4a6",
-            background_color: "#12d4a6",
-            display: "standalone",
-            orientation: "portrait",
-            start_url: "/",
-            scope: "/",
-            icons: [
-                {
-                    src: "/icons/icon_48x48.png",
-                    sizes: "48x48",
-                    type: "image/png",
-                },
-                {
-                    src: "/icons/icon_72x72.png",
-                    sizes: "72x72",
-                    type: "image/png",
-                },
-                {
-                    src: "/icons/icon_96x96.png",
-                    sizes: "96x96",
-                    type: "image/png",
-                },
-                {
-                    src: "/icons/icon_144x144.png",
-                    sizes: "144x144",
-                    type: "image/png",
-                },
-                {
-                    src: "/icons/icon_192x192.png",
-                    sizes: "192x192",
-                    type: "image/png",
-                },
-                {
-                    src: "/icons/icon_512x512.png",
-                    sizes: "512x512",
-                    type: "image/png",
-                },
-            ],
-        },
-        workbox: {
-            runtimeCaching: [
-                {
-                    urlPattern: 'https://api.yaprof.fr/.*',
-                    handler: 'NetworkFirst',
-                    method: 'GET',
-                },
-                {
-                    urlPattern: 'https://pronoteapi.yaprof.fr/.*',
-                    handler: 'NetworkFirst',
-                    method: 'GET',
-                },
-            ],
-            navigateFallback: '/',
-        },
-
-    }
 })
 

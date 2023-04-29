@@ -62,7 +62,7 @@ export default {
         return {
             badges: [],
             getAllBadges: getAllBadges,
-            config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
+            config: useRuntimeConfig(),
             loading: true,
             popup_buy: null,
             darkOpacity: false,
@@ -98,7 +98,7 @@ export default {
                 this.closePopupBuy()
             }
             this.loadingBuy = true
-            let badge = await buyBadge(this.config.api, id)
+            let badge = await buyBadge(this.config.public.API_URL, id)
             if (!badge || badge.error) {
                 this.loadingBuy = false
                 return this.errors.push({ message: badge.error, color: 'danger' })
@@ -112,7 +112,7 @@ export default {
         }
     },
     async mounted() {
-        this.badges = await this.getAllBadges(this.config.api)
+        this.badges = await this.getAllBadges(this.config.public.API_URL)
         this.user = JSON.parse(window.localStorage.getItem('user'))
         this.loading = false
     },

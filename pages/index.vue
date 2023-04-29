@@ -99,6 +99,7 @@ definePageMeta({
 import { getUser, getDbFeed, updateFeed } from '../mixins/user.js'
 import { gsap } from "gsap";
 
+
 export default {
     name: "Home",
     data() {
@@ -112,7 +113,7 @@ export default {
             user: {},
             getUser: getUser,
             getDbFeed: getDbFeed,
-            config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
+            config: useRuntimeConfig(),
             holdTimer: null,
             holded: false,
             touchStartPosition: { x: 0, y: 0 },
@@ -122,7 +123,7 @@ export default {
     methods: {
         deletePost: function (id) {
             if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
-            fetch(this.$config.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
+            fetch(this.config.public.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {
                 method: "DELETE",
                 headers: {
                     'Accept': 'application/json',
@@ -199,7 +200,7 @@ export default {
         async updateUserFeed() {
             this.loading = true
             this.absences = []
-            this.absences = await this.getDbFeed(this.$config.API_URL)
+            this.absences = await this.getDbFeed(this.config.public.API_URL)
             this.loading = false
         },
         async reload() {

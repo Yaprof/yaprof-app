@@ -18,12 +18,13 @@
 
 <script>
 import { getUser, updateFeed } from '~~/mixins/user';
+import axios from 'axios'
 export default {
     data() {
         return {
             user: {},
             isSidebarOpen: false,
-            config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
+            config: useRuntimeConfig(),
             errors: [],
             pStart: { x: 0, y: 0 },
             pCurrent: { x: 0, y: 0 },
@@ -32,6 +33,7 @@ export default {
     },
     methods: {
         onToggleSidebar() {
+            this.askPermission()
             if (window.document.querySelector('html').style.overflowY)
                 window.document.querySelector('html').style.overflowY = null;
             else
@@ -43,6 +45,50 @@ export default {
                 this.isSidebarOpen = false;
                 window.document.querySelector('html').style.overflowY = null;
             }
+        },
+        async askPermission() {
+            const permission = await Notification.requestPermission();
+            if (permission === "granted") {
+                this.registerServiceWorker();
+            }
+        },
+        async registerServiceWorker() {
+            const registration = await navigator.serviceWorker.register("/sw.js");
+            let subscription = await registration.pushManager.getSubscription();
+            // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
+            if (!subscription) {
+                subscription = await registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: await this.getPublicKey(),
+                });
+            }
+            console.log(this.user?.notification?.id)
+            if (this.user?.notification?.id != undefined) return
+            await this.saveSubscription(subscription);
+        },
+        async saveSubscription(subscription) {
+            let jsonSubscription = subscription.toJSON()
+            jsonSubscription['notif'] = this.user.notification
+            console.log(jsonSubscription)
+            await axios.post(this.config.public.API_URL+"/push/register?userInfos="+window.localStorage.getItem('userInfos'), {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + window.localStorage.getItem('token')
+                },
+                body: jsonSubscription,
+            }).catch(e => {
+                return console.log(e)
+            })
+        },
+        async getPublicKey() {
+            const key = await fetch(this.config.public.API_URL+"/push/key?userInfos="+window.localStorage.getItem('userInfos'), {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + window.localStorage.getItem('token')
+                },
+            }).then((r) => r.json());
+            return key;
         },
         async loading() {
             if (this.isLoading) return
@@ -87,8 +133,9 @@ export default {
         window.removeEventListener("touchmove", this.swipe);
     },
     async mounted() {
+        console.log(this)
         this.user = JSON.parse(window.localStorage.getItem("user"))
-        this.user = await getUser(this.config.api, this.user.id)
+        this.user = await getUser(this.config.public.API_URL, this.user.id)
         if (!this.user) return this.errors.push({ message: "Impossible de charger l'utilisateur", color: "danger" })
         window.addEventListener("touchstart", this.swipeStart);
         window.addEventListener("touchmove", this.swipe);

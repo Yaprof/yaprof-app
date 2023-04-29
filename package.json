@@ -9,7 +9,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "build-prod": "git pull && nuxt build && nuxt start"
+    "build-prod": "git pull && nuxt generate && nuxt start"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.2.0",

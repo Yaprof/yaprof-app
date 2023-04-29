@@ -100,7 +100,7 @@ export default defineNuxtConfig({
     pwa: {
         workbox: {
             importScripts: [
-                'sw.js'
+                'sw-notif.js'
             ],
         },
     },

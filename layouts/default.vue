@@ -53,8 +53,16 @@ export default {
             }
         },
         async registerServiceWorker() {
-            const registration = await navigator.serviceWorker.register("/sw-notif.js");
-            let subscription = await registration.pushManager.getSubscription();
+            let registration;
+            let subscription;
+            try {
+                registration = await navigator.serviceWorker.register("/sw-notif.js");
+                subscription = await registration.pushManager.getSubscription();
+            } catch (e) {
+                alert(e)
+                console.log(e)
+            }
+
             // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
             if (!subscription) {
                 subscription = await registration.pushManager.subscribe({

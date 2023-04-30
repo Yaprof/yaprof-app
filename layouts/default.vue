@@ -53,7 +53,7 @@ export default {
             }
         },
         async registerServiceWorker() {
-            const registration = await navigator.serviceWorker.register("/sw.js");
+            const registration = await navigator.serviceWorker.register("/sw-notif.js");
             let subscription = await registration.pushManager.getSubscription();
             // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
             if (!subscription) {
@@ -63,8 +63,9 @@ export default {
                 });
             }
             console.log(this.user?.notification?.id)
-            if (this.user?.notification?.id != undefined) return
-            await this.saveSubscription(subscription);
+            if (this.user?.notification?.id) {
+                await this.saveSubscription(subscription);
+            }
         },
         async saveSubscription(subscription) {
             await axios.post(this.config.public.API_URL+"/push/register?userInfos="+window.localStorage.getItem('userInfos'), {

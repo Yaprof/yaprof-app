@@ -49,7 +49,7 @@ export default {
         async askPermission() {
             const permission = await Notification.requestPermission();
             alert(permission)
-            if (permission === "granted") {
+            if (permission == "granted") {
                 this.registerServiceWorker();
             }
         },
@@ -63,6 +63,7 @@ export default {
                     applicationServerKey: await this.getPublicKey(),
                 });
             }
+            alert(subscription)
             await this.saveSubscription(subscription);
         },
         async saveSubscription(subscription) {
@@ -74,6 +75,7 @@ export default {
                 },
                 body: subscription.toJSON(),
             }).catch(e => {
+                alert(e)
                 return console.log(e)
             })
         },
@@ -84,6 +86,7 @@ export default {
                     Authorization: "Bearer " + window.localStorage.getItem('token')
                 },
             }).then((r) => r.json());
+            alert(key)
             return key;
         },
         async loading() {

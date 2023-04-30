@@ -48,24 +48,20 @@ export default {
         },
         async askPermission() {
             const permission = await Notification.requestPermission();
-            
             if (permission == "granted") {
-                alert(permission)
-                this.registerServiceWorker();
+                await this.registerServiceWorker();
             }
         },
         async registerServiceWorker() {
             const registration = await navigator.serviceWorker.register("/sw-notif.js");
             let subscription = await registration.pushManager.getSubscription();
             // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
-            alert(subscription)
             if (!subscription) {
                 subscription = await registration.pushManager.subscribe({
                     userVisibleOnly: true,
                     applicationServerKey: await this.getPublicKey(),
                 });
             }
-            alert(subscription)
             await this.saveSubscription(subscription);
         },
         async saveSubscription(subscription) {
@@ -77,7 +73,6 @@ export default {
                 },
                 body: subscription.toJSON(),
             }).catch(e => {
-                alert(e)
                 return console.log(e)
             })
         },
@@ -88,7 +83,6 @@ export default {
                     Authorization: "Bearer " + window.localStorage.getItem('token')
                 },
             }).then((r) => r.json());
-            alert(key)
             return key;
         },
         async loading() {

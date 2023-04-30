@@ -3,7 +3,7 @@ let deferredPrompt;
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
       navigator.serviceWorker.register('/sw-notif.js').then((registration) => {
-          registration.update();
+          /* registration.update(); */
       }).catch((registrationError) => {
             console.log('SW registration failed: ', registrationError);
         });

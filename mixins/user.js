@@ -15,7 +15,6 @@ export async function updateUser(config, pp, name, clas, etab, role) {
             role: role
         }
     }).catch(error => console.log(error))
-    console.log(response.data)
     if (response?.data.name) {
         window.localStorage.setItem('user', JSON.stringify(response.data))
         window.location.reload()
@@ -34,7 +33,6 @@ export async function getUser(config) {
     }).catch(error => { console.log(error); return false })
     if (!response.data) return false
     if (response?.data?.name) {
-        console.log(response.data)
         window.localStorage.setItem('user', JSON.stringify(response?.data))
         window.localStorage.setItem('token', response?.data.token)
     } else return false
@@ -49,7 +47,6 @@ export async function getUsers(config) {
             'Authorization': 'Bearer ' + window.localStorage.getItem('token')
         }
     }).catch(error => { console.log(error); return false })
-    console.log(response.data)
     if (!response.data) return false
     return response.data
 }
@@ -62,7 +59,6 @@ export async function getUserById(config, id) {
             'Authorization': 'Bearer ' + window.localStorage.getItem('token')
         }
     }).catch(error => { console.log(error); return false })
-    console.log(response.data)
     if (!response.data) return false
     return response.data
 }
@@ -108,7 +104,6 @@ export async function buyBadge(config, id) {
 }
 
 export async function updatebadges(config, userId, new_badges) {
-    console.log(config, new_badges)
     let response = await axios.post(config + "/badges/"+userId+"?userInfos=" + window.localStorage.getItem('userInfos'), {
         headers: {
             'Accept': 'application/json',
@@ -119,7 +114,6 @@ export async function updatebadges(config, userId, new_badges) {
             new_badges: new_badges
         }
     })
-    console.log(response)
     if (!response || !response.data) return { error: "Impossible de mettre à jour les badges" }
     return response.data
 }

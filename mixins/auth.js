@@ -2,7 +2,6 @@ import { updateUser } from "./user"
 import axios from "axios"
 
 export async function login(config, username, password, ent_url) {
-    console.log(config, username, password, ent_url)
     let request = await fetch(config + '/login', {
         method: "POST",
         headers: {
@@ -17,9 +16,7 @@ export async function login(config, username, password, ent_url) {
     }).catch(error => { console.log(error); return false; })
     if (!request) return false
     let response = await request?.json()
-    console.log(response.error)
     if (!response?.token || !response?.userInfos || response?.error) return response?.error || false
-    console.log(response)
     window?.localStorage.setItem('token', response.token)
     window?.localStorage.setItem('userInfos', response.userInfos)
     window?.localStorage.setItem('user', response.user)

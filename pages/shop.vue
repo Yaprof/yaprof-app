@@ -92,7 +92,6 @@ export default {
                 this.errors.push({ message: 'Impossible de récupérer le badge', color: 'danger' })
                 this.closePopupBuy()
             }
-            console.log(this.user.profile.badges, id)
             if (this.user.profile.badges.find(b => b == id)){
                 this.errors.push({ message: 'Vous avez déjà ce badge', color: 'danger' })
                 this.closePopupBuy()

@@ -104,7 +104,7 @@ export default {
             try {
                 navigator.vibrate(100);
             } catch(e) { console.log(e) }
-            this.user = await getUser(this.config.api, this.user.id)
+            this.user = await getUser(this.config.public.API_URL, this.user.id)
             if (!this.user) return this.errors.push({ message: "Impossible de charger l'utilisateur", color: "danger" })
             setTimeout(() => {
                 this.isLoading = false;

@@ -9,7 +9,7 @@
 
         <div class="fixed bottom-14 left-0 px-5 w-full">
             <p class="text-dark dark:text-white text-opacity-50 text-lg">Merci aux contribuateurs qui nous aident 💚</p>
-            <nuxt-link to="/" @click="setversion" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all shadow-md">Continuer</nuxt-link>
+            <a href="/" @click="setversion" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all shadow-md">Continuer</a>
         </div>
     </div>
 </template>
@@ -37,7 +37,6 @@ export default {
     async mounted() {
         this.release = await this.getLastRelease()
         this.$refs.body.innerHTML = this.release.body?.replaceAll('\n', '<br>').replaceAll('##', '')
-        console.log(this.release)
     },
 }
 </script>

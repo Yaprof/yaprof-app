@@ -45,7 +45,7 @@
 
                 </div>
                 <div class="w-full flex items-center gap-2 pt-3 px-1 mb-1">
-                    <input id="checkbox_politics" class="w-5 h-5 bg-secondary accent-primary focus:ring-2 focus:!ring-dark dark:focus:ring-light outline-none rounded text-primary form-checkbox transition-all" type="checkbox" value="">
+                    <input id="checkbox_politics" class="w-5 h-5 bg-light dark:bg-secondary accent-primary focus:ring-2 focus:!ring-dark dark:focus:ring-light outline-none rounded text-primary form-checkbox transition-all" type="checkbox" value="">
                     <p class="text-dark dark:text-white">J'accepte les <a class="text-slate-600 dark:text-slate-500 w-full font-medium" href="https://docs.yaprof.fr/documents/politiques-et-legalite" target="_blank">Politiques et conditions</a>.</p>
                 </div>
 
@@ -93,7 +93,6 @@ export default {
             loadingButton.classList.toggle('hidden')
             let form = window.document.querySelector('#form_login')
             let logged = await this.login(this.config.public.API_URL, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
-            console.log(logged)
             if (!logged || logged.error) {
                 e.classList.remove('hidden')
                 loadingButton.classList.add('hidden')
@@ -191,7 +190,6 @@ export default {
                 }
             })
             .then(response => {
-                console.log(response.data.data)
                 let data = response.data.data;
                 let lat = data[0].latitude;
                 let lon = data[0].longitude;
@@ -206,7 +204,6 @@ export default {
             })
         },
         findEstablishments(lat, lon) {
-            console.log(lat, lon)
             fetch("https://www.index-education.com/swie/geoloc.php", {
                 headers: {
                     accept: "*/*",

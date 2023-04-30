@@ -233,7 +233,6 @@ export default {
                     if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
                     let userdb = await updateUser(this.config.public.API_URL, reader.result)
                     if (!userdb) return this.errors.push({ message: "Image trop lourde", color: "danger" })
-                    console.log(userdb)
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };
             } catch (e) {
@@ -245,10 +244,8 @@ export default {
             FILE_INPUT.click()
         },
         async valideBadges(event) {
-            console.log([...event.target.parentNode.querySelectorAll('li')].map(e=>e.id))
             let all_badges = [...event.target.parentNode.querySelectorAll('li')].filter(e => e.id && (e.id.length > 0) && e.querySelector('input').checked).map(e => e.id)
 
-            console.log(all_badges)
             let new_badges = await updatebadges(this.config.public.API_URL, this.userFetch.id, all_badges)
             if (!new_badges || new_badges.error) return this.errors.push({ message: "Impossible de mettre à jour les badges", color: "danger" })
             this.closePopupBadges()
@@ -257,7 +254,6 @@ export default {
         }
     },
     beforeUnmount() {
-        console.log('unmout')
         this.show = false
     },
     async mounted() {

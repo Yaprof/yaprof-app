@@ -53,6 +53,10 @@ export default defineNuxtConfig({
             ],
             script: [
                 {
+                    src: "https://www.googletagmanager.com/gtag/js?id=G-PHMDQJRE10",
+                    async: true,
+                },
+                {
                     src: "https://code.jquery.com/jquery-3.4.1.min.js",
                     type: "text/javascript",
                 },
@@ -69,6 +73,9 @@ export default defineNuxtConfig({
                     type: "text/javascript",
                     src: "/js/taphold.js",
                     body: true,
+                },
+                {
+                    src: "/js/analytics.js",
                 }
             ],
         },

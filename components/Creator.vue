@@ -128,7 +128,6 @@ export default {
             if (this.results.length < 1) this.results = [{ name: "Aucun résultat", functions: ["Aucun"] }]
         },
         selectOptionProf: function (e, profName) {
-            console.log(profName.replace('&amp;', '&'))
             this.$el.querySelector('#input_prof').setAttribute("data-profname", profName?.replace('&amp;', '&'))
             if (this.$el.querySelector("#input_prof"))
                 this.$el.querySelector('#input_prof').value = e.innerHTML?.replace('&amp;', '&')
@@ -167,12 +166,10 @@ export default {
 
         if (!response.data || response.data.error) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
         this.profs = response.data.profs
-        console.log(this.profs)
         window.localStorage.setItem('token', response.data.token)
         window.localStorage.setItem('userInfos', response.data.userInfos)
 
         $(document).ready(function () {
-            console.log('PopupCreator.js loaded')
             $('#popup_creator').css('transition', 'all 250ms');
 
             $('#popup_creator_toggler').click(function (event) {

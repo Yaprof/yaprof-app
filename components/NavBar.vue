@@ -59,7 +59,6 @@ export default {
         window.removeEventListener('scroll', this.onScroll)
     },
     async mounted() {
-        console.log(this?.$route?.name)
         window.addEventListener('scroll', this.onScroll)
         /* this.userInfos = JSON.parse(window.localStorage.getItem("user"))
         let user = await getUser(this.config.public.API_URL, this.userInfos.id)

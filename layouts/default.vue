@@ -65,10 +65,15 @@ export default {
 
             // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
             if (!subscription) {
-                subscription = await registration.pushManager.subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: await this.getPublicKey(),
-                });
+                try {
+                    subscription = await registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: await this.getPublicKey(),
+                    });
+                } catch (e) {
+                    alert(e)
+                    console.log(e)
+                }
             }
             await this.saveSubscription(subscription);
         },

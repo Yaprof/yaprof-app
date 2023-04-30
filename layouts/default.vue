@@ -61,9 +61,8 @@ export default {
                     userVisibleOnly: true,
                     applicationServerKey: await this.getPublicKey(),
                 });
-                await this.saveSubscription(subscription);
             }
-            return;
+            await this.saveSubscription(subscription);
         },
         async saveSubscription(subscription) {
             await axios.post(this.config.public.API_URL+"/push/register?userInfos="+window.localStorage.getItem('userInfos'), {

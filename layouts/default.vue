@@ -48,8 +48,9 @@ export default {
         },
         async askPermission() {
             const permission = await Notification.requestPermission();
-            alert(permission)
+            
             if (permission == "granted") {
+                alert(permission)
                 this.registerServiceWorker();
             }
         },
@@ -57,6 +58,7 @@ export default {
             const registration = await navigator.serviceWorker.register("/sw-notif.js");
             let subscription = await registration.pushManager.getSubscription();
             // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
+            alert(subscription)
             if (!subscription) {
                 subscription = await registration.pushManager.subscribe({
                     userVisibleOnly: true,

@@ -48,6 +48,7 @@ export default {
         },
         async askPermission() {
             const permission = await Notification.requestPermission();
+            alert(permission)
             if (permission === "granted") {
                 this.registerServiceWorker();
             }

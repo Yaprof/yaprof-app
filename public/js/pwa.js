@@ -10,8 +10,19 @@ let deferredPrompt;
   })
 } */
 
+// Screen lock portrait
+
 try {
-    screen.orientation.lock('portrait');
+    if (window.screen.orientation) {
+        window.screen.orientation.lock('portrait').catch(() => {
+            return
+        });
+    } else {
+        const currentOrientation = window.orientation;
+        if (currentOrientation !== 0) {
+            document.documentElement.style.transform = 'rotate(0deg)';
+        }
+    }
 } catch (e) { console.log(e) }
 
 

@@ -108,7 +108,7 @@ export default {
             pStart: { x: 0, y: 0 },
             pCurrent: { x: 0, y: 0 },
             loading: true,
-            type: window.localStorage.getItem('type_post') ?? 'daily',
+            type: 'daily',
             user: {},
             getUser: getUser,
             getDbFeed: getDbFeed,

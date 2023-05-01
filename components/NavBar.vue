@@ -1,5 +1,5 @@
 <template>
-    <nav :class="(isShadowed ? 'shadow-sm' : '') + ' w-full fixed -top-0 left-0 h-fit flex flex-col justify-end bg-white dark:bg-dark z-[99] transition-all'" ref="nav">
+    <nav :class="(isShadowed ? 'shadow-sm' : '') + ' w-full fixed -top-0 left-0 h-fit flex flex-col justify-end bg-white dark:bg-dark z-[99] transition-all pt-10'" ref="nav">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="flex justify-between items-center h-20">
             <div @click="toggleSidebar()" class="flex text-dark dark:text-white gap-5 items-center cursor-pointer p-5 pr-0 sidebar-toggle max-w-max">

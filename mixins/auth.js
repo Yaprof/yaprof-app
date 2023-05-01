@@ -28,6 +28,32 @@ export async function login(config, username, password, ent_url) {
     return true
 }
 
+export async function loginQrCode(config, qr_code, verif_code) {
+    console.log(config, qr_code, verif_code)
+    let urls = JSON.parse(JSON.stringify(config))
+    let request = await fetch(urls.api + '/login/qrcode', {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "qr_code": qr_code,
+            "verif_code": verif_code
+        })
+    }).catch(error => { console.log(error); return false; })
+    let response = await request.json()
+    console.log(response)
+    if (!response?.token || !response?.userInfos || response?.error) return response?.error || false
+    console.log(response)
+    window?.localStorage.setItem('token', response.token)
+    window?.localStorage.setItem('userInfos', response.userInfos)
+    window?.localStorage.setItem('user', response.user)
+
+    window.location.href = "/"
+    return true
+}
+
 export async function getInfos(config) {
     let urls = JSON.parse(JSON.stringify(config))
     let request = await axios.post(urls.api + "/getInfos", {

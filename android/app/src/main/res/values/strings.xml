@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Yaprof</string>
+    <string name="title_activity_main">Yaprof</string>
+    <string name="package_name">yaprof.app</string>
+    <string name="custom_url_scheme">yaprof.app</string>
+</resources>

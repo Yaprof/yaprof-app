@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 py-10 pb-28">
+    <div class="p-5 py-10 pb-28 pt-20">
         <img src="~/public/icons/icon_144x144.png" class="w-20 mb-5"/>
         <div class="flex flex-col pb-2">
             <h1 class="text-dark dark:text-white text-3xl font-bold">Changelog - {{ release?.name }}</h1>

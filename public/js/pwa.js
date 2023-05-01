@@ -1,5 +1,31 @@
 let deferredPrompt;
-console.log('prompt')
+
+/* if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw-notif.js').then((registration) => {
+          registration.update();
+      }).catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+        });
+  })
+} */
+
+// Screen lock portrait
+
+try {
+    if (window.screen.orientation) {
+        window.screen.orientation.lock('portrait').catch(() => {
+            return
+        });
+    } else {
+        const currentOrientation = window.orientation;
+        if (currentOrientation !== 0) {
+            document.documentElement.style.transform = 'rotate(0deg)';
+        }
+    }
+} catch (e) { console.log(e) }
+
+
 navigator.storage.persist().then(function (persistent) {
     if (persistent) {
         console.log('Storage will not be cleared except by explicit user action');
@@ -25,6 +51,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 window.addEventListener('load', (e) => {
+    
     if (deferredPrompt) {
         deferredPrompt.prompt();
     }
@@ -44,3 +71,4 @@ window.addEventListener('load', (e) => {
         }
     });
 })
+

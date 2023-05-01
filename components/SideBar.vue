@@ -61,6 +61,7 @@
                     <p :class="(isOnline && errors.length < 1 ? 'bg-[#4AFF9321] text-emerald-400 dark:text-emerald-500' : 'bg-light text-slate-400 dark:text-slate-400') +' text-md z-50 w-full whitespace-nowrap truncate rounded-full bg-opacity-30 flex items-center justify-center py-1'">{{ isOnline && errors.length < 1 ? 'En ligne' : 'Hors ligne' }}</p>
                 </div>
             </div>
+            <a class="text-slate-600 dark:text-slate-600 w-full px-5 pt-3" href="https://docs.yaprof.fr/documents/politiques-et-legalite" target="_blank">Politiques et conditions</a>
         </div>
     </div>
 </template>

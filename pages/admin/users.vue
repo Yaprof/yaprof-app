@@ -58,7 +58,7 @@ export default {
         return {
             users: [],
             search: [],
-            config: { api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL },
+            config: useRuntimeConfig(),
             loading: false
         }
     },
@@ -72,9 +72,8 @@ export default {
         }
     },
     async mounted() {
-        let config = this.config
         this.loading = true
-        this.users = await getUsers(config.api)
+        this.users = await getUsers(this.config.public.API_URL)
         this.search = this.users
         this.loading = false
     }

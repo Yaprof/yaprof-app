@@ -29,7 +29,7 @@ export default {
     props: ['user'],
     data() {
         return {
-            config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL},
+            config: useRuntimeConfig(),
             errors: [],
             isSidebarOpen: false,
             isShadowed: false,
@@ -59,10 +59,9 @@ export default {
         window.removeEventListener('scroll', this.onScroll)
     },
     async mounted() {
-        console.log(this?.$route?.name)
         window.addEventListener('scroll', this.onScroll)
         /* this.userInfos = JSON.parse(window.localStorage.getItem("user"))
-        let user = await getUser(this.config.api, this.userInfos.id)
+        let user = await getUser(this.config.public.API_URL, this.userInfos.id)
         if (!user) return this.errors.push({message: "Impossible de charger l'utilisateur", color: "danger"}) */
     },
 }

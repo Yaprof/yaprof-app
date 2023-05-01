@@ -1,7 +1,7 @@
 <template>
     <div>
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-        <div id="popup_creator_toggler" class="fixed bottom-0 right-0 p-5 pb-10 z-50">
+        <div @click="authenticate" id="popup_creator_toggler" class="fixed bottom-0 right-0 p-5 pb-10 z-50">
             <div class="rounded-full w-14 h-14 flex items-center justify-center drop-shadow-lg bg-primary dark:bg-primary text-dark active:scale-95 active:brightness-105 transition-all cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -16,7 +16,7 @@
                     <div @click="submitPost()" class="text-emerald-400 cursor-pointer text-lg">Créer</div>
                 </div>
 
-                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-700 px-5 w-full py-1.5 gap-1">
+                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-800 px-5 w-full py-1.5 gap-1">
                     <div class="flex items-center gap-1 relative" v-click-outside="closeProfSearch">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full h-[1px] bg-slate-300 dark:bg-slate-800"></div>
+                    <div class="w-full h-[1px] bg-slate-300 dark:bg-slate-700"></div>
                     <div class="flex items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
                             <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
@@ -46,7 +46,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-700 px-5 w-full py-3 gap-2">
+                <div class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-800 px-5 w-full py-3 gap-2">
                     <div class="flex items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
                             <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
@@ -79,7 +79,7 @@ export default {
             results: [],
             profs: [],
             errors: [],
-            config: {api: this.$config.API_URL, pronote: this.$config.PRONOTE_API_URL}
+            config: useRuntimeConfig()
         }
     },
     methods: {
@@ -90,7 +90,7 @@ export default {
             this.loading = true;
             this.closePopupCreator()
             let form = this.$el.querySelector('#form_post')
-            fetch(this.$config.API_URL + '/post?userInfos='+window.localStorage.getItem('userInfos'), {
+            fetch(this.config.public.API_URL + '/post?userInfos='+window.localStorage.getItem('userInfos'), {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -124,11 +124,10 @@ export default {
         searchProf: function (e) {
             this.prof_content = true
             let content = e.parentElement.querySelector('#prof_content')
-            this.results = this.profs.filter(s => s.name.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10)
+            this.results = this.profs?.filter(s => s.name.toLocaleLowerCase().trim().includes(e.value.toLowerCase().trim())).splice(0, 10) || []
             if (this.results.length < 1) this.results = [{ name: "Aucun résultat", functions: ["Aucun"] }]
         },
         selectOptionProf: function (e, profName) {
-            console.log(profName.replace('&amp;', '&'))
             this.$el.querySelector('#input_prof').setAttribute("data-profname", profName?.replace('&amp;', '&'))
             if (this.$el.querySelector("#input_prof"))
                 this.$el.querySelector('#input_prof').value = e.innerHTML?.replace('&amp;', '&')
@@ -148,11 +147,10 @@ export default {
                 window.document.querySelector('html').classList.remove('overflow-hidden')
                 window.document.querySelector('body').classList.remove('overflow-hidden')
             }, 250)
-        }
+        },
     },
     async mounted() {
-        let config = this.config
-        let response = await axios.get(this.$config.API_URL + '/recipients?userInfos='+window.localStorage.getItem('userInfos'), {
+        let response = await axios.get(this.config.public.API_URL + '/recipients?userInfos='+window.localStorage.getItem('userInfos'), {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -168,12 +166,10 @@ export default {
 
         if (!response.data || response.data.error) return this.errors.push({ message: "Impossible de se connecter", color: "danger" })
         this.profs = response.data.profs
-        console.log(this.profs)
         window.localStorage.setItem('token', response.data.token)
         window.localStorage.setItem('userInfos', response.data.userInfos)
 
         $(document).ready(function () {
-            console.log('PopupCreator.js loaded')
             $('#popup_creator').css('transition', 'all 250ms');
 
             $('#popup_creator_toggler').click(function (event) {

@@ -10,6 +10,11 @@ let deferredPrompt;
   })
 } */
 
+try {
+    screen.orientation.lock('portrait');
+} catch (e) { console.log(e) }
+
+
 navigator.storage.persist().then(function (persistent) {
     if (persistent) {
         console.log('Storage will not be cleared except by explicit user action');

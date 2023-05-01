@@ -106,6 +106,8 @@ export default defineNuxtConfig({
     },
     pwa: {
         workbox: {
+            globPatterns: ['**/*.{js,css,png,jpg,svg,html}'],
+            cacheId: 'yaprof',
             importScripts: [
                 'sw-notif.js'
             ],

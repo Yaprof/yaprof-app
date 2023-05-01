@@ -5,11 +5,11 @@
             <div id="container_div"  class="transition-all">
                 <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
                 <div class="w-full flex items-center justify-evenly">
-                    <div @click="changeType('daily')" class="py-3 flex items-center justify-center flex-col gap-2">
+                    <div @click="changeType('daily')" class="py-3 flex items-center justify-center flex-col gap-2 px-3 z-[1]">
                         <p class="text-dark dark:text-white text-lg">Aujourd'hui</p>
                         <div class="w-full px-1"><div :class="(type == 'daily' ? 'bg-primary ': '') + ' opacity-40 w-full h-[3px] rounded-full'"></div></div>
                     </div>
-                    <div @click="changeType('weekly')" class="py-3 flex items-center justify-center flex-col gap-2">
+                    <div @click="changeType('weekly')" class="py-3 flex items-center justify-center flex-col gap-2 px-3 z-[1]">
                         <p class="text-dark dark:text-white text-lg">Semaine</p>
                         <div class="w-full px-1"><div :class="(type == 'weekly' ? 'bg-primary ': '') + ' opacity-40 w-full h-[3px] rounded-full'"></div></div>
                     </div>

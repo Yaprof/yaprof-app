@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pt-10">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <NavBar :user="user" @toggle-sidebar="onToggleSidebar" />
         <SideBar v-click-outside="closeSidebar" :errors="errors" :user="user" :is-open="isSidebarOpen" @close-sidebar="closeSidebar" />

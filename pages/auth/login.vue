@@ -1,9 +1,11 @@
 <template>
-    <div class="h-screen w-screen flex flex-col items-center py-20 justify-between">
+    <div class="h-screen min-h-[-webkit-fill-available] w-screen flex flex-col items-center py-20 justify-between">
         <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
         <div class="w-full flex flex-col items-center">
-            <img class="w-44" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Logo-pronote.png/800px-Logo-pronote.png" />
-            <div id="form_login" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">
+            <div class="flex flex-col items-center justify-center gap-10">
+                <img class="w-44" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Logo-pronote.png/800px-Logo-pronote.png" />
+            </div>
+            <div id="form_login" v-if="!qrValid" class="flex flex-col items-center gap-3 pt-8 px-5 w-full">
                 <div v-click-outside="closeEntSarch" class="flex flex-col gap-1 w-full relative">
                     <label for="ent" class="text-lg text-dark dark:text-white">Établissement</label>
                     <input v-on:focus="searchEnt($event.target)" id="input_ent" autocomplete="off" v-on:keyup="searchEnt($event.target)" type="text" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg focus:rounded-b-none transition-all text-lg bg-white dark:bg-secondary dark:text-white" ref="input_search" autocorrect="off" placeholder="Cherchez avec un code postal" name="ent" />
@@ -42,7 +44,6 @@
                             <path d="M10.748 13.93l2.523 2.523a9.987 9.987 0 01-3.27.547c-4.258 0-7.894-2.66-9.337-6.41a1.651 1.651 0 010-1.186A10.007 10.007 0 012.839 6.02L6.07 9.252a4 4 0 004.678 4.678z" />
                         </svg>
                     </div>
-
                 </div>
                 <div class="w-full flex items-center gap-2 pt-3 px-1 mb-1">
                     <input id="checkbox_politics" class="w-5 h-5 bg-light dark:bg-secondary accent-primary focus:ring-2 focus:!ring-dark dark:focus:ring-light outline-none rounded text-primary form-checkbox transition-all" type="checkbox" value="">
@@ -52,8 +53,29 @@
                 <button @click="connect($event.target)" class="w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
                 <button id="loading-button" class="w-full rounded-xl bg-primaryhover brightness-90 py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
+            <!-- <div v-if="qrValid" class="flex flex-col items-center gap-3 pt-10 px-5 w-full">
+                 <div class="flex flex-col gap-1 w-full">
+                    <label for="code" class="text-lg text-dark dark:text-white">Code de vérification</label>
+                    <input id="input_qr_code" type="number" maxlength="4" max="4" class="w-full py-3.5 rounded-xl border px-5 placeholder:text-lg text-lg" placeholder="Entrez le code de vérification" name="code" />
+                </div>
+            </div> -->
+            
+            <!-- <div v-if="qrcodeEnabled && !qrValid" class="w-full h-screen flex items-center justify-center fixed top-0 left-0 bg-black bg-opacity-70">
+                <StreamBarcodeReader v-click-outside="closeQrCode" class="bg-dark w-full h-[292px]"
+                    @decode="onDecode"
+                    @loaded="onLoaded"
+                ></StreamBarcodeReader>
+            </div> -->
         </div>
-        <div class="text-lg text-dark dark:text-white">Pas de compte ? <a href="mail:yaprof@gmail.com" class="text-primary">Contactez-nous</a></div>
+        <div class="flex flex-col items-center justify-center gap-10 pt-10">
+            <!-- <div v-if="!qrcodeEnabled" @click="qrcodeEnabled = true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" />
+                </svg>
+            </div> -->
+            <div class="text-lg text-dark dark:text-white">Pas de compte ? <a href="mail:yaprof@gmail.com" class="text-primary">Contactez-nous</a></div>
+        </div>
     </div>
 </template>
 
@@ -66,9 +88,13 @@
 
 <script>
 import axios from 'axios';
+/* import { StreamBarcodeReader } from "vue-barcode-reader"; */
+import { login, loginQrCode } from '~/mixins/auth.js'
 
-import { login } from '~/mixins/auth.js'
 export default {
+/*     components: {
+        StreamBarcodeReader
+    }, */
     data() {
         return {
             eyes: false,
@@ -80,8 +106,12 @@ export default {
             etabs: [],
             errors: [],
             login: login,
+            loginQrCode: loginQrCode,
             loading: false,
             config: useRuntimeConfig()
+            qrcodeEnabled: false,
+            qrValid: false,
+            qrcode: null
         }
     },
     methods: {
@@ -91,8 +121,16 @@ export default {
             let loadingButton = window.document?.querySelector('#loading-button')
             e.classList.toggle('hidden')
             loadingButton.classList.toggle('hidden')
-            let form = window.document.querySelector('#form_login')
-            let logged = await this.login(this.config.public.API_URL, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
+            let logged;
+            if (!this.qrcode) {
+                let form = window.document.querySelector('#form_login')
+                logged = await this.login(config, form.querySelector('#input_username').value, form.querySelector('#input_password').value, form.querySelector('#input_ent').dataset.url)
+            } else {
+                if (!window.document.querySelector('#input_qr_code').value) return this.errors.push({ message: "Veuillez entrer un code valide", color: "danger" })
+                if (!this.qrcode) return this.errors.push({ message: "QR Code non valide", color: "danger" })
+                logged = await this.loginQrCode(config, this.qrcode, window.document.querySelector('#input_qr_code').value)
+            }
+            console.log(logged)
             if (!logged || logged.error) {
                 e.classList.remove('hidden')
                 loadingButton.classList.add('hidden')
@@ -269,7 +307,20 @@ export default {
                 this.locationFailed = true;
                 }
             })
-        }
+        },
+        closeQrCode() {
+            this.qrcodeEnabled = false
+        },
+        onDecode(text) {
+            if (text.startsWith('{"jeton":')) {
+                this.qrcode = text
+                this.qrValid = true
+            }
+            console.log(`Decode text from QR code is ${text}`)
+        },
+        onLoaded() {
+            console.log(`Ready to start scanning barcodes`)
+        },
 
     },
     async mounted() {

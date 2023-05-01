@@ -1,0 +1,6 @@
+{
+  "appId": "yaprof.app",
+  "appName": "Yaprof",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

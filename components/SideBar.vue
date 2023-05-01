@@ -1,6 +1,6 @@
 <template>
     <div id="sidebar" :class="(isOpen  ? 'translate-x-0 shadow-xl' : '-translate-x-full') + ' h-screen bg-white dark:bg-secondary fixed top-0 left-0 w-72 flex flex-col justify-between items-center z-[99] pb-5 transform-gpu transition-all duration-200'">
-        <div class="w-full h-fit min-h-[9rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-secondary relative">
+        <div class="w-full h-fit min-h-[11.5rem] backdrop-blur-xl overflow-hidden bg-dark dark:bg-light relative pt-10">
             <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" :src="user.profile?.pp" />
             <div class="flex flex-col p-5">
                 <NuxtLink :to="'/user/' + user.id" class="z-50 !bg-transparent">

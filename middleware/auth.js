@@ -12,11 +12,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
         if (isAuth == false && to.path !== '/auth/login') {
             return window.location.replace('/auth/login')
         } else if (to.path === '/auth/login' && isAuth == true) {
-            if (window?.localStorage.getItem('version') !== pkg['version']) 
+            if (window.localStorage.getItem('version') !== pkg['version']) 
                 window.location.replace('/changelog')
             return
         } else {
-            if (window?.localStorage.getItem('version') !== pkg['version'] && isAuth == true) 
+            if (window.localStorage.getItem('version') !== pkg['version'] && isAuth == true) 
                 window.location.replace('/changelog')
         }
     } catch (e) {

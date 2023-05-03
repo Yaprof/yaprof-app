@@ -10,7 +10,7 @@
                 </svg>
             </div>
         </div>
-        <div class="px-5 pt-10 pb-20 mt-10 transition-all">
+        <div class="px-5 pt-10 pb-20 mt-10 transition-all mb-safe">
             <slot />
         </div>
         <NavBar :user="user" />

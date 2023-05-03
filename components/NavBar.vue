@@ -1,5 +1,5 @@
 <template>
-    <nav class="w-full fixed -bottom-0 left-0 h-fit flex flex-col justify-end bg-white dark:bg-dark z-[98] transition-all border-t border-light dark:border-secondary drop-shadow-xl" ref="nav">
+    <nav class="w-full fixed pb-safe -bottom-0 left-0 h-fit flex flex-col justify-end bg-white dark:bg-dark z-[98] transition-all border-t border-light dark:border-secondary drop-shadow-xl" ref="nav">
         <div class="flex justify-evenly items-center h-16">
             <NuxtLink to="/" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
                 <div v-if="this?.$route?.name == 'index'">

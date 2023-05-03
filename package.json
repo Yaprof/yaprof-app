@@ -24,6 +24,7 @@
     "axios": "^1.3.4",
     "click-outside-vue3": "^4.0.1",
     "firebase": "^9.21.0",
-    "gsap": "^3.11.5"
+    "gsap": "^3.11.5",
+    "tailwindcss-safe-area": "^0.2.2"
   }
 }

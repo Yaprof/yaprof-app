@@ -118,6 +118,18 @@ export async function updatebadges(config, userId, new_badges) {
     return response.data
 }
 
+export async function changeBanUser(config, userId) {
+    let response = await axios.put(config + "/user/"+id+"/ban?userInfos=" + window.localStorage.getItem('userInfos'), {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+        },
+    })
+    if (!response || !response.data) return { error: "Impossible de bannir l'utilisateur" }
+    return response.data
+}
+
 let feed = false
 
 export async function updateFeed() {

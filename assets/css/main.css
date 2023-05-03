@@ -38,13 +38,10 @@ input:-webkit-autofill:active{
 }
 
 .router-link-exact-active  {
-    background-color: #4AFF9381;
+    color: #4AFF93;
 }
 
 @media (prefers-color-scheme: dark) {
-    .router-link-exact-active  {
-        background-color: #4AFF9321;
-    }
 
     input:-webkit-autofill,
     input:-webkit-autofill:hover, 

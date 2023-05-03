@@ -119,7 +119,7 @@ export async function updatebadges(config, userId, new_badges) {
 }
 
 export async function changeBanUser(config, userId) {
-    let response = await axios.put(config + "/user/"+id+"/ban?userInfos=" + window.localStorage.getItem('userInfos'), {
+    let response = await axios.post(config + "/user/"+userId+"/ban?userInfos=" + window.localStorage.getItem('userInfos'), {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

@@ -2,7 +2,7 @@
     <div>
         <NuxtLayout>
             <div>
-
+                <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
                 <div class="flex flex-col gap-5">
                     <div class="w-full bg-light dark:bg-secondary dark:active:bg-gray-800 rounded-2xl flex flex-col">
                         <button @click="handleClickUpload" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
@@ -210,6 +210,7 @@
 </script >
 
 <script>
+import { updateUser } from '~~/mixins/user';
 import pkg from '~/package.json'
 import axios from 'axios'
 export default {
@@ -218,6 +219,8 @@ export default {
             contribuators: [],
             loading: true,
             versionPkg: pkg['version'],
+            config: useRuntimeConfig(),
+            errors: []
         }
     },
     methods: {
@@ -265,7 +268,33 @@ export default {
                 contributions: contributor.contributions,
                 avatar_url: contributor.avatar_url
             }))
-        }
+        },
+        handleChange(event) {
+            const file = event.target.files[0];
+            try {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onloadend = async () => {
+                    if (file.size > 10485760) {
+                        this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                        this.value = "";
+                        return;
+                    };
+                    let user = JSON.parse(window.localStorage.getItem("user"))
+                    if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                    let userdb = await updateUser(this.config.public.API_URL, reader.result)
+                    if (!userdb) return this.errors.push({ message: "Image trop lourde", color: "danger" })
+                    this.errors.push({ message: "Photo de profile changée", color: "success" })
+                };
+            } catch (e) {
+                return this.errors.push({ message: "Image trop lourde", color: "danger" })
+            }
+        },
+        handleClickUpload(event) {
+            let FILE_INPUT = window.document.getElementById("avatar_image");
+            FILE_INPUT.click()
+        },
     },
     async mounted() {
         this.contribuators = await this.fetchContribuators()

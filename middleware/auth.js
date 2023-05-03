@@ -2,11 +2,11 @@ import pkg from '~/package.json'
 
 export default defineNuxtRouteMiddleware((to, from) => {
     try {
-        if (!window.matchMedia('(display-mode: standalone)').matches) {
+       /*  if (!window.matchMedia('(display-mode: standalone)').matches) {
             return window.location.replace('/howitswork')
         } else if (window.location.pathname === '/howitswork') {
             return window.location.replace('/')
-        }
+        } */
 
         let isAuth = (window?.localStorage.getItem('token') && window?.localStorage.getItem('userInfos') && window?.localStorage.getItem('user')) ? true : false
         if (isAuth == false && to.path !== '/auth/login') {

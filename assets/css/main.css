@@ -12,6 +12,7 @@ body {
     -webkit-touch-callout: none;
 }
 
+
 h1 {
     font-family: 'Clash Display', sans-serif;
 }
@@ -38,7 +39,7 @@ input:-webkit-autofill:active{
 }
 
 .router-link-exact-active  {
-    color: #4AFF93;
+    color: #4AFF93 !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -107,7 +108,7 @@ input:-webkit-autofill:active{
 } */
 
 .opacity-enter-active {
-  transition: all 0.1s ease-out;
+  transition: all 0.06s ease-out;
 }
 .opacity-leave-active {
  /*  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); */

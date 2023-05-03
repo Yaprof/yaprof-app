@@ -2,9 +2,9 @@
     <div>
         <NuxtLayout>
             <div>
-                <div class="flex flex-col pb-5">
+                <!-- <div class="flex flex-col pb-5">
                     <h1 class="text-dark dark:text-white text-3xl font-bold">Utilisateurs ({{ users?.length ?? 0 }})</h1>
-                </div>
+                </div> -->
                 <div class="flex flex-col gap-2">
                     <div class="w-full rounded-xl bg-light dark:bg-secondary text-dark dark:text-white px-4 flex items-center py-1 mb-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">

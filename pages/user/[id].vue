@@ -1,38 +1,31 @@
 <template>
     <div>
         <NuxtLayout>
-            <Transition name="swipe-right">
+            <Transition>
                 <div v-if="show">
                     <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
-                    <div class="flex items-center gap-3 pb-3 -mt-2">
-                        <button @click="goToPrev()" class="active:scale-95 transition-all cursor-pointer p-2 z-50 text-dark dark:text-light">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-8 h-8">
-                                <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <h1 class="text-dark dark:text-white text-3xl font-bold">Profil</h1>
-                    </div>
                     <div class="flex flex-col gap-5">
-                        <button @click="handleClickUpload" v-if="!loading && user.id == userFetch.id" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
+                        <NuxtLink to="/params" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
                             <div class="flex items-center gap-2">
                                 <div class="w-fit h-fit p-2 bg-">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
-                                        <path fill-rule="evenodd" d="M9.664 1.319a.75.75 0 01.672 0 41.059 41.059 0 018.198 5.424.75.75 0 01-.254 1.285 31.372 31.372 0 00-7.86 3.83.75.75 0 01-.84 0 31.508 31.508 0 00-2.08-1.287V9.394c0-.244.116-.463.302-.592a35.504 35.504 0 013.305-2.033.75.75 0 00-.714-1.319 37 37 0 00-3.446 2.12A2.216 2.216 0 006 9.393v.38a31.293 31.293 0 00-4.28-1.746.75.75 0 01-.254-1.285 41.059 41.059 0 018.198-5.424zM6 11.459a29.848 29.848 0 00-2.455-1.158 41.029 41.029 0 00-.39 3.114.75.75 0 00.419.74c.528.256 1.046.53 1.554.82-.21.324-.455.63-.739.914a.75.75 0 101.06 1.06c.37-.369.69-.77.96-1.193a26.61 26.61 0 013.095 2.348.75.75 0 00.992 0 26.547 26.547 0 015.93-3.95.75.75 0 00.42-.739 41.053 41.053 0 00-.39-3.114 29.925 29.925 0 00-5.199 2.801 2.25 2.25 0 01-2.514 0c-.41-.275-.826-.541-1.25-.797a6.985 6.985 0 01-1.084 3.45 26.503 26.503 0 00-1.281-.78A5.487 5.487 0 006 12v-.54z" clip-rule="evenodd" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
+                                        <path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd" />
                                     </svg>
+
                                 </div>
 
                                 <div class="flex flex-col justify-start">
-                                    <p class="text-lg font-bold text-left">Changer sa photo</p>
-                                    <p class="text-sm truncate text-left -mt-1">Utilise une photo de profil différente</p>
+                                    <p class="text-lg font-bold text-left">Mes paramètres</p>
+                                    <p class="text-sm truncate text-left -mt-1">Accédez à vos paramètres ici</p>
                                 </div>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-slate-400 dark:text-slate-300 group-active:translate-x-1 transition-all">
                                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                             </svg>
-                            <input @change="handleChange" type="file" name="avatar_input" class="hidden" id="avatar_image" accept="image/*" />
-                        </button>
-                        <div v-if="!loading" class="w-full shadow-md relative rounded-xl h-[164px]">
-                            <div class="w-full h-[164px] backdrop-blur-xl overflow-hidden absolute top-0 left-0 rounded-xl">
+
+                        </NuxtLink>
+                        <div v-if="!loading" class="w-full shadow-md relative rounded-xl h-fit">
+                            <div class="w-full h-full backdrop-blur-xl overflow-hidden absolute top-0 left-0 rounded-xl">
                                 <img class="absolute top-0 left-0 h-full w-full object-cover blur-lg scale-150 brightness-110 dark:brightness-90" onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';" :src="userFetch.profile?.pp" />
                             </div>
                             <div class="flex flex-col p-5">
@@ -67,7 +60,7 @@
                                     <p class="text-md text-white z-50">-</p>
                                     <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userFetch.establishment }}</p>
                                 </div>
-                                <div class="flex items-center gap-3">
+                                <div v-if="[20, 50, 99].includes(user?.role)" class="flex items-center gap-3">
                                     <div @click="banUser(userFetch.id)" class="flex flex-col items-center justify-center p-2 pb-0 z-10 active:scale-95 transition-all">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-red-500">
                                             <path fill-rule="evenodd" d="M5.965 4.904l9.131 9.131a6.5 6.5 0 00-9.131-9.131zm8.07 10.192L4.904 5.965a6.5 6.5 0 009.131 9.131zM4.343 4.343a8 8 0 1111.314 11.314A8 8 0 014.343 4.343z" clip-rule="evenodd" />
@@ -78,8 +71,8 @@
 
                             </div>
                         </div>
-                        <div v-if="!loading" class="rounded-xl bg-light dark:bg-secondary py-5 px-6">
-                            <p class="font-medium text-lg pb-5 text-dark dark:text-white">Ensemble des posts ({{ userFetch?.posts?.length }})</p>
+                        <div v-if="!loading" class="rounded-xl">
+                            <p class="font-medium text-xl pb-5 text-dark dark:text-white pl-2">Vos posts ({{ userFetch?.posts?.length }})</p>
                             <TransitionGroup tag="Post" @enter="onEnterListSlideUp" class="flex flex-col gap-8">
                                 <Post @touchstart="startHold($event, abs)" @touchend="endHold" @touchmove="checkHoldMove" :data-index="index" :user="userFetch" v-for="(abs, index) in userFetch.posts" :key="abs" :data="abs"></Post>
                             </TransitionGroup>
@@ -116,7 +109,7 @@
                     </div>
 
                     <div :class="(darkOpacity ? 'bg-dark bg-opacity-50' : 'pointer-events-none opacity-0') + ' fixed top-0 left-0 h-screen w-full z-[100] transition-all'"></div>
-                    <Transition v-if="holded?.author?.id == userFetch.id || [20, 50, 99].includes(userFetch?.role)" name="slide-down" mode="out-in">
+                    <Transition v-if="(holded?.author?.id == userFetch.id || [20, 50, 99].includes(userFetch?.role)) && !loading" name="slide-down" mode="out-in">
                         <div :class="(holded ? '': 'translate-y-full') + ' bg-light dark:bg-secondary p-5 pb-14 fixed bottom-0 left-0 w-full flex flex-col text-dark dark:text-white transition-all z-[101]'" v-click-outside="closePopupInfos">
                             <div @click="deletePost(holded?.id)" class="flex items-center justify-center gap-2 text-red-500 group cursor-pointer active:text-red-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-active:scale-95">
@@ -162,12 +155,6 @@ export default {
         }
     },
     methods: {
-        goToPrev() {
-            let params = (new URL(window.document.location)).searchParams;
-            if (params.get('q') == "admin")
-                this.$router.push({ path: '/admin/users' })
-            else this.$router.push({ path: '/' })
-        },
         deletePost: function (id) {
             if (!id) return this.errors.push({message: "Impossible de réaliser l'action", color: "danger"})
             fetch(this.config.public.API_URL + `/post/${id}?userInfos=`+window.localStorage.getItem('userInfos'), {

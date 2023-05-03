@@ -67,6 +67,15 @@
                                     <p class="text-md text-white z-50">-</p>
                                     <p class="text-md text-white z-50 whitespace-nowrap truncate">{{ userFetch.establishment }}</p>
                                 </div>
+                                <div class="flex items-center gap-3">
+                                    <div @click="banUser(userFetch.id)" class="flex flex-col items-center justify-center p-2 pb-0 z-10 active:scale-95 transition-all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-red-500">
+                                            <path fill-rule="evenodd" d="M5.965 4.904l9.131 9.131a6.5 6.5 0 00-9.131-9.131zm8.07 10.192L4.904 5.965a6.5 6.5 0 009.131 9.131zM4.343 4.343a8 8 0 1111.314 11.314A8 8 0 014.343 4.343z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p class=" drop-shadow-md text-white">Bannir</p>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div v-if="!loading" class="rounded-xl bg-light dark:bg-secondary py-5 px-6">
@@ -130,7 +139,7 @@ definePageMeta({
 </script>
 
 <script>
-import { updatebadges, getUserById, updateUser, getAllBadges } from '~~/mixins/user';
+import { updatebadges, getUserById, updateUser, getAllBadges, changeBanUser } from '~~/mixins/user';
 import { gsap } from "gsap";
 
 export default {
@@ -251,6 +260,12 @@ export default {
             this.closePopupBadges()
             window.location.reload()
             return this.errors.push({ message: "Badges mis à jour", color: "success" })
+        },
+        async banUser(id) {
+            if (!id) return this.errors.push({ message: "Impossible de trouver l'utilisateur", color: "danger" })
+            let banned = await changeBanUser(this.config.public.API_URL, id)
+            if (!banned || banned.error) return this.errors.push({ message: "Impossible de bannir l'utilisateur", color: "danger" })
+            return this.errors.push({ message: "Utilisateur banni.", color: "success" })
         }
     },
     beforeUnmount() {

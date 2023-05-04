@@ -6,7 +6,8 @@ export async function updateUser(config, pp, name, clas, etab, role) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+            withCredentials: true
         },
         body: {
             name: name,

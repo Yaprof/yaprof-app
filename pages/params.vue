@@ -276,7 +276,7 @@ export default {
             const file = event.target.files[0];
             try {
                 const reader = new FileReader();
-                reader.readAsDataURL(file);
+                reader.readAsArrayBuffer(file);
 
                 reader.onloadend = async () => {
                     if (file.size > 10485760) {

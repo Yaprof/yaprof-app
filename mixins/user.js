@@ -1,6 +1,7 @@
 import axios from "axios"
 
 export async function updateUser(config, pp, name, clas, etab, role) {
+    console.log(pp.type)
     let response = await axios.post(config + '/user/update?userInfos='+window.localStorage.getItem('userInfos'), {
         headers: {
             'Accept': 'application/json',
@@ -9,7 +10,7 @@ export async function updateUser(config, pp, name, clas, etab, role) {
         },
         body: {
             name: name,
-            pp: pp,
+            pp: {buffer: JSON.stringify(Array.from(new Uint8Array(pp.buffer))), type: pp.type},
             class: clas,
             etab: etab,
             role: role

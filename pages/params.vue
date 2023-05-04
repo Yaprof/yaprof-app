@@ -276,21 +276,20 @@ export default {
             const file = event.target.files[0];
             try {
                 const reader = new FileReader();
-                reader.readAsArrayBuffer(file);
-
-                reader.onloadend = async () => {
+                reader.onload = async () => {
+                    console.log(reader.result)
                     if (file.size > 10485760) {
-                        this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
+                        this.errors.push({ message: "Image trop grande", color: "danger" })
                         this.value = "";
                         return;
                     };
-                    let user = JSON.parse(window.localStorage.getItem("user"))
-                    if (!user || !reader?.result) return this.errors.push({ message: "Impossible de changer la pp", color: "danger" })
-                    let userdb = await updateUser(this.config.public.API_URL, reader.result)
-                    if (!userdb) return this.errors.push({ message: "Image trop lourde", color: "danger" })
+                    let userdb = await updateUser(this.config.public.API_URL, {buffer:reader.result, type: file.type.replace('image/', '')})
+                    if (!userdb) return this.errors.push({ message: "Impossible de changer l'image", color: "danger" })
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };
+                reader.readAsArrayBuffer(file);
             } catch (e) {
+                console.log(e)
                 return this.errors.push({ message: "Image trop lourde", color: "danger" })
             }
         },

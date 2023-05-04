@@ -283,7 +283,8 @@ export default {
                         this.value = "";
                         return;
                     };
-                    let userdb = await updateUser(this.config.public.API_URL, {buffer:reader.result, type: file.type.replace('image/', '')})
+                    let userdb = await updateUser(this.config.public.API_URL, { buffer: reader.result, type: file.type.replace('image/', '') })
+                    if (!userdb) alert(userdb)
                     if (!userdb) return this.errors.push({ message: "Impossible de changer l'image", color: "danger" })
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };

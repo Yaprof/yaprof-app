@@ -20,7 +20,7 @@ export async function updateUser(config, pp, name, clas, etab, role) {
         window.localStorage.setItem('user', JSON.stringify(response.data))
         window.location.reload()
     } else
-        return false
+        return response?.data
     return response
 }
 

@@ -40,10 +40,7 @@ export async function uploadUserPp(config, pp) {
     };
 
     let response = await axios.post(config + '/user/upload?userInfos='+window.localStorage.getItem('userInfos'), formData, configAxios).catch(error => console.log(error))
-    if (response?.data.name) {
-        window.localStorage.setItem('user', JSON.stringify(response.data))
-        window.location.reload()
-    }
+    window.location.reload()
     return response
 }
 

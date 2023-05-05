@@ -62,7 +62,6 @@ export default {
                 if (params.get('q') == "admin") 
                     this.$router.push({ path: '/admin/users' })
             } else if (route.name == 'Params') {
-                console.log(userId)
                 this.$router.push({ path: '/user/'+userId})
             }
             else this.$router.push({ path: route?.backTo })

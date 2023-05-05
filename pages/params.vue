@@ -63,7 +63,7 @@
 
                             </button>
                         </div>
-                        <div class=" text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full bg-light dark:bg-secondary flex flex-col gap-3 transition-all">
+                        <div class=" text-dark dark:text-white text-lg py-3.5 px-6 rounded-xl w-full bg-light dark:bg-secondary flex flex-col gap-3 transition-all">
                             <p class="text-md font-medium text-dark dark:text-white !text-opacity-50">Le top contributeurs</p>
                             <div class="flex flex-col gap-3">
                                 <div v-if="loading" class="h-[calc(100%-2rem)] w-full flex items-center justify-between gap-2 group">
@@ -140,8 +140,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="w-full bg-light dark:bg-secondary dark:active:bg-gray-800 rounded-2xl flex flex-col">
-                            <a href="https://discord.gg/yaprof" target="_blank" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
+                        <div class="w-full bg-light dark:bg-secondary dark:active:bg-gray-800 rounded-xl flex flex-col">
+                            <a href="https://discord.gg/yaprof" target="_blank" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-active:scale-95 transition-all">
@@ -159,7 +159,7 @@
                                 </svg>
                             </a>
                             <div class="w-full px-5"><div class="bg-slate-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
-                            <a href="https://docs.yaprof.fr" target="_blank" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
+                            <a href="https://docs.yaprof.fr" target="_blank" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
@@ -178,7 +178,7 @@
                                 </svg>
                             </a>
                             <div class="w-full px-5"><div class="bg-slate-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
-                            <nuxt-link to="/changelog" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
+                            <nuxt-link to="/changelog" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
@@ -197,8 +197,8 @@
                                 </svg>
                             </nuxt-link>
                         </div>
-                        <div class="w-full bg-light dark:bg-secondary dark:active:bg-gray-800 rounded-2xl flex flex-col">
-                            <a href="https://discord.gg/yaprof" target="_blank" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
+                        <div class="w-full bg-light dark:bg-secondary dark:active:bg-gray-800 rounded-xl flex flex-col">
+                            <a href="https://discord.gg/yaprof" target="_blank" class="group text-dark dark:text-white text-lg py-3.5 px-6 rounded-xl w-full  cursor-pointer flex items-center gap-2 justify-between transition-all">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">

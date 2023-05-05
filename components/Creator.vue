@@ -8,15 +8,15 @@
                 </svg>
             </div>
         </div>
-        <div id="popup_creator_parent" class="fixed top-0 left-0 flex items-center h-screen w-full overflow-hidden z-[-1] transition-all !z-[99] opacity-0 pointer-events-none">
-            <div id="popup_creator" class="flex flex-col items-center bg-light dark:bg-secondary rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998] transform-gpu">
+        <div id="popup_creator_parent" class="fixed top-0 left-0 flex items-center h-screen w-full overflow-hidden transition-all !z-[99] opacity-0 pointer-events-none">
+            <div id="popup_creator" class="flex flex-col items-center bg-white dark:bg-dark rounded-t-xl shadow-xl h-full w-full mt-20 drop-shadow-lg translate-y-full py-10 px-5 gap-5 z-[998] transform-gpu">
                 <div class="w-full flex items-center justify-between">
                     <div @click="closePopupCreator()" class="text-emerald-400 cursor-pointer text-lg">Annuler</div>
                     <a class="text-dark dark:text-white cursor-pointer text-lg font-medium">Créer un post</a>
                     <div @click="submitPost()" class="text-emerald-400 cursor-pointer text-lg">Créer</div>
                 </div>
 
-                <div id="form_post" class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-800 px-5 w-full py-1.5 gap-1">
+                <div id="form_post" class="flex flex-col rounded-xl bg-light dark:bg-secondary px-5 w-full py-1.5 gap-1">
                     <div class="flex items-center gap-1 relative" v-click-outside="closeProfSearch">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
@@ -49,7 +49,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="flex flex-col rounded-xl bg-neutral-200 dark:bg-slate-800 px-5 w-full py-3 gap-2">
+                <div class="flex flex-col rounded-xl bg-light dark:bg-secondary px-5 w-full py-3 gap-2">
                     <div class="flex items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-dark dark:text-white">
                             <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />

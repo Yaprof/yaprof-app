@@ -73,6 +73,7 @@ export default {
         },
         showVisualizer() {
             this.showImageVisualizer = true;
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'viewport-fit=cover, width=device-width, initial-scale=1.0');
         },
         hideVisualizer() {
             this.showImageVisualizer = false;

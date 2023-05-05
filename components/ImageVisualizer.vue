@@ -24,19 +24,18 @@ export default {
     methods: {
         closeVisualizer(event) {
             if (event.target.id == 'img') return
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
             this.$emit('close');
         },
-         startResize(event) {
+        startResize(event) {
             this.isResizing = true;
             this.startX = event.clientX;
             this.startY = event.clientY;
             this.startWidth = this.$refs.image.offsetWidth;
             this.startHeight = this.$refs.image.offsetHeight;
-            document.querySelector('meta[name="viewport"]').setAttribute('content', 'viewport-fit=cover, width=device-width, initial-scale=1.0');
         },
         stopResize() {
             this.isResizing = false;
-            document.querySelector('meta[name="viewport"]').setAttribute('content', 'viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
         },
         resize(event) {
             if (this.isResizing) {

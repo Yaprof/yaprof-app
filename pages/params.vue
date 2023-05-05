@@ -5,7 +5,7 @@
                 <div v-if="show">
                     <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
                     <div class="flex flex-col gap-5">
-                        <div class="w-full bg-light dark:bg-secondary dark:active:bg-gray-800 rounded-2xl flex flex-col">
+                        <div class="w-full flex flex-col">
                             <button @click="handleClickUpload" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">

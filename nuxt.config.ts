@@ -10,7 +10,7 @@ export default defineNuxtConfig({
             },
             meta: [
                 { charset: "utf-8" },
-                { name: "viewport", content: "width=device-width, viewport-fit=cover, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" },
+                { name: "viewport", content: "width=device-width, viewport-fit=cover, initial-scale=1.0, maximum-scale=1.0" },
                 { hid: "description", name: "description", content: "Yaprof est une application mobile utilisant Pronote dans le but de servir d'outil aux élèves et leur indiquer si un professeur est présent ou non." },
                 { name: "robots", content: "all" },
                 { name: "keywords", content: "yaprof, app, pronote, pronoteapi, scolaire, lycée, collège, notes, profs application" },
@@ -98,7 +98,8 @@ export default defineNuxtConfig({
             ENVIRONMENT: 'production',
             URL: 'yaprof.fr',
             API_URL: 'https://api.yaprof.fr',//'https://api.yaprof.fr', // 'http://localhost:8080',
-            PRONOTE_API_URL: 'https://pronote.yaprof.fr'//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000'
+            PRONOTE_API_URL: 'https://pronote.yaprof.fr',//'https://pronoteapi.yaprof.fr', // 'http://localhost:8000',
+            npm_package_config_libvips: '8.10.5'
         }
     },
     colorMode: {
@@ -113,5 +114,11 @@ export default defineNuxtConfig({
             ],
         },
     },
+    vite: {
+        define: {
+            'process.env.npm_package_config_libvips': JSON.stringify('8.10.5')
+        }
+    }
+
 })
 

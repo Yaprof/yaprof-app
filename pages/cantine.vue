@@ -15,7 +15,7 @@
                     </div>
                     <p v-if="menu && !menu?.error" class="text-dark dark:text-white text-lg w-full text-center">Cliquez pour visualiser</p>
                     <div class="flex flex-col gap-2">
-                        <button v-if="!menu || menu?.error" @click="handleClickUpload" id="menu-upload-button" class="w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center gap-1 justify-center active:bg-opacity-50 transition-all"><span>Ajouter le menu ( 10 </span><img  src="~/assets/imgs/icons/coin.svg" class="w-5 h-5 object-cover object-center rounded-full" />)</button>
+                        <button v-if="!menu || menu?.error" @click="handleClickUpload" id="menu-upload-button" class="w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center gap-1 justify-center active:bg-opacity-50 transition-all"><span>Ajouter le menu ( +10 </span><img  src="~/assets/imgs/icons/coin.svg" class="w-5 h-5 object-cover object-center rounded-full" />)</button>
                         <button v-if="[20, 50, 99].includes(user?.role)" @click="handleClickUpload" class="w-full rounded-xl bg-light dark:bg-secondary py-3.5 px-5 text-dark dark:text-white font-medium text-lg text-center flex items-center justify-center active:bg-opacity-50 transition-all">Remplacer le menu</button>
                         <input @change="handleChange" type="file" name="file" class="hidden" id="menu_image" accept="image/*" />
                     </div>

@@ -6,7 +6,7 @@
                     <Toast v-for="error in errors" :key="error.message" :data="{message:error.message, color: error.color}" ></Toast>
                     <div class="flex flex-col gap-5">
                         <div class="w-full flex flex-col">
-                            <button @click="handleClickUpload" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
+                            <button @click="handleClickUpload" id="avatar-upload-button" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 first:rounded-t-2xl last:rounded-b-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
@@ -24,8 +24,8 @@
                                 </svg>
                                 <input @change="handleChange" type="file" name="file" class="hidden" id="avatar_image" accept="image/*" />
                             </button>
-                            <div class="w-full px-5"><div class="bg-slate-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
-                            <NuxtLink v-if="[50, 99].includes(user?.role)" to="/admin/users" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
+                            <div class="w-full px-5 bg-light dark:bg-secondary"><div class="bg-slate-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
+                            <NuxtLink v-if="[50, 99].includes(user?.role)" to="/admin/users" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 first:rounded-t-2xl last:rounded-b-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">
@@ -43,8 +43,8 @@
                                     <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                                 </svg>
                             </NuxtLink>
-                            <div class="w-full px-5"><div class="bg-slate-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
-                            <button @click="logout()" class="group bg-light active:bg-slate-50 dark:bg-secondary text-dark dark:text-white dark:active:bg-opacity-50 text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all">
+                            <div class="w-full px-5 bg-light dark:bg-secondary"><div class="bg-slate-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
+                            <button @click="logout()" class="group bg-light active:bg-slate-50 dark:bg-secondary text-dark dark:text-white dark:active:bg-opacity-50 text-lg py-3.5 px-6 first:rounded-t-2xl last:rounded-b-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all">
                                 <div class="flex items-center gap-2">
                                     <div class="w-fit h-fit p-2 bg-">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 group-active:scale-95 transition-all">

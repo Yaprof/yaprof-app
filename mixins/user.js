@@ -25,6 +25,29 @@ export async function updateUser(config, pp, name, clas, etab, role) {
     return response
 }
 
+export async function uploadUserPp(config, pp) {
+    console.log(pp.type)
+    const formData = new FormData();
+    formData.append('file', pp);
+
+    const configAxios = {
+    headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+    },
+
+    };
+
+    
+    let response = await axios.post(config + '/user/upload?userInfos='+window.localStorage.getItem('userInfos'), formData, configAxios).catch(error => console.log(error))
+    if (response?.data.name) {
+        window.localStorage.setItem('user', JSON.stringify(response.data))
+        window.location.reload()
+    } else
+        return response
+    return response
+}
+
 export async function getUser(config) {
     let response = await axios.get(config + '/user?userInfos='+window.localStorage.getItem('userInfos'), {
         headers: {

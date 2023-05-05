@@ -31,20 +31,19 @@ export async function uploadUserPp(config, pp) {
     formData.append('file', pp);
 
     const configAxios = {
-    headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
-    },
-
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+/*             'Content-Disposition': 'form-data',
+            withCredentials: true */
+        },
     };
 
-    
     let response = await axios.post(config + '/user/upload?userInfos='+window.localStorage.getItem('userInfos'), formData, configAxios).catch(error => console.log(error))
     if (response?.data.name) {
         window.localStorage.setItem('user', JSON.stringify(response.data))
         window.location.reload()
-    } else
-        return response
+    }
     return response
 }
 

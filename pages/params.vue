@@ -22,7 +22,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-slate-400 dark:text-slate-300 group-active:translate-x-1 transition-all">
                                     <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                                 </svg>
-                                <input @change="handleChange" type="file" name="avatar_input" class="hidden" id="avatar_image" accept="image/*" />
+                                <input @change="handleChange" type="file" name="file" class="hidden" id="avatar_image" accept="image/*" />
                             </button>
                             <div class="w-full px-5"><div class="bg-slate-200 dark:bg-dark h-[1px] w-full rounded-full"></div></div>
                             <NuxtLink v-if="[50, 99].includes(user?.role)" to="/admin/users" class="group bg-light active:bg-slate-50 dark:bg-secondary dark:active:bg-opacity-50 text-dark dark:text-white text-lg py-3.5 px-6 rounded-2xl w-full cursor-pointer flex items-center gap-2 justify-between transition-all z-10">
@@ -304,7 +304,7 @@ export default {
                         this.value = "";
                         return;
                     };
-                    let userdb = await uploadUserPp(this.config.public.API_URL, { buffer: reader.result, type: file.type.replace('image/', '') })
+                    let userdb = await uploadUserPp(this.config.public.API_URL, file/* { buffer: reader.result, type: file.type.replace('image/', '') } */)
                     if (!userdb) alert(userdb)
                     if (!userdb) return this.errors.push({ message: "Impossible de changer l'image", color: "danger" })
                     this.errors.push({ message: "Photo de profile changée", color: "success" })

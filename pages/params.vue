@@ -304,12 +304,12 @@ export default {
                         this.value = "";
                         return;
                     };
-                    let userdb = await uploadUserPp(this.config.public.API_URL, { buffer: reader.result, type: file.type.replace('image/', '') })
+                    let userdb = await uploadUserPp(this.config.public.API_URL, reader.result)
                     if (!userdb) alert(userdb)
                     if (!userdb) return this.errors.push({ message: "Impossible de changer l'image", color: "danger" })
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };
-                reader.readAsArrayBuffer(file);
+                reader.readAsDataURL(file);
             } catch (e) {
                 console.log(e)
                 return this.errors.push({ message: "Image trop lourde", color: "danger" })

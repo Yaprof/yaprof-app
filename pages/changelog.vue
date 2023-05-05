@@ -9,7 +9,7 @@
 
         <div class="fixed bottom-14 left-0 px-5 w-full">
             <p class="text-dark dark:text-white text-opacity-50 text-lg">Merci aux contribuateurs qui nous aident 💚</p>
-            <a href="/" @click="setversion" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all shadow-md">Continuer</a>
+            <a href="/" @click="setversion" class="mt-5 w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-50 transition-all shadow-md">Continuer</a>
         </div>
     </div>
 </template>

@@ -294,7 +294,6 @@ export default {
         },
         handleChange(event) {
             const file = event.target.files[0];
-            console.log(file)
             try {
                 const reader = new FileReader();
                 reader.onload = async () => {
@@ -305,7 +304,6 @@ export default {
                         return;
                     };
                     let userdb = await uploadUserPp(this.config.public.API_URL, reader.result)
-                    if (!userdb) alert(userdb)
                     if (!userdb) return this.errors.push({ message: "Impossible de changer l'image", color: "danger" })
                     this.errors.push({ message: "Photo de profile changée", color: "success" })
                 };

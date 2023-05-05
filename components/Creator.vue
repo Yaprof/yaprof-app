@@ -25,7 +25,7 @@
                         </svg>
 
                         <input v-on:focus="searchProf($event.target)" id="input_prof" autocomplete="off" v-on:keyup="searchProf($event.target)" type="text" class="bg-transparent outline-none border-0 focus:outline-none w-full text-dark dark:text-white rounded focus:ring-0" placeholder="Sélectionner un professeur" />
-                        <div v-show="prof_content" class="absolute top-[calc(100%+10px)] left-0 rounded-b-xl bg-neutral-200 dark:bg-dark shadow-lg px-3 py-3 flex flex-col w-full z-[99] transition-all">
+                        <div v-show="prof_content" class="absolute top-[calc(100%+10px)] left-0 rounded-b-xl bg-light dark:bg-secondary shadow-lg px-3 py-3 flex flex-col w-full z-[99] transition-all">
                             <div v-for="prof in results" :key="prof.name" class="py-2.5 px-5 hover:bg-primary hover:bg-opacity-30 rounded-full flex items-center gap-1.5">
                                 <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] text-dark dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                     <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />

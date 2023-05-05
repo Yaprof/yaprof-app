@@ -49,7 +49,7 @@
                     <p class="text-dark dark:text-white">J'accepte les <a class="text-slate-600 dark:text-slate-500 w-full font-medium" href="https://docs.yaprof.fr/documents/politiques-et-legalite" target="_blank">Politiques et conditions</a>.</p>
                 </div>
 
-                <button @click="connect($event.target)" class="w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-90 transition-all">Se connecter</button>
+                <button @click="connect($event.target)" class="w-full rounded-xl bg-primary py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center active:bg-opacity-50 transition-all">Se connecter</button>
                 <button id="loading-button" class="w-full rounded-xl bg-primaryhover brightness-90 py-3.5 px-5 text-dark font-medium text-lg text-center flex items-center justify-center hidden">Chargement...</button>
             </div>
         </div>

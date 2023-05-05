@@ -32,7 +32,7 @@ export default {
             this.startY = event.clientY;
             this.startWidth = this.$refs.image.offsetWidth;
             this.startHeight = this.$refs.image.offsetHeight;
-            document.querySelector('meta[name="viewport"]').setAttribute('content', 'viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0');
+            document.querySelector('meta[name="viewport"]').setAttribute('content', 'viewport-fit=cover, width=device-width, initial-scale=1.0');
         },
         stopResize() {
             this.isResizing = false;

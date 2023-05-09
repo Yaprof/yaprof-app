@@ -144,7 +144,6 @@ export default {
     async mounted() {
         this.user = JSON.parse(window.localStorage.getItem("user"))
         this.user = await getUser(this.config.public.API_URL, this.user.id)
-        console.log(this.user)
         if (!this.user || this.user == false) return this.errors.push({ message: "Impossible de charger l'utilisateur", color: "danger" })
         window.addEventListener("touchstart", this.swipeStart);
         window.addEventListener("touchmove", this.swipe);

@@ -1,7 +1,6 @@
 import axios from "axios"
 
 export async function updateUser(config, pp, name, clas, etab, role) {
-    console.log(pp.type)
     let response = await axios.post(config + '/user/update?userInfos='+window.localStorage.getItem('userInfos'), {
         headers: {
             'Accept': 'application/json',
@@ -158,7 +157,6 @@ export async function getMenu(config) {
         },
     })
     if (!response || !response.data) return { error: "Impossible de récupérer le menu" }
-    console.log(response.data)
     return response.data
 }
 

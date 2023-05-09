@@ -51,7 +51,6 @@ export default {
             try {
                 const reader = new FileReader();
                 reader.onload = async () => {
-                    console.log(reader.result)
                     if (file.size > 10485760) {
                         this.errors.push({ message: "Image trop grande", color: "danger" })
                         this.value = "";

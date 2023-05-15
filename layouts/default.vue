@@ -47,58 +47,6 @@ export default {
                 window.document.querySelector('html').style.overflowY = null;
             }
         },
-        async askPermission() {
-            const permission = await Notification.requestPermission();
-            if (permission == "granted") {
-                await this.registerServiceWorker();
-            }
-        },
-        async registerServiceWorker() {
-            let registration;
-            let subscription;
-            try {
-                registration = await navigator.serviceWorker.register("/sw-notif.js");
-                subscription = await registration.pushManager.getSubscription();
-            } catch (e) {
-                alert(e)
-                console.log(e)
-            }
-
-            // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
-            if (!subscription) {
-                try {
-                    subscription = await registration.pushManager.subscribe({
-                        userVisibleOnly: true,
-                        applicationServerKey: await this.getPublicKey(),
-                    });
-                } catch (e) {
-                    alert(e)
-                    console.log(e)
-                }
-            }
-            await this.saveSubscription(subscription);
-        },
-        async saveSubscription(subscription) {
-            await axios.post(this.config.public.API_URL+"/push/register?userInfos="+window.localStorage.getItem('userInfos'), {
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: "Bearer " + window.localStorage.getItem('token')
-                },
-                body: subscription.toJSON(),
-            }).catch(e => {
-                return console.log(e)
-            })
-        },
-        async getPublicKey() {
-            const key = await fetch(this.config.public.API_URL+"/push/key?userInfos="+window.localStorage.getItem('userInfos'), {
-                headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + window.localStorage.getItem('token')
-                },
-            }).then((r) => r.json());
-            return key;
-        },
         async loading() {
             if (this.isLoading) return
             this.isLoading = true;

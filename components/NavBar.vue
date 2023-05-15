@@ -1,7 +1,7 @@
 <template>
     <nav class="w-full fixed pb-safe -bottom-0 left-0 h-fit flex flex-col justify-end bg-white dark:bg-dark z-[98] border-t border-light dark:border-secondary drop-shadow-xl" ref="nav">
         <div class="flex justify-evenly items-center h-16">
-            <NuxtLink to="/" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
+            <NuxtLink to="/" @click="askPermission" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
                 <div v-if="this?.$route?.name == 'index'">
                     <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 group-active:scale-95">
                         <path d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
@@ -14,7 +14,7 @@
                 </svg>
                 <p class="text-xs">Absences</p>
            </NuxtLink>
-           <NuxtLink to="/cantine" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
+           <NuxtLink to="/cantine" @click="askPermission" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
                 <div v-if="this?.$route?.name == 'cantine'">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-primary group-active:scale-95">
                         <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clip-rule="evenodd" />
@@ -27,7 +27,7 @@
 
                 <p class="text-xs">Cantine</p>
            </NuxtLink>
-           <NuxtLink to="/shop" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
+           <NuxtLink to="/shop" @click="askPermission" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
                 <div v-if="this?.$route?.name == 'shop'">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-primary group-active:scale-95">
                         <path d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 007.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 004.902-5.652l-1.3-1.299a1.875 1.875 0 00-1.325-.549H5.223z" />
@@ -41,7 +41,7 @@
 
                 <p class="text-xs">Boutique</p>
            </NuxtLink>
-           <NuxtLink :to="'/user/' + user.id" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
+           <NuxtLink :to="'/user/' + user.id" @click="askPermission" class="flex flex-col items-center px-2 py-1 gap-0.5 group text-dark dark:text-white">
                 <div v-if="this?.$route?.name == 'user-id'">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-primary group-active:scale-95">
                         <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
@@ -59,6 +59,7 @@
 
 <script>
 import { getUser } from '~~/mixins/user';
+import axios from 'axios'
 export default {
     props: ['user'],
     data() {
@@ -67,6 +68,61 @@ export default {
         }
     },
     methods: {
+        async askPermission() {
+            if (!("Notification" in window)) return
+            if (window?.Notification?.permission == "granded") return
+            Notification.requestPermission().then(async (permission) => {
+                if (permission == "granted") {
+                    await this.registerServiceWorker();
+                }
+            })
+        },
+        async registerServiceWorker() {
+            let registration;
+            let subscription;
+            try {
+                registration = await navigator.serviceWorker.register("/sw-notif.js");
+                subscription = await registration.pushManager.getSubscription();
+            } catch (e) {
+                alert(e)
+                console.log(e)
+            }
+
+            // L'utilisateur n'est pas déjà abonné, on l'abonne au notification push
+            if (!subscription) {
+                try {
+                    subscription = await registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: await this.getPublicKey(),
+                    });
+                } catch (e) {
+                    alert(e)
+                    console.log(e)
+                }
+            }
+            await this.saveSubscription(subscription);
+        },
+        async saveSubscription(subscription) {
+            await axios.post(this.config.public.API_URL+"/push/register?userInfos="+window.localStorage.getItem('userInfos'), {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + window.localStorage.getItem('token')
+                },
+                body: subscription.toJSON(),
+            }).catch(e => {
+                return console.log(e)
+            })
+        },
+        async getPublicKey() {
+            const key = await fetch(this.config.public.API_URL+"/push/key?userInfos="+window.localStorage.getItem('userInfos'), {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + window.localStorage.getItem('token')
+                },
+            }).then((r) => r.json());
+            return key;
+        },
     },
 }
 </script>

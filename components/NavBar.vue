@@ -70,7 +70,7 @@ export default {
     methods: {
         async askPermission() {
             if (!("Notification" in window)) return
-            if (window?.Notification?.permission == "granded") return
+            if (window?.Notification?.permission == "granted") return
             Notification.requestPermission().then(async (permission) => {
                 if (permission == "granted") {
                     await this.registerServiceWorker();

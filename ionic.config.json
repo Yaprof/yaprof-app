@@ -1,0 +1,7 @@
+{
+  "name": "yaprof-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

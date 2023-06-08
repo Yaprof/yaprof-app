@@ -1,7 +1,7 @@
 {
   "appId": "yaprof.app",
   "appName": "yaprof-app",
-  "webDir": "dist",
+  "webDir": ".output/public",
   "server": {
     "androidScheme": "https"
   }

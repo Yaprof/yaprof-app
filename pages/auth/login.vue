@@ -141,7 +141,7 @@ export default {
         },
         GetLocation(navigator) {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(position => {
+                navigator.geolocation?.getCurrentPosition(position => {
                     let coordinates = position.coords;
                     let lat = coordinates.latitude;
                     let lon = coordinates.longitude;

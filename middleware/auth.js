@@ -2,13 +2,13 @@ import pkg from '~/package.json'
 
 export default defineNuxtRouteMiddleware((to, from) => {
     try {
-        if (!window.matchMedia('(display-mode: standalone)').matches) {
+        /* if (!window.matchMedia('(display-mode: standalone)').matches) {
             return window.location.replace('/howitswork')
         } else if (window.location.pathname === '/howitswork') {
             return window.location.replace('/')
-        }
+        } */
 
-        let isAuth = (window?.localStorage.getItem('token') && window?.localStorage.getItem('userInfos') && window?.localStorage.getItem('user')) ? true : false
+        /* let isAuth = (window?.localStorage.getItem('token') && window?.localStorage.getItem('userInfos') && window?.localStorage.getItem('user')) ? true : false
         if (isAuth == false && to.path !== '/auth/login') {
             return window.location.replace('/auth/login')
         } else if (to.path === '/auth/login' && isAuth == true) {
@@ -18,7 +18,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         } else {
             if (window?.localStorage.getItem('version') !== pkg['version'] && isAuth == true) 
                 window.location.replace('/changelog')
-        }
+        } */
     } catch (e) {
         return
     }

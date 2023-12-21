@@ -48,7 +48,7 @@ export default {
             }
         },
         async loading() {
-            if (this.isLoading) return
+          if (this.isLoading === false)  {
             this.isLoading = true;
             try {
                 navigator.vibrate(100);
@@ -57,7 +57,8 @@ export default {
             if (!this.user) return this.errors.push({ message: "Impossible de charger l'utilisateur", color: "danger" })
             setTimeout(() => {
                 this.isLoading = false;
-            }, 2000)
+            }, 2000);
+          }
         },
         swipeStart(e) {
             if (typeof e["targetTouches"] !== "undefined") {
